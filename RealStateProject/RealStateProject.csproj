@@ -230,6 +230,8 @@
     <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\RealStateProject.dll" />
+    <Content Include="bin\RealStateProject.pdb" />
     <Content Include="bin\System.Web.Helpers.dll" />
     <Content Include="bin\System.Web.Mvc.dll" />
     <Content Include="bin\System.Web.Optimization.dll" />
