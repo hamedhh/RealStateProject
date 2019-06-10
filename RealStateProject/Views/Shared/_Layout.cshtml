@@ -1,4 +1,4 @@
-﻿
+﻿@using Utilities
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,27 +9,41 @@
     <title>انواع ملک | خانه</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="~/assets/img/favicon.ico" type="image/x-icon">
-    <link href="~/Content/bootstrap-rtl.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/assets-fa/img/favicon.ico" type="image/x-icon">
+    @if (System.Globalization.CultureInfo.CurrentCulture.Name.Contains("fa"))
+    {
+
+        <link href="/Content/bootstrap-rtl.css" rel="stylesheet" />
+        <link href="~/assets-fa/css/style.css" rel="stylesheet">
+        <link href="~/assets-fa/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="~/assets-fa/css/slick.css">
+        <link rel="stylesheet" type="text/css" href="~/assets-fa/css/nouislider.css">
+        <link rel="stylesheet" href="~/assets-fa/css/jquery.fancybox.css" type="text/css" media="screen" />
+        <link id="switcher" href="~/assets-fa/css/theme-color/default-theme.css" rel="stylesheet">
+    }
+    else
+    {
+
+        <link href="/assets-en/css/bootstrap.css" rel="stylesheet" />
+        <link href="/assets-en/css/style.css" rel="stylesheet">
+        <link href="/assets-en/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/assets-en/css/slick.css">
+        <link rel="stylesheet" type="text/css" href="/assets-en/css/nouislider.css">
+        <link rel="stylesheet" href="/assets-en/css/jquery.fancybox.css" type="text/css" media="screen" />
+        <link id="switcher" href="/assets-en/css/theme-color/default-theme.css" rel="stylesheet">
+    }
+
     <!-- Font awesome -->
-    <link href="~/assets/css/font-awesome.css" rel="stylesheet">
     <!-- Bootstrap -->
     @*<link href="~/assets/css/bootstrap-rtl.css" rel="stylesheet">*@
     <!-- slick slider -->
-    <link rel="stylesheet" type="text/css" href="~/assets/css/slick.css">
     <!-- price picker slider -->
     @*<link href="~/assets/css/bootstrap.css" rel="stylesheet" />*@
 
-    <link rel="stylesheet" type="text/css" href="~/assets/css/nouislider.css">
+
     <!-- Fancybox slider -->
-    <link rel="stylesheet" href="~/assets/css/jquery.fancybox.css" type="text/css" media="screen" />
     <!-- Theme color -->
-    <link id="switcher" href="~/assets/css/theme-color/default-theme.css" rel="stylesheet">
-
     <!-- Main style sheet -->
-    <link href="~/assets/css/style.css" rel="stylesheet">
-
-
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -60,9 +74,11 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="aa-header-right">
-                                    <a href="register.html" class="aa-register">ثبت نام</a>
+                                    <a href="register.html" class="aa-register">@Utilities.Resources.Resource_Main.Register</a>
 
-                                    <a href="signin.html" class="aa-login">ورود</a>
+                                    <a href="signin.html" class="aa-login">@Utilities.Resources.Resource_Main.Login</a>
+
+
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
@@ -98,29 +114,30 @@
                     </button>
                     <!-- LOGO -->
                     <!-- Text based logo -->
-                    <a class="navbar-brand aa-logo" href="index.html"> خانه <span>لورم ایپسوم</span></a>
+                    @*<a class="navbar-brand aa-logo" href="index.html"> خانه <span>لورم ایپسوم</span></a>*@
                     <!-- Image based logo -->
                     <!-- <a class="navbar-brand aa-logo-img" href="index.html"><img src="img/logo.png" alt="logo"></a> -->
                 </div>
                 <div id="navbar" class="collapse navbar-collapse pull-left">
                     <ul id="top-menu" class="nav navbar-nav navbar-right aa-main-nav">
-                        <li class="active"><a href="index.html">خانه</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="properties.html">ویژگی ها <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="properties.html">جزئیات</a></li>
-                                <li><a href="properties-detail.html">جزئیات ویژگی ها</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="gallery.html">گالری</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="blog-archive.html">وبلاگ <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="blog-archive.html">جزئیات</a></li>
-                                <li><a href="blog-single.html">جزئیات بلاگ</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">تماس با ما</a></li>
+                        <li class="active"><a href="index.html">@Utilities.Resources.Resource_Main.Home</a></li>
+                        @Html.Partial("_LanguageSetting")
+                        @*<li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="properties.html">ویژگی ها <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="properties.html">جزئیات</a></li>
+                                    <li><a href="properties-detail.html">جزئیات ویژگی ها</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="gallery.html">گالری</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="blog-archive.html">وبلاگ <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="blog-archive.html">جزئیات</a></li>
+                                    <li><a href="blog-single.html">جزئیات بلاگ</a></li>
+                                </ul>
+                            </li>*@
+                        <li><a href="contact.html">@Utilities.Resources.Resource_Main.Contact</a></li>
 
                     </ul>
                 </div><!--/.nav-collapse -->
@@ -135,7 +152,7 @@
             <div class="aa-top-slider">
                 <!-- Top slider single slide -->
                 <div class="aa-top-slider-single">
-                    <img src="~/assets/img/slider/3.jpg" alt="img">
+                    <img src="~/assets-fa/img/slider/3.jpg" alt="img">
                     <!-- Top slider content -->
                     <div class="aa-top-slider-content">
                         <span class="aa-top-slider-catg">دوبلکس</span>
@@ -150,7 +167,7 @@
                 <!-- / Top slider single slide -->
                 <!-- Top slider single slide -->
                 <div class="aa-top-slider-single">
-                    <img src="~/assets/img/slider/2.jpg" alt="img">
+                    <img src="~/assets-fa/img/slider/2.jpg" alt="img">
                     <!-- Top slider content -->
                     <div class="aa-top-slider-content">
                         <span class="aa-top-slider-catg">دوبلکس</span>
@@ -165,7 +182,7 @@
                 <!-- / Top slider single slide -->
                 <!-- Top slider single slide -->
                 <div class="aa-top-slider-single">
-                    <img src="~/assets/img/slider/1.jpg" alt="img">
+                    <img src="~/assets-fa/img/slider/1.jpg" alt="img">
                     <!-- Top slider content -->
                     <div class="aa-top-slider-content">
                         <span class="aa-top-slider-catg">دوبلکس</span>
@@ -180,7 +197,7 @@
                 <!-- / Top slider single slide -->
                 <!-- Top slider single slide -->
                 <div class="aa-top-slider-single">
-                    <img src="~/assets/img/slider/5.jpg" alt="img">
+                    <img src="~/assets-fa/img/slider/5.jpg" alt="img">
                     <!-- Top slider content -->
                     <div class="aa-top-slider-content">
                         <span class="aa-top-slider-catg">دوبلکس</span>
@@ -210,7 +227,7 @@
                 <!-- / Top slider single slide -->
                 <!-- Top slider single slide -->
                 <div class="aa-top-slider-single">
-                    <img src="~/assets/img/slider/6.jpg" alt="img">
+                    <img src="~/assets-fa/img/slider/6.jpg" alt="img">
                     <!-- Top slider content -->
                     <div class="aa-top-slider-content">
                         <span class="aa-top-slider-catg">دوبلکس</span>
@@ -236,13 +253,13 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="aa-single-advance-search">
-                                    <input type="text" placeholder="محدوده خود را وارد کنید">
+                                    <input type="text" placeholder="@Utilities.Resources.Resource_Main.Ph_Search">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="aa-single-advance-search">
                                     <select>
-                                        <option value="0" selected>کتگوری</option>
+                                        <option value="0" selected>@Utilities.Resources.Resource_Main.category</option>
                                         <option value="1">یک دست</option>
                                         <option value="2">زمین</option>
                                         <option value="3">قطعه</option>
@@ -253,7 +270,7 @@
                             <div class="col-md-2">
                                 <div class="aa-single-advance-search">
                                     <select>
-                                        <option value="0" selected>انواع</option>
+                                        <option value="0" selected>@Utilities.Resources.Resource_Main.HomeType</option>
                                         <option value="1">یک دست</option>
                                         <option value="2">زمین</option>
                                         <option value="3">قطعه</option>
@@ -264,7 +281,7 @@
                             <div class="col-md-2">
                                 <div class="aa-single-advance-search">
                                     <select>
-                                        <option value="0" selected>اقسام</option>
+                                        <option value="0" selected>@Utilities.Resources.Resource_Main.DealType</option>
                                         <option value="1">یک دست</option>
                                         <option value="2">زمین</option>
                                         <option value="3">قطعه</option>
@@ -274,7 +291,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="aa-single-advance-search">
-                                    <input class="aa-search-btn" type="submit" value="جستجو">
+                                    <input class="aa-search-btn" type="submit" value="@Utilities.Resources.Resource_Main.Search">
                                 </div>
                             </div>
                         </div>
@@ -283,10 +300,10 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="aa-single-filter-search">
-                                    <span>'متر مربع' مساحت</span>
-                                    <span>از</span>
+                                    <span>@Utilities.Resources.Resource_Main.Area</span>
+                                    <span>@Utilities.Resources.Resource_Main.From</span>
                                     <span id="skip-value-lower" class="example-val">30.00</span>
-                                    <span>تا</span>
+                                    <span>@Utilities.Resources.Resource_Main.To</span>
                                     <span id="skip-value-upper" class="example-val">100.00</span>
                                     <div id="aa-sqrfeet-range" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
                                     </div>
@@ -294,10 +311,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="aa-single-filter-search">
-                                    <span>قیمت 'تومان'</span>
-                                    <span>از</span>
+                                    <span>@Utilities.Resources.Resource_Main.Price</span>
+                                    <span>@Utilities.Resources.Resource_Main.From</span>
                                     <span id="skip-value-lower2" class="example-val">30.00</span>
-                                    <span>تا</span>
+                                    <span>@Utilities.Resources.Resource_Main.To</span>
                                     <span id="skip-value-upper2" class="example-val">100.00</span>
                                     <div id="aa-price-range" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
                                     </div>
@@ -311,220 +328,20 @@
     </section>
     <!-- / Advance Search -->
     <!-- About us -->
-    <section id="aa-about-us">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="aa-about-us-area">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="aa-about-us-left">
-                                    <img src="~/assets/img/about-us.png" alt="image">
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="aa-about-us-right">
-                                    <div class="aa-title">
-                                        <h2>درباره ما</h2>
-                                        <span></span>
-                                    </div>
-                                    <p>
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                                    </p>
-                                    <ul>
-                                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</li>
-                                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</li>
-                                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</li>
-                                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <!-- / About us -->
     <!-- Latest property -->
     <section id="aa-latest-property">
         <div class="container">
             <div class="aa-latest-property-area">
                 <div class="aa-title">
-                    <h2>آخرین آگهی ها</h2>
+                    <h2>@Utilities.Resources.Resource_Main.LatestProperty</h2>
                     <span></span>
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
                 </div>
                 <div class="aa-latest-properties-content">
                     <div class="row">
-                        <div class="col-md-4">
-                            <article class="aa-properties-item">
-                                <a href="#" class="aa-properties-item-img">
-                                    <img src="~/assets/img/item/1.jpg" alt="img">
-                                </a>
-                                <div class="aa-tag for-sale">
-                                    برای فروش
-                                </div>
-                                <div class="aa-properties-item-content">
-                                    <div class="aa-properties-info">
-                                        <span>5 اتاق</span>
-                                        <span>2 تخت</span>
-                                        <span>3 حموم</span>
-                                        <span>1100 مترمربع</span>
-                                    </div>
-                                    <div class="aa-properties-about">
-                                        <h3><a href="#">عنوان اپارنمان</a></h3>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
-                                    </div>
-                                    <div class="aa-properties-detial">
-                                        <span class="aa-price">
-                                            ريال 35000
-                                        </span>
-                                        <a href="#" class="aa-secondary-btn">نمایش جزئیات</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-md-4">
-                            <article class="aa-properties-item">
-                                <a href="#" class="aa-properties-item-img">
-                                    <img src="~/assets/img/item/1.jpg" alt="img">
-                                </a>
-                                <div class="aa-tag for-sale">
-                                    برای فروش
-                                </div>
-                                <div class="aa-properties-item-content">
-                                    <div class="aa-properties-info">
-                                        <span>5 اتاق</span>
-                                        <span>2 تخت</span>
-                                        <span>3 حموم</span>
-                                        <span>1100 مترمربع</span>
-                                    </div>
-                                    <div class="aa-properties-about">
-                                        <h3><a href="#">عنوان اپارنمان</a></h3>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
-                                    </div>
-                                    <div class="aa-properties-detial">
-                                        <span class="aa-price">
-                                            ريال 35000
-                                        </span>
-                                        <a href="#" class="aa-secondary-btn">نمایش جزئیات</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-md-4">
-                            <article class="aa-properties-item">
-                                <a href="#" class="aa-properties-item-img">
-                                    <img src="~/assets/img/item/1.jpg" alt="img">
-                                </a>
-                                <div class="aa-tag for-sale">
-                                    برای فروش
-                                </div>
-                                <div class="aa-properties-item-content">
-                                    <div class="aa-properties-info">
-                                        <span>5 اتاق</span>
-                                        <span>2 تخت</span>
-                                        <span>3 حموم</span>
-                                        <span>1100 مترمربع</span>
-                                    </div>
-                                    <div class="aa-properties-about">
-                                        <h3><a href="#">عنوان اپارنمان</a></h3>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
-                                    </div>
-                                    <div class="aa-properties-detial">
-                                        <span class="aa-price">
-                                            ريال 35000
-                                        </span>
-                                        <a href="#" class="aa-secondary-btn">نمایش جزئیات</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-md-4">
-                            <article class="aa-properties-item">
-                                <a href="#" class="aa-properties-item-img">
-                                    <img src="~/assets/img/item/1.jpg" alt="img">
-                                </a>
-                                <div class="aa-tag for-sale">
-                                    برای فروش
-                                </div>
-                                <div class="aa-properties-item-content">
-                                    <div class="aa-properties-info">
-                                        <span>5 اتاق</span>
-                                        <span>2 تخت</span>
-                                        <span>3 حموم</span>
-                                        <span>1100 مترمربع</span>
-                                    </div>
-                                    <div class="aa-properties-about">
-                                        <h3><a href="#">عنوان اپارنمان</a></h3>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
-                                    </div>
-                                    <div class="aa-properties-detial">
-                                        <span class="aa-price">
-                                            ريال 35000
-                                        </span>
-                                        <a href="#" class="aa-secondary-btn">نمایش جزئیات</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-md-4">
-                            <article class="aa-properties-item">
-                                <a href="#" class="aa-properties-item-img">
-                                    <img src="~/assets/img/item/1.jpg" alt="img">
-                                </a>
-                                <div class="aa-tag for-sale">
-                                    برای فروش
-                                </div>
-                                <div class="aa-properties-item-content">
-                                    <div class="aa-properties-info">
-                                        <span>5 اتاق</span>
-                                        <span>2 تخت</span>
-                                        <span>3 حموم</span>
-                                        <span>1100 مترمربع</span>
-                                    </div>
-                                    <div class="aa-properties-about">
-                                        <h3><a href="#">عنوان اپارنمان</a></h3>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
-                                    </div>
-                                    <div class="aa-properties-detial">
-                                        <span class="aa-price">
-                                            ريال 35000
-                                        </span>
-                                        <a href="#" class="aa-secondary-btn">نمایش جزئیات</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-md-4">
-                            <article class="aa-properties-item">
-                                <a href="#" class="aa-properties-item-img">
-                                    <img src="~/assets/img/item/6.jpg" alt="img">
-                                </a>
-                                <div class="aa-tag for-rent">
-                                    برا اجاره
-                                </div>
-                                <div class="aa-properties-item-content">
-                                    <div class="aa-properties-info">
-                                        <span>5 اتاق</span>
-                                        <span>2 تخت</span>
-                                        <span>3 حمام</span>
-                                        <span>1100 مترمربع</span>
-                                    </div>
-                                    <div class="aa-properties-about">
-                                        <h3><a href="#">عنوان آپارتمان</a></h3>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
-                                    </div>
-                                    <div class="aa-properties-detial">
-                                        <span class="aa-price">
-                                            ريال 15000
-                                        </span>
-                                        <a href="#" class="aa-secondary-btn">نمایش جزئیات</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
+                        @RenderBody()
+
                     </div>
                 </div>
             </div>
@@ -538,7 +355,7 @@
                 <div class="col-md-12">
                     <div class="aa-service-area">
                         <div class="aa-title">
-                            <h2>خدمات ما</h2>
+                            <h2>@Utilities.Resources.Resource_Main.Service</h2>
                             <span></span>
                             <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
                         </div>
@@ -598,19 +415,19 @@
     </section>
     <!-- / Service section -->
     <!-- Promo Banner Section -->
-    <section id="aa-promo-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="aa-promo-banner-area">
-                        <h3>پیدا کردن بهترین موقعیت خرید</h3>
-                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. <p>
-                            <a href="#" class="aa-view-btn">نمایش بیشتر</a>
+    @*<section id="aa-promo-banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="aa-promo-banner-area">
+                            <h3>پیدا کردن بهترین موقعیت خرید</h3>
+                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. <p>
+                                <a href="#" class="aa-view-btn">نمایش بیشتر</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>*@
     <!-- / Promo Banner Section -->
     <!-- Our Agent Section-->
     <section id="aa-agents">
@@ -619,7 +436,7 @@
                 <div class="col-md-12">
                     <div class="aa-agents-area">
                         <div class="aa-title">
-                            <h2>عوامل فروش ما</h2>
+                            <h2>@Utilities.Resources.Resource_Main.Agents</h2>
                             <span></span>
                             <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
                         </div>
@@ -629,7 +446,7 @@
                                 <li>
                                     <div class="aa-single-agents">
                                         <div class="aa-agents-img">
-                                            <img src="~/assets/img/agents/agent-1.png" alt="agent member image">
+                                            <img src="~/assets-fa/img/agents/agent-1.png" alt="agent member image">
                                         </div>
                                         <div class="aa-agetns-info">
                                             <h4><a href="#">گروه مشاورین املاک فلیپ</a></h4>
@@ -646,7 +463,7 @@
                                 <li>
                                     <div class="aa-single-agents">
                                         <div class="aa-agents-img">
-                                            <img src="~/assets/img/agents/agent-5.png" alt="agent member image">
+                                            <img src="~/assets-fa/img/agents/agent-5.png" alt="agent member image">
                                         </div>
                                         <div class="aa-agetns-info">
                                             <h4><a href="#">گروه مشاورین املاک آدام</a></h4>
@@ -663,7 +480,7 @@
                                 <li>
                                     <div class="aa-single-agents">
                                         <div class="aa-agents-img">
-                                            <img src="~/assets/img/agents/agent-3.png" alt="agent member image">
+                                            <img src="~/assets-fa/img/agents/agent-3.png" alt="agent member image">
                                         </div>
                                         <div class="aa-agetns-info">
                                             <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
@@ -680,7 +497,7 @@
                                 <li>
                                     <div class="aa-single-agents">
                                         <div class="aa-agents-img">
-                                            <img src="~/assets/img/agents/agent-4.png" alt="agent member image">
+                                            <img src="~/assets-fa/img/agents/agent-4.png" alt="agent member image">
                                         </div>
                                         <div class="aa-agetns-info">
                                             <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
@@ -697,7 +514,7 @@
                                 <li>
                                     <div class="aa-single-agents">
                                         <div class="aa-agents-img">
-                                            <img src="~/assets/img/agents/agent-1.png" alt="agent member image">
+                                            <img src="~/assets-fa/img/agents/agent-1.png" alt="agent member image">
                                         </div>
                                         <div class="aa-agetns-info">
                                             <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
@@ -714,7 +531,7 @@
                                 <li>
                                     <div class="aa-single-agents">
                                         <div class="aa-agents-img">
-                                            <img src="~/assets/img/agents/agent-5.png" alt="agent member image">
+                                            <img src="~/assets-fa/img/agents/agent-5.png" alt="agent member image">
                                         </div>
                                         <div class="aa-agetns-info">
                                             <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
@@ -731,7 +548,7 @@
                                 <li>
                                     <div class="aa-single-agents">
                                         <div class="aa-agents-img">
-                                            <img src="~/assets/img/agents/agent-3.png" alt="agent member image">
+                                            <img src="~/assets-fa/img/agents/agent-3.png" alt="agent member image">
                                         </div>
                                         <div class="aa-agetns-info">
                                             <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
@@ -748,7 +565,7 @@
                                 <li>
                                     <div class="aa-single-agents">
                                         <div class="aa-agents-img">
-                                            <img src="~/assets/img/agents/agent-4.png" alt="agent member image">
+                                            <img src="~/assets-fa/img/agents/agent-4.png" alt="agent member image">
                                         </div>
                                         <div class="aa-agetns-info">
                                             <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
@@ -769,209 +586,79 @@
             </div>
         </div>
     </section>
-    <!-- / Our Agent Section-->
-    <!-- Client Testimonial -->
-    @*<section id="aa-client-testimonial">
+
+    @*<section id="aa-latest-blog">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="aa-client-testimonial-area">
+                        <div class="aa-latest-blog-area">
                             <div class="aa-title">
-                                <h2>What Client Say</h2>
+                                <h2>آخرین اخبار</h2>
                                 <span></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus eaque quas debitis animi ipsum, veritatis!</p>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
                             </div>
-                            <!-- testimonial content -->
-                            <div class="aa-testimonial-content">
-                                <!-- testimonial slider -->
-                                <ul class="aa-testimonial-slider">
-                                    <li>
-                                        <div class="aa-testimonial-single">
-                                            <div class="aa-testimonial-img">
-                                                <img src="img/testimonial-1.png" alt="testimonial img">
+                            <div class="aa-latest-blog-content">
+                                <div class="row">
+                                    <!-- start single blog -->
+                                    <div class="col-md-4">
+                                        <article class="aa-blog-single">
+                                            <figure class="aa-blog-img">
+                                                <a href="#"><img src="~/assets/img/blog-img-1.jpg" alt="img"></a>
+                                                <span class="aa-date-tag">15 فروردین,</span>
+                                            </figure>
+                                            <div class="aa-blog-single-content">
+                                                <h3><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم.</a></h3>
+                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                                                <div class="aa-blog-single-bottom">
+                                                    <a href="#" class="aa-blog-author"><i class="fa fa-user"></i> مدیریت</a>
+                                                    <a href="#" class="aa-blog-comments"><i class="fa fa-comment-o"></i>6</a>
+                                                </div>
                                             </div>
-                                            <div class="aa-testimonial-info">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate consequuntur ducimus cumque iure modi nesciunt recusandae eligendi vitae voluptatibus, voluptatum tempore, ipsum nisi perspiciatis. Rerum nesciunt fuga ab natus, dolorem?</p>
+
+                                        </article>
+                                    </div>
+                                    <!-- start single blog -->
+                                    <div class="col-md-4">
+                                        <article class="aa-blog-single">
+                                            <figure class="aa-blog-img">
+                                                <a href="#"><img src="~/assets/img/blog-img-2.jpg" alt="img"></a>
+                                                <span class="aa-date-tag">15 , اردیبهشت</span>
+                                            </figure>
+                                            <div class="aa-blog-single-content">
+                                                <h3><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم.</a></h3>
+                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                                                <div class="aa-blog-single-bottom">
+                                                    <a href="#" class="aa-blog-author"><i class="fa fa-user"></i> مدیریت</a>
+                                                    <a href="#" class="aa-blog-comments"><i class="fa fa-comment-o"></i>6</a>
+                                                </div>
                                             </div>
-                                            <div class="aa-testimonial-bio">
-                                                <p>David Muller</p>
-                                                <span>Web Designer</span>
+                                        </article>
+                                    </div>
+                                    <!-- start single blog -->
+                                    <div class="col-md-4">
+                                        <article class="aa-blog-single">
+                                            <figure class="aa-blog-img">
+                                                <a href="#"><img src="~/assets/img/blog-img-2.jpg" alt="img"></a>
+                                                <span class="aa-date-tag">15 , اردیبهشت</span>
+                                            </figure>
+                                            <div class="aa-blog-single-content">
+                                                <h3><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم.</a></h3>
+                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                                                <div class="aa-blog-single-bottom">
+                                                    <a href="#" class="aa-blog-author"><i class="fa fa-user"></i> مدیریت</a>
+                                                    <a href="#" class="aa-blog-comments"><i class="fa fa-comment-o"></i>6</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="aa-testimonial-single">
-                                            <div class="aa-testimonial-img">
-                                                <img src="img/testimonial-3.png" alt="testimonial img">
-                                            </div>
-                                            <div class="aa-testimonial-info">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate consequuntur ducimus cumque iure modi nesciunt recusandae eligendi vitae voluptatibus, voluptatum tempore, ipsum nisi perspiciatis. Rerum nesciunt fuga ab natus, dolorem?</p>
-                                            </div>
-                                            <div class="aa-testimonial-bio">
-                                                <p>David Muller</p>
-                                                <span>Web Designer</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="aa-testimonial-single">
-                                            <div class="aa-testimonial-img">
-                                                <img src="img/testimonial-2.png" alt="testimonial img">
-                                            </div>
-                                            <div class="aa-testimonial-info">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate consequuntur ducimus cumque iure modi nesciunt recusandae eligendi vitae voluptatibus, voluptatum tempore, ipsum nisi perspiciatis. Rerum nesciunt fuga ab natus, dolorem?</p>
-                                            </div>
-                                            <div class="aa-testimonial-bio">
-                                                <p>David Muller</p>
-                                                <span>Web Designer</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                        </article>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Client Testimonial -->
-        <!-- Client brand -->
-        <section id="aa-client-brand">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="aa-client-brand-area">
-                            <ul class="aa-client-brand-slider">
-                                <li>
-                                    <div class="aa-client-single-brand">
-                                        <img src="img/client-brand-1.png" alt="brand image">
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-client-single-brand">
-                                        <img src="img/client-brand-2.png" alt="brand image">
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-client-single-brand">
-                                        <img src="img/client-brand-3.png" alt="brand image">
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-client-single-brand">
-                                        <img src="img/client-brand-5.png" alt="brand image">
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-client-single-brand">
-                                        <img src="img/client-brand-4.png" alt="brand image">
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-client-single-brand">
-                                        <img src="img/client-brand-1.png" alt="brand image">
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-client-single-brand">
-                                        <img src="img/client-brand-2.png" alt="brand image">
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-client-single-brand">
-                                        <img src="img/client-brand-3.png" alt="brand image">
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-client-single-brand">
-                                        <img src="img/client-brand-5.png" alt="brand image">
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-client-single-brand">
-                                        <img src="img/client-brand-4.png" alt="brand image">
-                                    </div>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </section>*@
-    <!-- / Client brand -->
-    <!-- Latest blog -->
-    <section id="aa-latest-blog">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="aa-latest-blog-area">
-                        <div class="aa-title">
-                            <h2>آخرین اخبار</h2>
-                            <span></span>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
-                        </div>
-                        <div class="aa-latest-blog-content">
-                            <div class="row">
-                                <!-- start single blog -->
-                                <div class="col-md-4">
-                                    <article class="aa-blog-single">
-                                        <figure class="aa-blog-img">
-                                            <a href="#"><img src="~/assets/img/blog-img-1.jpg" alt="img"></a>
-                                            <span class="aa-date-tag">15 فروردین,</span>
-                                        </figure>
-                                        <div class="aa-blog-single-content">
-                                            <h3><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم.</a></h3>
-                                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-                                            <div class="aa-blog-single-bottom">
-                                                <a href="#" class="aa-blog-author"><i class="fa fa-user"></i> مدیریت</a>
-                                                <a href="#" class="aa-blog-comments"><i class="fa fa-comment-o"></i>6</a>
-                                            </div>
-                                        </div>
 
-                                    </article>
-                                </div>
-                                <!-- start single blog -->
-                                <div class="col-md-4">
-                                    <article class="aa-blog-single">
-                                        <figure class="aa-blog-img">
-                                            <a href="#"><img src="~/assets/img/blog-img-2.jpg" alt="img"></a>
-                                            <span class="aa-date-tag">15 , اردیبهشت</span>
-                                        </figure>
-                                        <div class="aa-blog-single-content">
-                                            <h3><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم.</a></h3>
-                                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-                                            <div class="aa-blog-single-bottom">
-                                                <a href="#" class="aa-blog-author"><i class="fa fa-user"></i> مدیریت</a>
-                                                <a href="#" class="aa-blog-comments"><i class="fa fa-comment-o"></i>6</a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-                                <!-- start single blog -->
-                                <div class="col-md-4">
-                                    <article class="aa-blog-single">
-                                        <figure class="aa-blog-img">
-                                            <a href="#"><img src="~/assets/img/blog-img-2.jpg" alt="img"></a>
-                                            <span class="aa-date-tag">15 , اردیبهشت</span>
-                                        </figure>
-                                        <div class="aa-blog-single-content">
-                                            <h3><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم.</a></h3>
-                                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-                                            <div class="aa-blog-single-bottom">
-                                                <a href="#" class="aa-blog-author"><i class="fa fa-user"></i> مدیریت</a>
-                                                <a href="#" class="aa-blog-comments"><i class="fa fa-comment-o"></i>6</a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    @RenderBody()
     <!-- / Latest blog -->
     <!-- Footer -->
     <footer id="aa-footer">
@@ -1008,23 +695,56 @@
             </div>
         </div>
     </footer>
+    <script src="~/assets-fa/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/assets-fa/js/bootstrap.js"></script>
+    <!-- slick slider -->
+    <script type="text/javascript" src="~/assets-fa/js/slick.js"></script>
+    <!-- Price picker slider -->
+    <script type="text/javascript" src="~/assets-fa/js/nouislider.js"></script>
+    <!-- mixit slider -->
+    <script type="text/javascript" src="~/assets-fa/js/jquery.mixitup.js"></script>
+    <!-- Add fancyBox -->
+    <script type="text/javascript" src="~/assets-fa/js/jquery.fancybox.pack.js"></script>
+    <!-- Custom js -->
+    <script src="~/assets-fa/js/custom.js"></script>
+    @*@if (System.Globalization.CultureInfo.CurrentCulture.Name.Contains("fa"))
+        {
+            <script src="~/assets-fa/js/jquery.min.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="~/assets-fa/js/bootstrap.js"></script>
+            <!-- slick slider -->
+            <script type="text/javascript" src="~/assets-fa/js/slick.js"></script>
+            <!-- Price picker slider -->
+            <script type="text/javascript" src="~/assets-fa/js/nouislider.js"></script>
+            <!-- mixit slider -->
+            <script type="text/javascript" src="~/assets-fa/js/jquery.mixitup.js"></script>
+            <!-- Add fancyBox -->
+            <script type="text/javascript" src="~/assets-fa/js/jquery.fancybox.pack.js"></script>
+            <!-- Custom js -->
+            <script src="~/assets-fa/js/custom.js"></script>
+        }
+        else
+        {
+            <script src="/assets-en/js/jquery.min.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="/assets-en/js/bootstrap.js"></script>
+            <!-- slick slider -->
+            <script type="text/javascript" src="/assets-en/js/slick.js"></script>
+            <!-- Price picker slider -->
+            <script type="text/javascript" src="/assets-en/js/nouislider.js"></script>
+            <!-- mixit slider -->
+            <script type="text/javascript" src="/assets-en/js/jquery.mixitup.js"></script>
+            <!-- Add fancyBox -->
+            <script type="text/javascript" src="/assets-en/js/jquery.fancybox.pack.js"></script>
+            <!-- Custom js -->
+            <script src="/assets-en/js/custom.js"></script>
+        }*@
     <!-- / Footer -->
     <!-- jQuery library -->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 
-    <script src="~/assets/js/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="~/assets/js/bootstrap.js"></script>
-    <!-- slick slider -->
-    <script type="text/javascript" src="~/assets/js/slick.js"></script>
-    <!-- Price picker slider -->
-    <script type="text/javascript" src="~/assets/js/nouislider.js"></script>
-    <!-- mixit slider -->
-    <script type="text/javascript" src="~/assets/js/jquery.mixitup.js"></script>
-    <!-- Add fancyBox -->
-    <script type="text/javascript" src="~/assets/js/jquery.fancybox.pack.js"></script>
-    <!-- Custom js -->
-    <script src="~/assets/js/custom.js"></script>
+
 
 </body>
 </html>

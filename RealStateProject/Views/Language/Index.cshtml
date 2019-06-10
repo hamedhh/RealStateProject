@@ -1,0 +1,19 @@
+﻿@*<form name="Language" action="ChangeLanguage">
+    <div class="form-control">
+        <ul>
+            <li>
+                @Html.ActionLink("زبان فارسی", "ChangeLanguage", "Language", new { Language = "fa" }, null)
+            </li>
+            <li>
+                @Html.ActionLink("زبان فارسی", "ChangeLanguage", "Language", new { Language = "fa" }, null);
+            </li>
+        </ul>
+    </div>
+</form>*@
+<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="properties.html">تنظیمات زبان <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li>@Html.ActionLink("زبان فارسی", "ChangeLanguage", "Language", new { Language = "fa" }, null)</li>
+        <li>@Html.ActionLink("زبان فارسی", "ChangeLanguage", "Language", new { Language = "fa" }, null)</li>
+    </ul>
+</li>
