@@ -30,15 +30,14 @@ namespace DataLayer.DB
         [Required(ErrorMessageResourceType = typeof(Utilities.Resources.Resource_User),ErrorMessageResourceName = "RequiredUserName")]
         public string UserName { get; set; }
 
-
+        //[EmailAddress(ErrorMessageResourceType =typeof(Utilities.Resources.Resource_User),ErrorMessageResourceName ="EmailFormat")]
         [Display(Name = "Email", ResourceType = typeof(Utilities.Resources.Resource_User))]
         [Required(ErrorMessageResourceType = typeof(Utilities.Resources.Resource_User), ErrorMessageResourceName = "RequiredUserEmail")]
         public string Email { get; set; }
 
-
+        [DataType(DataType.Password)]
         [Display(Name = "Password", ResourceType = typeof(Utilities.Resources.Resource_User))]
         [Required(ErrorMessageResourceType = typeof(Utilities.Resources.Resource_User), ErrorMessageResourceName = "RequiredUserPassword")]
-
         public string Password { get; set; }
 
         [Display(Name = "ActiveCode", ResourceType = typeof(Utilities.Resources.Resource_User))]
