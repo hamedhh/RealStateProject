@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GSD.Globalization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -6,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+
 
 namespace RealStateProject
 {
@@ -23,12 +25,26 @@ namespace RealStateProject
             HttpCookie _cookire = HttpContext.Current.Request.Cookies["language"];
             if (_cookire != null && _cookire.Value != null)
             {
+                if (_cookire.Value == "fa")
+                {
+                    var persianCulture = new PersianCulture();
+                    Thread.CurrentThread.CurrentCulture = persianCulture;
+                    Thread.CurrentThread.CurrentUICulture = persianCulture;
+                }
+                else
+                {
                 Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(_cookire.Value);
                 Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(_cookire.Value);
+                }
+                
             }
             else {
-                Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("fa");
-                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fa");
+                var persianCulture = new PersianCulture();
+                //Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("fa");
+                //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fa");
+                
+                Thread.CurrentThread.CurrentCulture = persianCulture;
+                Thread.CurrentThread.CurrentUICulture = persianCulture;
             }
         }
     }

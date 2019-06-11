@@ -9,7 +9,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
-using Utilities;
+using DataLayer;
  
 
 namespace DataLayer.DB
@@ -20,33 +20,33 @@ namespace DataLayer.DB
         public int UserID { get; set; }
 
 
-        [Display(Name = "RoleID", ResourceType = typeof(Utilities.Resources.Resource_User))]
+        [Display(Name = "RoleID", ResourceType = typeof(Resources.Resource_User))]
         public int RoleID { get; set; }
 
-        [Display(Name = "CultureID", ResourceType = typeof(Utilities.Resources.Resource_User))]
+        [Display(Name = "CultureID", ResourceType = typeof(Resources.Resource_User))]
         public int CultureID { get; set; }
 
-        [Display(Name ="UserName",ResourceType = typeof(Utilities.Resources.Resource_User) )]
-        [Required(ErrorMessageResourceType = typeof(Utilities.Resources.Resource_User),ErrorMessageResourceName = "RequiredUserName")]
+        [Display(Name ="UserName",ResourceType = typeof(Resources.Resource_User) )]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource_User),ErrorMessageResourceName = "RequiredUserName")]
         public string UserName { get; set; }
 
-        //[EmailAddress(ErrorMessageResourceType =typeof(Utilities.Resources.Resource_User),ErrorMessageResourceName ="EmailFormat")]
-        [Display(Name = "Email", ResourceType = typeof(Utilities.Resources.Resource_User))]
-        [Required(ErrorMessageResourceType = typeof(Utilities.Resources.Resource_User), ErrorMessageResourceName = "RequiredUserEmail")]
+        [EmailAddress(ErrorMessageResourceType =typeof(Resources.Resource_Main),ErrorMessageResourceName ="EmailFormat")]
+        [Display(Name = "Email", ResourceType = typeof(Resources.Resource_User))]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource_User), ErrorMessageResourceName = "RequiredUserEmail")]
         public string Email { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Password", ResourceType = typeof(Utilities.Resources.Resource_User))]
-        [Required(ErrorMessageResourceType = typeof(Utilities.Resources.Resource_User), ErrorMessageResourceName = "RequiredUserPassword")]
+        [Display(Name = "Password", ResourceType = typeof(Resources.Resource_User))]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource_User), ErrorMessageResourceName = "RequiredUserPassword")]
         public string Password { get; set; }
 
-        [Display(Name = "ActiveCode", ResourceType = typeof(Utilities.Resources.Resource_User))]
+        [Display(Name = "ActiveCode", ResourceType = typeof(Resources.Resource_User))]
         public string ActiveCode { get; set; }
 
-        [Display(Name = "IsActive", ResourceType = typeof(Utilities.Resources.Resource_User))]
+        [Display(Name = "IsActive", ResourceType = typeof(Resources.Resource_User))]
         public Nullable<bool> IsActive { get; set; }
 
-        [Display(Name = "RegisterDate", ResourceType = typeof(Utilities.Resources.Resource_User))]
+        [Display(Name = "RegisterDate", ResourceType = typeof(Resources.Resource_User))]
         public Nullable<System.DateTime> RegisterDate { get; set; }
     }
 }

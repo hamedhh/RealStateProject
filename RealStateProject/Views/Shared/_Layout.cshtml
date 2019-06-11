@@ -74,11 +74,7 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="aa-header-right">
-                                    <a href="Account/Register" class="aa-register">@Utilities.Resources.Resource_Main.Register</a>
-
-                                    <a href="signin.html" class="aa-login">@Utilities.Resources.Resource_Main.Login</a>
-
-
+                                    @Html.Partial("_LogginUser")
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
@@ -120,7 +116,7 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse pull-left">
                     <ul id="top-menu" class="nav navbar-nav navbar-right aa-main-nav">
-                        <li class="active"><a href="index.html">@Utilities.Resources.Resource_Main.Home</a></li>
+                        <li class="active"><a href="Home">@DataLayer.Resources.Resource_Main.Home</a></li>
                         @Html.Partial("_LanguageSetting")
                         @*<li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="properties.html">ویژگی ها <span class="caret"></span></a>
@@ -137,7 +133,7 @@
                                     <li><a href="blog-single.html">جزئیات بلاگ</a></li>
                                 </ul>
                             </li>*@
-                        <li><a href="contact.html">@Utilities.Resources.Resource_Main.Contact</a></li>
+                        <li><a href="contact.html">@DataLayer.Resources.Resource_Main.Contact</a></li>
 
                     </ul>
                 </div><!--/.nav-collapse -->
@@ -253,13 +249,13 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="aa-single-advance-search">
-                                    <input type="text" placeholder="@Utilities.Resources.Resource_Main.Ph_Search">
+                                    <input type="text" placeholder="@DataLayer.Resources.Resource_Main.Ph_Search">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="aa-single-advance-search">
                                     <select>
-                                        <option value="0" selected>@Utilities.Resources.Resource_Main.category</option>
+                                        <option value="0" selected>@DataLayer.Resources.Resource_Main.category</option>
                                         <option value="1">یک دست</option>
                                         <option value="2">زمین</option>
                                         <option value="3">قطعه</option>
@@ -270,7 +266,7 @@
                             <div class="col-md-2">
                                 <div class="aa-single-advance-search">
                                     <select>
-                                        <option value="0" selected>@Utilities.Resources.Resource_Main.HomeType</option>
+                                        <option value="0" selected>@DataLayer.Resources.Resource_Main.HomeType</option>
                                         <option value="1">یک دست</option>
                                         <option value="2">زمین</option>
                                         <option value="3">قطعه</option>
@@ -281,7 +277,7 @@
                             <div class="col-md-2">
                                 <div class="aa-single-advance-search">
                                     <select>
-                                        <option value="0" selected>@Utilities.Resources.Resource_Main.DealType</option>
+                                        <option value="0" selected>@DataLayer.Resources.Resource_Main.DealType</option>
                                         <option value="1">یک دست</option>
                                         <option value="2">زمین</option>
                                         <option value="3">قطعه</option>
@@ -291,7 +287,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="aa-single-advance-search">
-                                    <input class="aa-search-btn" type="submit" value="@Utilities.Resources.Resource_Main.Search">
+                                    <input class="aa-search-btn" type="submit" value="@DataLayer.Resources.Resource_Main.Search">
                                 </div>
                             </div>
                         </div>
@@ -300,10 +296,10 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="aa-single-filter-search">
-                                    <span>@Utilities.Resources.Resource_Main.Area</span>
-                                    <span>@Utilities.Resources.Resource_Main.From</span>
+                                    <span>@DataLayer.Resources.Resource_Main.Area</span>
+                                    <span>@DataLayer.Resources.Resource_Main.From</span>
                                     <span id="skip-value-lower" class="example-val">30.00</span>
-                                    <span>@Utilities.Resources.Resource_Main.To</span>
+                                    <span>@DataLayer.Resources.Resource_Main.To</span>
                                     <span id="skip-value-upper" class="example-val">100.00</span>
                                     <div id="aa-sqrfeet-range" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
                                     </div>
@@ -311,10 +307,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="aa-single-filter-search">
-                                    <span>@Utilities.Resources.Resource_Main.Price</span>
-                                    <span>@Utilities.Resources.Resource_Main.From</span>
+                                    <span>@DataLayer.Resources.Resource_Main.Price</span>
+                                    <span>@DataLayer.Resources.Resource_Main.From</span>
                                     <span id="skip-value-lower2" class="example-val">30.00</span>
-                                    <span>@Utilities.Resources.Resource_Main.To</span>
+                                    <span>@DataLayer.Resources.Resource_Main.To</span>
                                     <span id="skip-value-upper2" class="example-val">100.00</span>
                                     <div id="aa-price-range" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
                                     </div>
@@ -334,7 +330,7 @@
         <div class="container">
             <div class="aa-latest-property-area">
                 <div class="aa-title">
-                    <h2>@Utilities.Resources.Resource_Main.LatestProperty</h2>
+                    <h2>@DataLayer.Resources.Resource_Main.LatestProperty</h2>
                     <span></span>
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
                 </div>
@@ -355,7 +351,7 @@
                 <div class="col-md-12">
                     <div class="aa-service-area">
                         <div class="aa-title">
-                            <h2>@Utilities.Resources.Resource_Main.Service</h2>
+                            <h2>@DataLayer.Resources.Resource_Main.Service</h2>
                             <span></span>
                             <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
                         </div>
@@ -436,7 +432,7 @@
                 <div class="col-md-12">
                     <div class="aa-agents-area">
                         <div class="aa-title">
-                            <h2>@Utilities.Resources.Resource_Main.Agents</h2>
+                            <h2>@DataLayer.Resources.Resource_Main.Agents</h2>
                             <span></span>
                             <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
                         </div>

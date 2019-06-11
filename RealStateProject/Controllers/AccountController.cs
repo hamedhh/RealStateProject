@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using DataLayer.DB;
+using DataLayer;
 
 namespace RealStateProject.Controllers
 {
@@ -15,14 +18,102 @@ namespace RealStateProject.Controllers
         {
             return PartialView();
         }
-
         [HttpPost]
         public ActionResult Register(User _user)
         {
-            if (ModelState.IsValid)
-                return PartialView();
-            else
-                return View();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (!db.Users.Any(a => a.UserName == _user.UserName.ToLower()))
+                    {
+
+                        _user.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(_user.Password, "MD5");
+                        _user.IsActive = true;
+                        _user.RegisterDate = DateTime.Now;
+                        _user.ActiveCode = Guid.NewGuid().ToString();
+                        _user.UserName = _user.UserName.ToLower();
+                        //var _cookieCulture = HttpContext.Request.Cookies["language"].Value;
+                        switch (System.Globalization.CultureInfo.CurrentCulture.Name)
+                        {
+                            case "fa-IR":
+                                {
+                                    _user.CultureID = 1;
+                                    break;
+                                }
+
+                            case "en-US":
+                                {
+                                    _user.CultureID = 2;
+                                    break;
+                                }
+
+                        }
+                        _user.RoleID = 1;
+
+                        db.Users.Add(_user);
+                        db.SaveChanges();
+                        FormsAuthentication.SetAuthCookie(_user.UserName, true);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("UserName", DataLayer.Resources.Resource_Main.RegisterError);
+                        return View(_user);
+                    }
+                }
+                else
+                    return View(_user);
+
+                return Redirect("/");
+                //return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
         }
+
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return Redirect("/");
+        }
+
+        public ActionResult Login()
+        {
+            return PartialView();
+        }
+        //RemmeberMe
+
+        [HttpPost]
+        public ActionResult Login(DataLayer.ViewModels.LoginViewModel user, string ReturnUrl = "/")
+        {
+            bool remmeberMe = false;
+            if (ModelState.IsValid)
+            {
+                //if (string.IsNullOrEmpty(RemmeberMe))
+                //{
+                //    if (RemmeberMe.Equals("on"))
+                //        remmeberMe = true;
+                //}
+                var hashPass = FormsAuthentication.HashPasswordForStoringInConfigFile(user.Password, "MD5");
+                var _user = db.Users.SingleOrDefault(a => a.UserName == user.UserName.ToLower() && a.Password == hashPass);
+                if (_user == null)
+                {
+                    ModelState.AddModelError("UserName", DataLayer.Resources.Resource_Main.LoginUserError);
+                    return View(user);
+                }
+                else
+                {
+                    FormsAuthentication.SetAuthCookie(_user.UserName, user.RememberMe);
+                    return Redirect(ReturnUrl);
+                }
+
+            }
+            return Redirect(ReturnUrl);
+        }
+
     }
 }

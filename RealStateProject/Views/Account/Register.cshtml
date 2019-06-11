@@ -1,8 +1,15 @@
 ﻿@{ 
+    ViewBag.Title = "ثبت نام";
     Layout = "~/Views/Shared/_LayoutLoginRegister.cshtml";
 }
 @model DataLayer.DB.User
-@*<form class="contactform">*@
+<div class="aa-signin-form-title">
+    <a class="aa-property-home" style="color: cadetblue !important" href="@Url.Action("Index","Home")">
+        <i class="fa fa-home"></i>
+        @DataLayer.Resources.Resource_Main.SiteTitle
+    </a>
+    <h4>@DataLayer.Resources.Resource_Main.SiteRegister</h4>
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -31,7 +38,7 @@
         </div>
         <div class="aa-single-field">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="ثیت نام" class="btn btn-success" />
+                <input type="submit" value="@DataLayer.Resources.Resource_Main.Register" class="btn btn-success" />
             </div>
         </div>
 
