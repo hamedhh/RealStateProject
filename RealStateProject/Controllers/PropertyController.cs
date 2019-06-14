@@ -9,9 +9,20 @@ namespace RealStateProject.Controllers
     public class PropertyController : Controller
     {
         // GET: Property
-        public ActionResult ShowPropertyDetail()
+
+        public ActionResult ShowAllProperty()
         {
             return View();
+        }
+
+        public ActionResult ShowDetailProperty()
+        {
+            return View();
+        }
+
+        public ActionResult PapulerProperty()
+        {
+            return PartialView();
         }
     }
 }

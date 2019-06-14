@@ -2083,11 +2083,16 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Custom.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\camera-06.jpg" />
+    <Content Include="Images\home-populer.jpeg" />
     <Content Include="Images\images-register.jpg" />
+    <Content Include="Images\single-property.jpg" />
+    <Content Include="Images\slide.jpg" />
     <Content Include="obj\Debug\RealStateProject.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\RealStateProject.dll" />
     <Content Include="obj\Debug\RealStateProject.pdb" />
@@ -2424,12 +2429,16 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutDef.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutLoginRegister.cshtml" />
     <Content Include="Views\Shared\_LogginUser.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Property\ShowPropertyDetail.cshtml" />
+    <Content Include="Views\Shared\_LayoutProperties.cshtml" />
+    <Content Include="Views\Shared\_LayoutShow.cshtml" />
+    <Content Include="Views\Property\PapulerProperty.cshtml" />
+    <Content Include="Views\Shared\_LayoutPapulerProperty.cshtml" />
+    <Content Include="Views\Property\ShowAllProperty.cshtml" />
+    <Content Include="Views\Property\ShowDetailProperty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

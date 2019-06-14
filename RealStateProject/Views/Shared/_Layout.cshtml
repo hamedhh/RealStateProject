@@ -14,12 +14,12 @@
     {
 
         <link href="/Content/bootstrap-rtl.css" rel="stylesheet" />
-        <link href="~/assets-fa/css/style.css" rel="stylesheet">
-        <link href="~/assets-fa/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="~/assets-fa/css/slick.css">
-        <link rel="stylesheet" type="text/css" href="~/assets-fa/css/nouislider.css">
-        <link rel="stylesheet" href="~/assets-fa/css/jquery.fancybox.css" type="text/css" media="screen" />
-        <link id="switcher" href="~/assets-fa/css/theme-color/default-theme.css" rel="stylesheet">
+        <link href="/assets-fa/css/style.css" rel="stylesheet">
+        <link href="/assets-fa/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/assets-fa/css/slick.css">
+        <link rel="stylesheet" type="text/css" href="/assets-fa/css/nouislider.css">
+        <link rel="stylesheet" href="/assets-fa/css/jquery.fancybox.css" type="text/css" media="screen" />
+        <link id="switcher" href="/assets-fa/css/theme-color/default-theme.css" rel="stylesheet">
     }
     else
     {
@@ -334,15 +334,36 @@
                     <span></span>
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
                 </div>
-                <div class="aa-latest-properties-content">
-                    <div class="row">
-                        @RenderBody()
-
-                    </div>
-                </div>
+                @RenderSection("Home_Property",false)
             </div>
+            <div class="aa-properties-content-bottom">
+                <nav>
+                    <ul class="pagination">
+                        @*<li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">«</span>
+                                </a>
+                            </li>*@
+                        @*<li><a href="#">نمایش همه آگهی ها</a></li>*@
+
+                        <li>
+                            <a href="/Property/ShowAllProperty" aria-label="Next">
+                                <span aria-hidden="true">نمایش همه آگهی ها »</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            @*<div >
+                    <span>....</span>
+                    <a class="more" href="/blog"> مشاهده همه مقالات </a>
+
+                </div>*@
+
         </div>
+
     </section>
+
     <!-- / Latest property -->
     <!-- Service section -->
     <section id="aa-service">
@@ -426,162 +447,162 @@
         </section>*@
     <!-- / Promo Banner Section -->
     <!-- Our Agent Section-->
-    <section id="aa-agents">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="aa-agents-area">
-                        <div class="aa-title">
-                            <h2>@DataLayer.Resources.Resource_Main.Agents</h2>
-                            <span></span>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
-                        </div>
-                        <!-- agents content -->
-                        <div class="aa-agents-content">
-                            <ul class="aa-agents-slider">
-                                <li>
-                                    <div class="aa-single-agents">
-                                        <div class="aa-agents-img">
-                                            <img src="~/assets-fa/img/agents/agent-1.png" alt="agent member image">
-                                        </div>
-                                        <div class="aa-agetns-info">
-                                            <h4><a href="#">گروه مشاورین املاک فلیپ</a></h4>
-                                            <span>بهترین مشاور فروش</span>
-                                            <div class="aa-agent-social">
-                                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+    @*<section id="aa-agents">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="aa-agents-area">
+                            <div class="aa-title">
+                                <h2>DataLayer.Resources.Resource_Main.Agents</h2>
+                                <span></span>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
+                            </div>
+
+                            <div class="aa-agents-content">
+                                <ul class="aa-agents-slider">
+                                    <li>
+                                        <div class="aa-single-agents">
+                                            <div class="aa-agents-img">
+                                                <img src="~/assets-fa/img/agents/agent-1.png" alt="agent member image">
+                                            </div>
+                                            <div class="aa-agetns-info">
+                                                <h4><a href="#">گروه مشاورین املاک فلیپ</a></h4>
+                                                <span>بهترین مشاور فروش</span>
+                                                <div class="aa-agent-social">
+                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-single-agents">
-                                        <div class="aa-agents-img">
-                                            <img src="~/assets-fa/img/agents/agent-5.png" alt="agent member image">
-                                        </div>
-                                        <div class="aa-agetns-info">
-                                            <h4><a href="#">گروه مشاورین املاک آدام</a></h4>
-                                            <span>بهترین مشاور خرید</span>
-                                            <div class="aa-agent-social">
-                                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </li>
+                                    <li>
+                                        <div class="aa-single-agents">
+                                            <div class="aa-agents-img">
+                                                <img src="~/assets-fa/img/agents/agent-5.png" alt="agent member image">
+                                            </div>
+                                            <div class="aa-agetns-info">
+                                                <h4><a href="#">گروه مشاورین املاک آدام</a></h4>
+                                                <span>بهترین مشاور خرید</span>
+                                                <div class="aa-agent-social">
+                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-single-agents">
-                                        <div class="aa-agents-img">
-                                            <img src="~/assets-fa/img/agents/agent-3.png" alt="agent member image">
-                                        </div>
-                                        <div class="aa-agetns-info">
-                                            <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
-                                            <span>بهترین مشاور </span>
-                                            <div class="aa-agent-social">
-                                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </li>
+                                    <li>
+                                        <div class="aa-single-agents">
+                                            <div class="aa-agents-img">
+                                                <img src="~/assets-fa/img/agents/agent-3.png" alt="agent member image">
+                                            </div>
+                                            <div class="aa-agetns-info">
+                                                <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
+                                                <span>بهترین مشاور </span>
+                                                <div class="aa-agent-social">
+                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-single-agents">
-                                        <div class="aa-agents-img">
-                                            <img src="~/assets-fa/img/agents/agent-4.png" alt="agent member image">
-                                        </div>
-                                        <div class="aa-agetns-info">
-                                            <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
-                                            <span>بهترین مشاور </span>
-                                            <div class="aa-agent-social">
-                                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </li>
+                                    <li>
+                                        <div class="aa-single-agents">
+                                            <div class="aa-agents-img">
+                                                <img src="~/assets-fa/img/agents/agent-4.png" alt="agent member image">
+                                            </div>
+                                            <div class="aa-agetns-info">
+                                                <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
+                                                <span>بهترین مشاور </span>
+                                                <div class="aa-agent-social">
+                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-single-agents">
-                                        <div class="aa-agents-img">
-                                            <img src="~/assets-fa/img/agents/agent-1.png" alt="agent member image">
-                                        </div>
-                                        <div class="aa-agetns-info">
-                                            <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
-                                            <span>بهترین مشاور </span>
-                                            <div class="aa-agent-social">
-                                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </li>
+                                    <li>
+                                        <div class="aa-single-agents">
+                                            <div class="aa-agents-img">
+                                                <img src="~/assets-fa/img/agents/agent-1.png" alt="agent member image">
+                                            </div>
+                                            <div class="aa-agetns-info">
+                                                <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
+                                                <span>بهترین مشاور </span>
+                                                <div class="aa-agent-social">
+                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-single-agents">
-                                        <div class="aa-agents-img">
-                                            <img src="~/assets-fa/img/agents/agent-5.png" alt="agent member image">
-                                        </div>
-                                        <div class="aa-agetns-info">
-                                            <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
-                                            <span>بهترین مشاور </span>
-                                            <div class="aa-agent-social">
-                                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </li>
+                                    <li>
+                                        <div class="aa-single-agents">
+                                            <div class="aa-agents-img">
+                                                <img src="~/assets-fa/img/agents/agent-5.png" alt="agent member image">
+                                            </div>
+                                            <div class="aa-agetns-info">
+                                                <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
+                                                <span>بهترین مشاور </span>
+                                                <div class="aa-agent-social">
+                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-single-agents">
-                                        <div class="aa-agents-img">
-                                            <img src="~/assets-fa/img/agents/agent-3.png" alt="agent member image">
-                                        </div>
-                                        <div class="aa-agetns-info">
-                                            <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
-                                            <span>بهترین مشاور </span>
-                                            <div class="aa-agent-social">
-                                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </li>
+                                    <li>
+                                        <div class="aa-single-agents">
+                                            <div class="aa-agents-img">
+                                                <img src="~/assets-fa/img/agents/agent-3.png" alt="agent member image">
+                                            </div>
+                                            <div class="aa-agetns-info">
+                                                <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
+                                                <span>بهترین مشاور </span>
+                                                <div class="aa-agent-social">
+                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="aa-single-agents">
-                                        <div class="aa-agents-img">
-                                            <img src="~/assets-fa/img/agents/agent-4.png" alt="agent member image">
-                                        </div>
-                                        <div class="aa-agetns-info">
-                                            <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
-                                            <span>بهترین مشاور </span>
-                                            <div class="aa-agent-social">
-                                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </li>
+                                    <li>
+                                        <div class="aa-single-agents">
+                                            <div class="aa-agents-img">
+                                                <img src="~/assets-fa/img/agents/agent-4.png" alt="agent member image">
+                                            </div>
+                                            <div class="aa-agetns-info">
+                                                <h4><a href="#">گروه مشاورین املاک واکر</a></h4>
+                                                <span>بهترین مشاور </span>
+                                                <div class="aa-agent-social">
+                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>*@
 
     @*<section id="aa-latest-blog">
             <div class="container">

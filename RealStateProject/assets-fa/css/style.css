@@ -15,7 +15,7 @@
 #SLIDER SECTION
 #ADVANCE SEARCH SECTION
 #ABOUT US SECTION
-#LATEST PROPERTY SECTION
+#LATEST PROPERTY SECTION\
 #SERVICE SECTION
 #PROMO BANNER SECTION
 #AGENTS SECTION
@@ -1348,7 +1348,7 @@ img {
 ====================*/
 
 #aa-property-header {
-  background-image: url("../img/property-header-bg.jpg");
+  background-image: url("../../Images/camera-06.jpg");
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
@@ -1405,12 +1405,12 @@ img {
 #aa-properties .aa-properties-content .aa-properties-content-head {
   border: 1px solid #ddd;
   display: inline;
-  float: left;
+  float: right;
   padding: 10px 15px;
   width: 100%;
 }
 #aa-properties .aa-properties-content .aa-properties-content-head .aa-properties-content-head-left {
-  float: left;
+  float: right;
 }
 #aa-properties .aa-properties-content .aa-properties-content-head .aa-properties-content-head-left label {
   font-weight: normal;
@@ -1426,7 +1426,7 @@ img {
   margin-left: 25px;
 }
 #aa-properties .aa-properties-content .aa-properties-content-head .aa-properties-content-head-right {
-  float: right;
+  float: left;
 }
 #aa-properties .aa-properties-content .aa-properties-content-head .aa-properties-content-head-right a {
   border: 1px solid #ccc;

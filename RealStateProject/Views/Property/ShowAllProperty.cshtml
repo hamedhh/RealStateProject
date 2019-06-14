@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "ShowAllProperty";
+    Layout = "~/Views/Shared/_LayoutShow.cshtml";
+}
+<div class="aa-properties-content-head">
+    <div class="aa-properties-content-head-left">
+        <form action="" class="aa-sort-form">
+            <select name="">
+                <option value="1" selected="Default">معمول</option>
+                <option value="2">نام</option>
+                <option value="3">قیمت</option>
+                <option value="4">روز</option>
+            </select>
+            <label for="">فیلتر بر اساس</label>
+
+        </form>
+        <form action="" class="aa-show-form">
+            <select name="">
+                <option value="1" selected="12">6</option>
+                <option value="2">12</option>
+                <option value="3">24</option>
+            </select>
+            <label for="">تعداد نمایش</label>
+
+        </form>
+    </div>
+    <div class="aa-properties-content-head-right">
+        <a id="aa-grid-properties" href="#"><span class="fa fa-th"></span></a>
+        <a id="aa-list-properties" href="#"><span class="fa fa-list"></span></a>
+    </div>
+</div>
+<div class="aa-properties-content-body">
+    <ul class="aa-properties-nav">
+        @for (int i = 0; i < 6; i++)
+        {
+            <li>
+                @Html.Partial("_DefaultProperty")
+
+
+            </li>
+        }
+
+    </ul>
+</div>
+<div class="aa-properties-content-bottom">
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">«</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li class="active"><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">»</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+

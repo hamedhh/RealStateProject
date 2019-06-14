@@ -1,6 +1,18 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-   
+﻿@section  Home_Property{
+    <div class="aa-latest-properties-content">
+        <div class="row">
+
+            @for (int i = 0; i < 6; i++)
+            {
+                <div class="col-md-4">
+
+            @Html.Partial("_DefaultProperty")
+        
+                </div>
+
+            }
+
+        </div>
+    </div>
 }
 
-<h2>salam</h2>

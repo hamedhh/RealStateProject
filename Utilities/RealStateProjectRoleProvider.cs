@@ -10,7 +10,21 @@ namespace Utilities
 {
     public class RealStateProjectRoleProvider : RoleProvider
     {
-        public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override string ApplicationName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        //public override string ApplicationName {
+        //   /* get = throw new NotImplementedException(); set = throw new NotImplementedException();*/ }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
