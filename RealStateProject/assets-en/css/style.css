@@ -1325,15 +1325,15 @@ img {
 ====================*/
 
 #aa-property-header {
-  background-image: url("../../Images/camera-06.jpg");
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
-  display: inline;
-  float: left;
-  position: relative;
-  min-height: 400px;
-  width: 100%;
+    background-image: url("../../Images/camera-06.jpg");
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    display: inline;
+    float: left;
+    position: relative;
+    min-height: 600px;
+    width: 100%;
 }
 #aa-property-header::before {
   background-color: rgba(0, 0, 0, 0.4);

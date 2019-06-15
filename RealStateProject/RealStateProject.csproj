@@ -2433,12 +2433,12 @@
     <Content Include="Views\Shared\_LayoutLoginRegister.cshtml" />
     <Content Include="Views\Shared\_LogginUser.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Shared\_LayoutProperties.cshtml" />
     <Content Include="Views\Shared\_LayoutShow.cshtml" />
     <Content Include="Views\Property\PapulerProperty.cshtml" />
     <Content Include="Views\Shared\_LayoutPapulerProperty.cshtml" />
     <Content Include="Views\Property\ShowAllProperty.cshtml" />
     <Content Include="Views\Property\ShowDetailProperty.cshtml" />
+    <Content Include="Views\Property\NearbyProperty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

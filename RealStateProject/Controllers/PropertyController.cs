@@ -24,5 +24,10 @@ namespace RealStateProject.Controllers
         {
             return PartialView();
         }
+        
+        public ActionResult NearbyProperty()
+        {
+            return PartialView();
+        }
     }
 }
