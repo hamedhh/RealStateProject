@@ -10,16 +10,16 @@ using DataLayer;
 
 namespace RealStateProject.Controllers
 {
-    public class AccountController : Controller
+    public partial class AccountController : Controller
     {
         RealState_DBEntities db = new RealState_DBEntities();
         // GET: Account
-        public ActionResult Register()
+        public virtual ActionResult Register()
         {
             return PartialView();
         }
         [HttpPost]
-        public ActionResult Register(User _user)
+        public virtual ActionResult Register(User _user)
         {
             try
             {
@@ -75,20 +75,20 @@ namespace RealStateProject.Controllers
 
         }
 
-        public ActionResult LogOut()
+        public virtual ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
             return Redirect("/");
         }
 
-        public ActionResult Login()
+        public virtual ActionResult Login()
         {
             return PartialView();
         }
         //RemmeberMe
 
         [HttpPost]
-        public ActionResult Login(DataLayer.ViewModels.LoginViewModel user, string ReturnUrl = "/")
+        public virtual ActionResult Login(DataLayer.ViewModels.LoginViewModel user, string ReturnUrl = "/")
         {
             bool remmeberMe = false;
             if (ModelState.IsValid)

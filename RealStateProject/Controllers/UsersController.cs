@@ -10,19 +10,19 @@ using DataLayer.DB;
 
 namespace RealStateProject.Controllers
 {
-    public class UsersController : Controller
+    public partial class UsersController : Controller
     {
         private RealState_DBEntities db = new RealState_DBEntities();
 
         // GET: Users
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             var users = db.Users.Include(u => u.Culture).Include(u => u.Role);
             return View(users.ToList());
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int? id)
+        public virtual ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -37,7 +37,7 @@ namespace RealStateProject.Controllers
         }
 
         // GET: Users/Create
-        public ActionResult Create()
+        public virtual ActionResult Create()
         {
             ViewBag.CultureID = new SelectList(db.Cultures, "CultureD", "CultureTitle");
             ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "RoleTitle");
@@ -49,7 +49,7 @@ namespace RealStateProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,RoleID,CultureID,UserName,Email,Password,ActiveCode,IsActive,RegisterDate")] User user)
+        public virtual ActionResult Create([Bind(Include = "UserID,RoleID,CultureID,UserName,Email,Password,ActiveCode,IsActive,RegisterDate")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace RealStateProject.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
+        public virtual ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -85,7 +85,7 @@ namespace RealStateProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,RoleID,CultureID,UserName,Email,Password,ActiveCode,IsActive,RegisterDate")] User user)
+        public virtual ActionResult Edit([Bind(Include = "UserID,RoleID,CultureID,UserName,Email,Password,ActiveCode,IsActive,RegisterDate")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace RealStateProject.Controllers
         }
 
         // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
+        public virtual ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -116,7 +116,7 @@ namespace RealStateProject.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public virtual ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);
             db.Users.Remove(user);

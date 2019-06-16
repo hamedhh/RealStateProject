@@ -6,26 +6,26 @@ using System.Web.Mvc;
 
 namespace RealStateProject.Controllers
 {
-    public class PropertyController : Controller
+    public partial class PropertyController : Controller
     {
         // GET: Property
 
-        public ActionResult ShowAllProperty()
+        public virtual ActionResult ShowAllProperty()
         {
             return View();
         }
 
-        public ActionResult ShowDetailProperty()
+        public virtual ActionResult ShowDetailProperty()
         {
             return View();
         }
 
-        public ActionResult PapulerProperty()
+        public virtual ActionResult PapulerProperty()
         {
             return PartialView();
         }
-        
-        public ActionResult NearbyProperty()
+
+        public virtual ActionResult NearbyProperty()
         {
             return PartialView();
         }

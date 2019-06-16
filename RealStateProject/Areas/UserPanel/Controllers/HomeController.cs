@@ -6,10 +6,14 @@ using System.Web.Mvc;
 
 namespace RealStateProject.Areas.UserPanel.Controllers
 {
-    public class UserHomeController : Controller
+    public partial class HomeController : Controller
     {
-        // GET: UserPanel/UserHome
-        public ActionResult IndexUser()
+        // GET: UserPanel/Home
+        public virtual ActionResult Index()
+        {
+            return View();
+        }
+        public virtual ActionResult Index2()
         {
             return View();
         }
