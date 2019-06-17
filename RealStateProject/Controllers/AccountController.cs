@@ -25,6 +25,13 @@ namespace RealStateProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var findUser = db.Users.Where(a => a.UserName == _user.UserName.ToLower()).ToList();
+                    if (findUser.Count>0)
+                    {
+                        ModelState.AddModelError("UserName", DataLayer.Resources.Resource_Main.RegisterError);
+                        return View(_user);
+                    }
+
                     if (!db.Users.Any(a => a.UserName == _user.UserName.ToLower()))
                     {
 

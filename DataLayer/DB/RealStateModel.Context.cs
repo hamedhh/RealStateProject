@@ -25,8 +25,20 @@ namespace DataLayer.DB
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Culture> Cultures { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Condition> Conditions { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<Facility> Facilities { get; set; }
+        public virtual DbSet<HomeProperties_MetaData> HomeProperties_MetaData { get; set; }
+        public virtual DbSet<HomeProperty_Galleries> HomeProperty_Galleries { get; set; }
+        public virtual DbSet<HomeProperty_Status> HomeProperty_Status { get; set; }
+        public virtual DbSet<HomeProperty_Type> HomeProperty_Type { get; set; }
+        public virtual DbSet<Rigion> Rigions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<SubUsage> SubUsages { get; set; }
+        public virtual DbSet<Usage> Usages { get; set; }
+        public virtual DbSet<Culture> Cultures { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<HomeProperty> HomeProperties { get; set; }
     }
 }

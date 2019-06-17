@@ -13,22 +13,19 @@ namespace DataLayer.DB
     using System;
     using System.Collections.Generic;
     
-    [MetadataType(typeof(CultureMetaData))]
-    public partial class Culture
+    [MetadataType(typeof(HomeProperty_TypeMetaData))]
+    public partial class HomeProperty_Type
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Culture()
+        public HomeProperty_Type()
         {
-            this.Users = new HashSet<User>();
             this.HomeProperties = new HashSet<HomeProperty>();
         }
     
-        public int CultureID { get; set; }
-        public string CultureTitle { get; set; }
-        public string CultureCode { get; set; }
+        public int PropertyTypeID { get; set; }
+        public string Title { get; set; }
+        public string code { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HomeProperty> HomeProperties { get; set; }
     }

@@ -25,13 +25,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace RealStateProject.Areas.UserPanel.Controllers
 {
-    public partial class HomeController
+    public partial class PropertyController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController() { }
+        public PropertyController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected HomeController(Dummy d) { }
+        protected PropertyController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -61,13 +61,13 @@ namespace RealStateProject.Areas.UserPanel.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController Actions { get { return MVC.UserPanel.Home; } }
+        public PropertyController Actions { get { return MVC.UserPanel.Property; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "UserPanel";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Home";
+        public readonly string Name = "Property";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Home";
+        public const string NameConst = "Property";
         [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -75,13 +75,13 @@ namespace RealStateProject.Areas.UserPanel.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Index = "Index";
+            public readonly string Create = "Create";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Index = "Index";
+            public const string Create = "Create";
         }
 
 
@@ -95,27 +95,25 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Index = "Index";
-                public readonly string Index2 = "Index2";
+                public readonly string Create = "Create";
             }
-            public readonly string Index = "~/Areas/UserPanel/Views/Home/Index.cshtml";
-            public readonly string Index2 = "~/Areas/UserPanel/Views/Home/Index2.cshtml";
+            public readonly string Create = "~/Areas/UserPanel/Views/Property/Create.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HomeController : RealStateProject.Areas.UserPanel.Controllers.HomeController
+    public partial class T4MVC_PropertyController : RealStateProject.Areas.UserPanel.Controllers.PropertyController
     {
-        public T4MVC_HomeController() : base(Dummy.Instance) { }
+        public T4MVC_PropertyController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult Create()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
+            CreateOverride(callInfo);
             return callInfo;
         }
 

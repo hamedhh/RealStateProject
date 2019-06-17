@@ -147,6 +147,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\UserPanel\Controllers\HomeController.cs" />
+    <Compile Include="Areas\UserPanel\Controllers\PropertyController.cs" />
     <Compile Include="Areas\UserPanel\UserPanelAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -178,6 +179,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPanel.HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserPanel.PropertyController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPanel.SharedController.generated.cs">
@@ -2145,6 +2149,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom.css" />
+    <Content Include="Content\Images\marker-icon.png" />
+    <Content Include="Content\leaflet.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2447,8 +2453,10 @@
     <Content Include="Areas\UserPanel\Content\AdminPanel\plugins\input-mask\.DS_Store" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\plugins\input-mask\phone-codes\phone-codes.json" />
-    <Content Include="Areas\UserPanel\Views\Home\Index.cshtml" />
     <Content Include="Areas\UserPanel\Views\Home\Index2.cshtml" />
+    <Content Include="Areas\UserPanel\Views\Home\Index.cshtml" />
+    <Content Include="Areas\UserPanel\Views\Property\Create.cshtml" />
+    <Content Include="Areas\UserPanel\Views\Property\testCreate.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2465,6 +2473,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\leaflet.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />

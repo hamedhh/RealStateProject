@@ -50,9 +50,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\City.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Condition.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Country.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Culture.cs">
       <DependentUpon>RealStateModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Facility.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\HomeProperties_MetaData.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\HomeProperty.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\HomeProperty_Galleries.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\HomeProperty_Status.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\HomeProperty_Type.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Rigion.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Role.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\SubUsage.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Usage.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\User.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MetaDataClasses\CityMetaData.cs" />
+    <Compile Include="MetaDataClasses\ConditionMetaData.cs" />
+    <Compile Include="MetaDataClasses\CountryMetaData.cs" />
+    <Compile Include="MetaDataClasses\FacilityMetaData.cs" />
+    <Compile Include="MetaDataClasses\HomeProperties_MetaDataMetaData.cs" />
+    <Compile Include="MetaDataClasses\HomePropertyMetaData.cs" />
+    <Compile Include="MetaDataClasses\HomeProperty_GalleriesMetaData.cs" />
+    <Compile Include="MetaDataClasses\HomeProperty_StatusMetaData.cs" />
+    <Compile Include="MetaDataClasses\HomeProperty_TypeMetaData.cs" />
+    <Compile Include="MetaDataClasses\RigionMetaData.cs" />
+    <Compile Include="MetaDataClasses\SubUsageMetaData.cs" />
+    <Compile Include="MetaDataClasses\UsageMetaData.cs" />
     <Compile Include="MetaDataClasses\CultureMetaData.cs" />
     <Compile Include="DB\RealStateModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -69,13 +123,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RealStateModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DB\Role.cs">
-      <DependentUpon>RealStateModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="MetaDataClasses\RoleMetaData.cs" />
-    <Compile Include="DB\User.cs">
-      <DependentUpon>RealStateModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="MetaDataClasses\UserMetaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource_Main.fa.Designer.cs">
@@ -99,6 +147,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PropertyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DB\RealStateModel.edmx">

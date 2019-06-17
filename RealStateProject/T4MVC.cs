@@ -44,6 +44,7 @@ namespace T4MVC
     {
         public readonly string Name = "UserPanel";
         public RealStateProject.Areas.UserPanel.Controllers.HomeController Home = new RealStateProject.Areas.UserPanel.Controllers.T4MVC_HomeController();
+        public RealStateProject.Areas.UserPanel.Controllers.PropertyController Property = new RealStateProject.Areas.UserPanel.Controllers.T4MVC_PropertyController();
         public T4MVC.UserPanel.SharedController Shared = new T4MVC.UserPanel.SharedController();
     }
 }
@@ -2663,6 +2664,21 @@ namespace Links
                 
                 }
             
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Stepper {
+                    public const string UrlPath = "~/Areas/UserPanel/Content/Stepper";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+                    public static readonly string bootstrap_rtl_min_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap-rtl-min.min.css") ? Url("bootstrap-rtl-min.min.css") : Url("bootstrap-rtl-min.css");
+                    public static readonly string bootstrap_rtl_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap-rtl.min.css") ? Url("bootstrap-rtl.min.css") : Url("bootstrap-rtl.css");
+                    public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+                    public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+                    public static readonly string jquery_git_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-git.min.js") ? Url("jquery-git.min.js") : Url("jquery-git.js");
+                    public static readonly string normalize_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/normalize.min.css") ? Url("normalize.min.css") : Url("normalize.css");
+                    public static readonly string Stepper_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Stepper.min.css") ? Url("Stepper.min.css") : Url("Stepper.css");
+                    public static readonly string Stepper_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Stepper.min.js") ? Url("Stepper.min.js") : Url("Stepper.js");
+                }
+            
             }
         
         }
@@ -3490,6 +3506,20 @@ namespace Links
                         }
                         public static class Assets
                         {
+                        }
+                    }
+                    public static partial class Stepper 
+                    {
+                        public static class Assets
+                        {
+                            public static readonly string bootstrap_rtl_min_css = T4MVCHelpers.ProcessAssetPath("~/Areas/UserPanel/Content/Stepper/bootstrap-rtl-min.css");
+                            public static readonly string bootstrap_rtl_css = T4MVCHelpers.ProcessAssetPath("~/Areas/UserPanel/Content/Stepper/bootstrap-rtl.css");
+                            public static readonly string bootstrap_min_css = T4MVCHelpers.ProcessAssetPath("~/Areas/UserPanel/Content/Stepper/bootstrap.min.css");
+                            public static readonly string bootstrap_min_js = T4MVCHelpers.ProcessAssetPath("~/Areas/UserPanel/Content/Stepper/bootstrap.min.js"); 
+                            public static readonly string jquery_git_js = T4MVCHelpers.ProcessAssetPath("~/Areas/UserPanel/Content/Stepper/jquery-git.js"); 
+                            public static readonly string normalize_css = T4MVCHelpers.ProcessAssetPath("~/Areas/UserPanel/Content/Stepper/normalize.css");
+                            public static readonly string Stepper_css = T4MVCHelpers.ProcessAssetPath("~/Areas/UserPanel/Content/Stepper/Stepper.css");
+                            public static readonly string Stepper_js = T4MVCHelpers.ProcessAssetPath("~/Areas/UserPanel/Content/Stepper/Stepper.js"); 
                         }
                     }
                     public static class Assets
