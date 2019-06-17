@@ -2457,6 +2457,7 @@
     <Content Include="Areas\UserPanel\Views\Home\Index.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\Create.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\testCreate.cshtml" />
+    <Content Include="Areas\UserPanel\Views\Property\testCreate2.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

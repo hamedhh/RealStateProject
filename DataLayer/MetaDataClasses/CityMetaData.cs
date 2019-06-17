@@ -7,9 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace DataLayer.DB
 {
-    internal class CityMetaData
+    public  class CityMetaData
     {
+        [Key]
+        public int CityID { get; set; }
+        public int CountryID { get; set; }
+        [Display(Name = "شهر")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public string CityTitle { get; set; }
+        public string CityCode { get; set; }
     }
 }

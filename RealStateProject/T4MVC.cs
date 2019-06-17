@@ -106,6 +106,7 @@ namespace Links
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
+        public static readonly string leaflet_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/leaflet.min.js") ? Url("leaflet.min.js") : Url("leaflet.js");
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
         public static readonly string modernizr_2_8_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/modernizr-2.8.3.min.js") ? Url("modernizr-2.8.3.min.js") : Url("modernizr-2.8.3.js");
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
@@ -130,6 +131,15 @@ namespace Links
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
         public static readonly string bootstrap_min_css_map = Url("bootstrap.min.css.map");
         public static readonly string Custom_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Custom.min.css") ? Url("Custom.min.css") : Url("Custom.css");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Images {
+            public const string UrlPath = "~/Content/Images";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+            public static readonly string marker_icon_png = Url("marker-icon.png");
+        }
+    
+        public static readonly string leaflet_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/leaflet.min.css") ? Url("leaflet.min.css") : Url("leaflet.css");
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
     }
 
@@ -2707,6 +2717,7 @@ namespace Links
                 public static readonly string jquery_validate_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.min.js"); 
                 public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.unobtrusive.js"); 
                 public static readonly string jquery_validate_unobtrusive_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.unobtrusive.min.js"); 
+                public static readonly string leaflet_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/leaflet.js"); 
                 public static readonly string modernizr_2_6_2_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/modernizr-2.6.2.js"); 
                 public static readonly string modernizr_2_8_3_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/modernizr-2.8.3.js"); 
                 public static readonly string respond_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.js"); 
@@ -2715,6 +2726,12 @@ namespace Links
         }
         public static partial class Content 
         {
+            public static partial class Images 
+            {
+                public static class Assets
+                {
+                }
+            }
             public static class Assets
             {
                 public static readonly string bootstrap_rtl_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap-rtl.css");
@@ -2726,6 +2743,7 @@ namespace Links
                 public static readonly string bootstrap_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.css");
                 public static readonly string bootstrap_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.min.css");
                 public static readonly string Custom_css = T4MVCHelpers.ProcessAssetPath("~/Content/Custom.css");
+                public static readonly string leaflet_css = T4MVCHelpers.ProcessAssetPath("~/Content/leaflet.css");
                 public static readonly string Site_css = T4MVCHelpers.ProcessAssetPath("~/Content/Site.css");
             }
         }

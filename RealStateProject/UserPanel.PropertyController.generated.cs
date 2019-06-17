@@ -76,15 +76,36 @@ namespace RealStateProject.Areas.UserPanel.Controllers
         public class ActionNamesClass
         {
             public readonly string Create = "Create";
+            public readonly string testCreate = "testCreate";
+            public readonly string testCreate2 = "testCreate2";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Create = "Create";
+            public const string testCreate = "testCreate";
+            public const string testCreate2 = "testCreate2";
         }
 
 
+        static readonly ActionParamsClass_Create s_params_Create = new ActionParamsClass_Create();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Create CreateParams { get { return s_params_Create; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Create
+        {
+            public readonly string _homeProperty = "_homeProperty";
+        }
+        static readonly ActionParamsClass_testCreate s_params_testCreate = new ActionParamsClass_testCreate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_testCreate testCreateParams { get { return s_params_testCreate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_testCreate
+        {
+            public readonly string _createPropertyViewModel = "_createPropertyViewModel";
+            public readonly string City = "City";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -96,8 +117,10 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Create = "Create";
+                public readonly string testCreate = "testCreate";
             }
             public readonly string Create = "~/Areas/UserPanel/Views/Property/Create.cshtml";
+            public readonly string testCreate = "~/Areas/UserPanel/Views/Property/testCreate.cshtml";
         }
     }
 
@@ -114,6 +137,53 @@ namespace RealStateProject.Areas.UserPanel.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             CreateOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DataLayer.DB.HomeProperty _homeProperty);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Create(DataLayer.DB.HomeProperty _homeProperty)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "_homeProperty", _homeProperty);
+            CreateOverride(callInfo, _homeProperty);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void testCreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult testCreate()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.testCreate);
+            testCreateOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void testCreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DataLayer.ViewModels.CreatePropertyViewModel _createPropertyViewModel, int City);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult testCreate(DataLayer.ViewModels.CreatePropertyViewModel _createPropertyViewModel, int City)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.testCreate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "_createPropertyViewModel", _createPropertyViewModel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "City", City);
+            testCreateOverride(callInfo, _createPropertyViewModel, City);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void testCreate2Override(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult testCreate2()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.testCreate2);
+            testCreate2Override(callInfo);
             return callInfo;
         }
 

@@ -13,30 +13,32 @@ namespace DataLayer.ViewModels
 
         [Display(Name = "نوع آگهی")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public List<HomeProperty_Type>  PropertyTypeID { get; set; }
+        public int PropertyTypeID { get; set; }
 
         [Display(Name = "کشور")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public List<Country> Country { get; set; }
+        public int CountryID { get; set; }
+
 
         [Display(Name = "شهر")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public List<City> city { get; set; }
+        public int CityID { get; set; }
+        
 
         [Display(Name = "محله")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public List<Rigion> rigion { get; set; }
+        public int rigionID { get; set; }
 
 
         [Display(Name = "نوع کاربری")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public List<Usage> usage { get; set; }
+        public int usageID { get; set; }
 
         [Display(Name = "زیر گروه کاربری")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public List<SubUsage> SubUsage { get; set; }
+        public int SubUsageID { get; set; }
 
-      
+
         [Display(Name = "قیمت")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public Nullable<decimal> HomePrice { get; set; }
