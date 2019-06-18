@@ -1775,6 +1775,7 @@
     <Content Include="Areas\UserPanel\Content\AdminPanel\dist\js\persian-date-0.1.8.min.js" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\dist\js\persian-date.js" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\dist\js\persian-datepicker-0.4.5.min.js" />
+    <Content Include="Areas\UserPanel\Images\home-defualt.png" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\Images\User_.png" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\plugins\bootstrap-slider\slider.css" />
@@ -1918,6 +1919,8 @@
     <Content Include="Areas\UserPanel\Content\AdminPanel\plugins\timepicker\bootstrap-timepicker.js" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\plugins\timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="Areas\UserPanel\Content\CustomPanel.css" />
+    <Content Include="Areas\UserPanel\Content\FontCheckBox.css" />
     <Content Include="Areas\UserPanel\Content\Stepper\bootstrap-rtl-min.css" />
     <Content Include="Areas\UserPanel\Content\Stepper\bootstrap-rtl.css" />
     <Content Include="Areas\UserPanel\Content\Stepper\bootstrap.min.css" />
@@ -2458,6 +2461,7 @@
     <Content Include="Areas\UserPanel\Views\Property\Create.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\testCreate.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\testCreate2.cshtml" />
+    <Content Include="Areas\UserPanel\Views\Property\testCreate3.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

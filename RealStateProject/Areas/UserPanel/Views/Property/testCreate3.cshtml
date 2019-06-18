@@ -1,10 +1,11 @@
 ﻿@model DataLayer.ViewModels.CreatePropertyViewModel
 @using DataLayer.DB
-
-
-
+@{
+    ViewBag.Title = "testCreate3";
+    Layout = "~/Areas/UserPanel/Views/Shared/_PanelLayout.cshtml";
+}
 <link href="~/Areas/UserPanel/Content/CustomPanel.css" rel="stylesheet" />
-@using (Html.BeginForm())
+@using (Html.BeginForm("testCreate3", "Property", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -131,27 +132,55 @@
 
             </div>
         </div>
+
+
         <div class="col-md-4">
             @{
                 List<Facility> _facility = ViewBag.Facilities;
+                List<Condition> _conditions = ViewBag.Conditions;
             }
+            <div class="form-horizontal">
 
-                <div class="container form-control">
-                    <ul class="ks-cboxtags">
-
-                        @foreach (var item in _facility)
-                        {
-
-                            @*<input type="checkbox" id="Check_@item.FacilityID" value="">
-                            <label class="" for="Check_@item.FacilityID">
-                                @item.FacilityTitle
-                            </label>*@
-                            <li><input type="checkbox" id="Check_@item.FacilityID" value="@item.FacilityID"><label for="Check_@item.FacilityID">@item.FacilityTitle</label></li>
-                        }
-
-                    </ul>
-
+                <div class="form-group">
+                    <label class="control-label col-md-2">امکانات</label>
+                    <div class="col-md-10">
+                        <ul class="ks-cboxtags">
+                            @foreach (var item in _facility)
+                            {
+                                <li><input name="checkFacility" type="checkbox" id="Checkfacility_@item.FacilityID" value="@item.FacilityID"><label class="checkBoxSub" for="Checkfacility_@item.FacilityID">@item.FacilityTitle</label></li>
+                            }
+                        </ul>
+                    </div>
                 </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">شرایط</label>
+                    <div class="col-md-10">
+                        <ul class="ks-cboxtags">
+                            @foreach (var item in _conditions)
+                            {
+                                <li><input name="checkCondition" type="checkbox" id="Checkcondition_@item.ConditionID" value="@item.ConditionID"><label class="checkBoxSub" for="Checkcondition_@item.ConditionID">@item.ConditionTile</label></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label com-md-2">تصویر</label>
+                    <input  type="file" multiple="multiple" id="ImageUploader" name="ImageUploaders" />
+                    <div class="col-md-4" id="Imgcollection">
+                        <img class="thumbnail" style="margin:8px auto" id="img_1" />
+                        <img class="thumbnail" style="margin:8px auto" id="img_2" />
+                        <img class="thumbnail" style="margin:8px auto" id="img_3" />
+                        <img class="thumbnail" style="margin:8px auto" id="img_4" />
+                        <img class="thumbnail" style="margin:8px auto" id="img_5" />
+
+                    </div>
+                </div>
+
+            </div>
+
 
         </div>
     </div>
@@ -248,6 +277,69 @@
             });
     });
 </script>
+
+<script>
+    $(document).ready(function () {
+        var imagesArray = $("#Imgcollection").find("img").map(function () {
+            return $(this).attr('id');
+        }).get();
+        for (i = 0; i < imagesArray.length; i++) {
+
+            document.getElementById(imagesArray[i]).style.visibility = "hidden";
+            
+        }
+
+    });
+</script>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            var imagesArray = $("#Imgcollection").find("img").map(function () {
+                return $(this).attr("src");
+            }).get();
+            if (imagesArray.length == 0) {
+                reader.onload = function (e) {
+                    $('#img_1').attr('src', e.target.result);
+                    document.getElementById("img_1").style.visibility = "visible";
+                }
+            }
+            else {
+                var count = imagesArray.length + 1;
+                reader.onload = function (e) {
+                    $('#img_' + count.toString()).attr('src', e.target.result);
+                    document.getElementById("img_" + count.toString()).style.visibility = "visible";
+
+                }
+            }
+            //for (i = 0; i < imagesArray.length; i++) {
+
+            //    var t = "<img src='" + imagesArray[i] + "'/>";
+            //    alert(t);
+            //}
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#ImageUploader").change(function () {
+        readURL(this);
+    });
+
+</script>
+
+@*<script>
+    $(function () {
+        $('#ImageUploader').fileupload({
+            dataType: 'json',
+            done: function (e, data) {
+                $.each(data.result.files, function (index, file) {
+                    $('<p/>').text(file.name).appendTo(document.body);
+                });
+            }
+        });
+    });
+</script>*@
 @*<script type="text/javascript">
         $(window).bind('load', function () {
             $('#drpRigion option').remove();
