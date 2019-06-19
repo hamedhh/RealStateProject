@@ -70,5 +70,8 @@ namespace DataLayer.ViewModels
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
+        public string FilesToBeUploaded { get; set; }
+        public string ImageName { get; set; }
+
     }
 }

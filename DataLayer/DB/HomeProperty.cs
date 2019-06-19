@@ -24,24 +24,22 @@ namespace DataLayer.DB
         }
     
         public int HomePropertyID { get; set; }
-        public int PropertyTypeID { get; set; }
-        public int CultureID { get; set; }
-        public int RegionID { get; set; }
-        public int StatusID { get; set; }
-        public int SubUsageID { get; set; }
-        public int CreateUserID { get; set; }
+        public Nullable<int> PropertyTypeID { get; set; }
+        public Nullable<int> CultureID { get; set; }
+        public Nullable<int> RegionID { get; set; }
+        public Nullable<int> StatusID { get; set; }
+        public Nullable<int> SubUsageID { get; set; }
+        public Nullable<int> CreateUserID { get; set; }
+        public Nullable<int> LocArea { get; set; }
+        public Nullable<int> LocAge { get; set; }
         public Nullable<decimal> HomePrice { get; set; }
         public Nullable<decimal> MortgagePrice { get; set; }
         public Nullable<decimal> RentPrice { get; set; }
         public string LocLatitude { get; set; }
         public string LocLongitude { get; set; }
-        public Nullable<int> LocArea { get; set; }
-        public Nullable<int> LocAge { get; set; }
         public string Title { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
         public string Description { get; set; }
-        public string ImageName { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public System.Data.Entity.Spatial.DbGeography GeoLocation { get; set; }
     
         public virtual Culture Culture { get; set; }
         public virtual User User { get; set; }

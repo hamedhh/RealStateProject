@@ -47,7 +47,6 @@
                 </div>
 
 
-
                 <div class="form-group">
                     @Html.LabelFor(model => model.usageID, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -63,9 +62,6 @@
                         @Html.ValidationMessageFor(model => model.SubUsageID, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-
-
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.HomePrice, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -129,10 +125,8 @@
                     </div>
                 </div>
 
-
             </div>
         </div>
-
 
         <div class="col-md-4">
             @{
@@ -168,14 +162,24 @@
 
                 <div class="form-group">
                     <label class="control-label com-md-2">تصویر</label>
-                    <input  type="file" multiple="multiple" id="ImageUploader" name="ImageUploaders" />
-                    <div class="col-md-4" id="Imgcollection">
-                        <img class="thumbnail" style="margin:8px auto" id="img_1" />
-                        <img class="thumbnail" style="margin:8px auto" id="img_2" />
-                        <img class="thumbnail" style="margin:8px auto" id="img_3" />
-                        <img class="thumbnail" style="margin:8px auto" id="img_4" />
-                        <img class="thumbnail" style="margin:8px auto" id="img_5" />
-
+                    @Html.HiddenFor(i => i.FilesToBeUploaded)
+                    <div id="divdelete" hidden>
+                    </div>
+                    <div id="uploaders">
+                        <input type="file" id="fileToUpload" name="fileUpload" multiple="multiple" style="float: left;" />
+                        <br />
+                        <img src="~/Areas/UserPanel/Images/home-defualt.png" class="thumbnail" style="margin:8px auto;width: 250px;" id="imgPre" />
+                        <span id="spnFile" style="float: left; color: #FF0000"></span>
+                        @Html.ValidationMessage("File")
+                        @Html.Hidden("hdnFileUpload")
+                    </div>
+                    <br />
+                    @*<div class="col-lg-6">
+                            <button class="btn btn-primary" id="btnAddIssue" type="submit">Submit</button>
+                        </div>*@
+                    <br />
+                    <div class="control-section" style="padding: 0px;">
+                        <div id="selectedFiles"></div>
                     </div>
                 </div>
 
@@ -286,73 +290,177 @@
         for (i = 0; i < imagesArray.length; i++) {
 
             document.getElementById(imagesArray[i]).style.visibility = "hidden";
-            
+
         }
 
     });
+</script>
+
+@*<script>
+
+        function readURL(input) {
+            //alert(input.files.length)
+
+
+                if (input.files) {
+                    var reader = new FileReader();
+
+                    var imagesArray = $("#Imgcollection").find("img").map(function () {
+                        return $(this).attr("src");
+                    }).get();
+
+
+
+                    reader.onload = function (e) {
+                        for (var i = 0; i < input.files.length; i++)
+
+                        var count = i + 1;
+                        alert('#img_' + count.toString())
+                            $('#img_' + count.toString()).attr('src', e.target.result);
+                            document.getElementById("img_" + count.toString()).style.visibility = "visible";
+
+                    }
+                    reader.readAsDataURL(input.files[i]);
+                }
+
+        }
+        $("#ImageUploader").change(function () {
+            readURL(this);
+        });
+
+    </script>*@
+
+
+<script>
+    var nowTemp = new Date();
+    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+    var files;
+    var storedFiles = [];
+    var upc = 0;
+
+    $(function () {
+
+        $(":file").attr('title', '  ');
+        var $loading = $('#loadingDiv').hide();
+
+        $("input[id^='fileToUpload']").change(function (e) {
+            doReCreate(e);
+        });
+
+        selDiv = $("#selectedFiles");
+    });
+
+    function doReCreate(e) {
+
+        upc = upc + 1;
+        handleFileSelect(e);
+
+        $("input[id^='fileToUpload']").hide();
+
+        $('<input>').attr({
+            type: 'file',
+            multiple: 'multiple',
+            id: 'fileToUpload' + upc,
+            class: 'fUpload',
+            name: 'fileUpload',
+            style: 'float: left',
+            title: '  ',
+            onchange: "doReCreate(event)"
+
+        }).appendTo('#uploaders');
+    }
+
+    function handleFileSelect(e) {
+
+        //selDiv.innerHTML = ""; storedFiles = [];
+        selDiv = document.querySelector("#selectedFiles");
+
+        if (!e.target.files) return;
+
+        //selDiv.innerHTML = "";
+        files = e.target.files;
+
+        for (var i = 0; i < files.length; i++) {
+            //if (i == 0) { selDiv.innerHTML = ""; storedFiles = []; }
+            var f = files[i];
+
+            selDiv.innerHTML += "<div>" + f.name +
+                "<a onclick='removeAtt(this)' id='" + f.id +"'"+ "> X </a></div>";
+            storedFiles.push(f.name);
+        }
+        $('#@Html.IdFor(i => i.FilesToBeUploaded)').val(storedFiles);
+    }
+
+        function removeAtt(t) {
+
+
+
+            var serEle = $(t).parent().text().slice(0, -3);
+
+        var index = storedFiles.indexOf(serEle);
+        if (index !== -1) {
+            storedFiles.splice(index, 1);
+            }
+            $('#divdelete').append(
+                $('<input>', {
+                    type: 'text',
+                    val: serEle,
+                    name: "DeletedPhotp"
+                })
+            );
+        $(t).parent().remove();
+
+        $('#@Html.IdFor(i => i.FilesToBeUploaded)').val(storedFiles);
+
+    }
 </script>
 
 <script>
     function readURL(input) {
+
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
-            var imagesArray = $("#Imgcollection").find("img").map(function () {
-                return $(this).attr("src");
-            }).get();
-            if (imagesArray.length == 0) {
-                reader.onload = function (e) {
-                    $('#img_1').attr('src', e.target.result);
-                    document.getElementById("img_1").style.visibility = "visible";
-                }
+            reader.onload = function (e) {
+                $('#imgPre').attr('src', e.target.result);
             }
-            else {
-                var count = imagesArray.length + 1;
-                reader.onload = function (e) {
-                    $('#img_' + count.toString()).attr('src', e.target.result);
-                    document.getElementById("img_" + count.toString()).style.visibility = "visible";
 
-                }
-            }
-            //for (i = 0; i < imagesArray.length; i++) {
-
-            //    var t = "<img src='" + imagesArray[i] + "'/>";
-            //    alert(t);
-            //}
             reader.readAsDataURL(input.files[0]);
         }
     }
-    $("#ImageUploader").change(function () {
+
+    $("#fileToUpload").change(function () {
         readURL(this);
     });
 
-</script>
 
+
+</script>
 @*<script>
-    $(function () {
-        $('#ImageUploader').fileupload({
-            dataType: 'json',
-            done: function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    $('<p/>').text(file.name).appendTo(document.body);
-                });
-            }
-        });
-    });
-</script>*@
-@*<script type="text/javascript">
-        $(window).bind('load', function () {
-            $('#drpRigion option').remove();
-            $.getJSON('/UserPanel/Property/FindRigion', { id: $('#drpCity').val() },
-                function (data) {
-                    $.each(data, function () {
-                        $('#drpRigion').append('<option value=' +
-                            this.RigionID + '>' + this.RegionTitle + '</option>');
+        $(function () {
+            $('#ImageUploader').fileupload({
+                dataType: 'json',
+                done: function (e, data) {
+                    $.each(data.result.files, function (index, file) {
+                        $('<p/>').text(file.name).appendTo(document.body);
                     });
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert('Error getting Rigion!');
-                });
+                }
+            });
         });
+    </script>*@
+@*<script type="text/javascript">
+            $(window).bind('load', function () {
+                $('#drpRigion option').remove();
+                $.getJSON('/UserPanel/Property/FindRigion', { id: $('#drpCity').val() },
+                    function (data) {
+                        $.each(data, function () {
+                            $('#drpRigion').append('<option value=' +
+                                this.RigionID + '>' + this.RegionTitle + '</option>');
+                        });
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        alert('Error getting Rigion!');
+                    });
+            });
     </script>*@
 
 

@@ -60,9 +60,6 @@
     <Reference Include="FluentBootstrap.Mvc, Version=3.3.5.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentBootstrap.Mvc.3.3.5.4\lib\net40\FluentBootstrap.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="FluentBootstrap.Mvc.T4MVC, Version=3.3.5.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentBootstrap.Mvc.T4MVC.3.3.5.4\lib\net40\FluentBootstrap.Mvc.T4MVC.dll</HintPath>
-    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -140,9 +137,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -157,39 +151,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LanguageController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="T4MVC.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserPanel.HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserPanel.PropertyController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserPanel.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UsersController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\UserPanel\Content\AdminPanel\bower_components\bootstrap-slider\bootstrap-slider.js" />
@@ -1775,6 +1740,7 @@
     <Content Include="Areas\UserPanel\Content\AdminPanel\dist\js\persian-date-0.1.8.min.js" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\dist\js\persian-date.js" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\dist\js\persian-datepicker-0.4.5.min.js" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\home-defualt.png" />
     <Content Include="Areas\UserPanel\Images\home-defualt.png" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\Images\User_.png" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\plugins\bootstrap-slider\bootstrap-slider.js" />
@@ -2462,6 +2428,7 @@
     <Content Include="Areas\UserPanel\Views\Property\testCreate.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\testCreate2.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\testCreate3.cshtml" />
+    <Content Include="Areas\UserPanel\Views\Property\UploadAction.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2484,10 +2451,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <None Include="T4MVC.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </None>
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2521,10 +2484,10 @@
     <Content Include="Views\Property\ShowAllProperty.cshtml" />
     <Content Include="Views\Property\ShowDetailProperty.cshtml" />
     <Content Include="Views\Property\NearbyProperty.cshtml" />
-    <None Include="T4MVC.tt.hooks.t4" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\UserPanel\HomePropertyUploadImages\Thumb\" />
     <Folder Include="Areas\UserPanel\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>

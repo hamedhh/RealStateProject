@@ -51,24 +51,22 @@
             <PropertyRef Name="HomePropertyID" />
           </Key>
           <Property Name="HomePropertyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PropertyTypeID" Type="int" Nullable="false" />
-          <Property Name="CultureID" Type="int" Nullable="false" />
-          <Property Name="RegionID" Type="int" Nullable="false" />
-          <Property Name="StatusID" Type="int" Nullable="false" />
-          <Property Name="SubUsageID" Type="int" Nullable="false" />
-          <Property Name="CreateUserID" Type="int" Nullable="false" />
-          <Property Name="HomePrice" Type="numeric" Precision="12" Scale="0" />
-          <Property Name="MortgagePrice" Type="numeric" Precision="12" Scale="0" />
-          <Property Name="RentPrice" Type="numeric" Precision="12" Scale="0" />
-          <Property Name="LocLatitude" Type="nvarchar" MaxLength="50" />
-          <Property Name="LocLongitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="PropertyTypeID" Type="int" />
+          <Property Name="CultureID" Type="int" />
+          <Property Name="RegionID" Type="int" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="SubUsageID" Type="int" />
+          <Property Name="CreateUserID" Type="int" />
           <Property Name="LocArea" Type="int" />
           <Property Name="LocAge" Type="int" />
-          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="HomePrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MortgagePrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="RentPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="LocLatitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocLongitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" />
+          <Property Name="CreateDate" Type="datetime" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="ImageName" Type="varchar" MaxLength="50" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="GeoLocation" Type="geography" Nullable="false" />
         </EntityType>
         <EntityType Name="HomeProperties_MetaData">
           <Key>
@@ -165,7 +163,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_Cultures">
-          <End Role="Cultures" Type="Self.Cultures" Multiplicity="1" />
+          <End Role="Cultures" Type="Self.Cultures" Multiplicity="0..1" />
           <End Role="HomeProperties" Type="Self.HomeProperties" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cultures">
@@ -177,7 +175,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_HomeProperties">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="HomeProperties" Type="Self.HomeProperties" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -189,7 +187,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_HomeProperty_Status">
-          <End Role="HomeProperty_Status" Type="Self.HomeProperty_Status" Multiplicity="1" />
+          <End Role="HomeProperty_Status" Type="Self.HomeProperty_Status" Multiplicity="0..1" />
           <End Role="HomeProperties" Type="Self.HomeProperties" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HomeProperty_Status">
@@ -201,7 +199,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_HomeProperty_Type">
-          <End Role="HomeProperty_Type" Type="Self.HomeProperty_Type" Multiplicity="1" />
+          <End Role="HomeProperty_Type" Type="Self.HomeProperty_Type" Multiplicity="0..1" />
           <End Role="HomeProperties" Type="Self.HomeProperties" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HomeProperty_Type">
@@ -249,7 +247,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_Rigions">
-          <End Role="Rigions" Type="Self.Rigions" Multiplicity="1" />
+          <End Role="Rigions" Type="Self.Rigions" Multiplicity="0..1" />
           <End Role="HomeProperties" Type="Self.HomeProperties" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rigions">
@@ -261,7 +259,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_SubUsages">
-          <End Role="SubUsages" Type="Self.SubUsages" Multiplicity="1" />
+          <End Role="SubUsages" Type="Self.SubUsages" Multiplicity="0..1" />
           <End Role="HomeProperties" Type="Self.HomeProperties" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubUsages">
@@ -417,6 +415,7 @@
           <EntitySet Name="Cities" EntityType="RealState_DBModel.City" />
           <EntitySet Name="Conditions" EntityType="RealState_DBModel.Condition" />
           <EntitySet Name="Countries" EntityType="RealState_DBModel.Country" />
+          <EntitySet Name="Cultures" EntityType="RealState_DBModel.Culture" />
           <EntitySet Name="Facilities" EntityType="RealState_DBModel.Facility" />
           <EntitySet Name="HomeProperties_MetaData" EntityType="RealState_DBModel.HomeProperties_MetaData" />
           <EntitySet Name="HomeProperty_Galleries" EntityType="RealState_DBModel.HomeProperty_Galleries" />
@@ -426,6 +425,7 @@
           <EntitySet Name="Roles" EntityType="RealState_DBModel.Role" />
           <EntitySet Name="SubUsages" EntityType="RealState_DBModel.SubUsage" />
           <EntitySet Name="Usages" EntityType="RealState_DBModel.Usage" />
+          <EntitySet Name="Users" EntityType="RealState_DBModel.User" />
           <AssociationSet Name="FK_Cities_Countries" Association="RealState_DBModel.FK_Cities_Countries">
             <End Role="Country" EntitySet="Countries" />
             <End Role="City" EntitySet="Cities" />
@@ -438,23 +438,21 @@
             <End Role="Condition" EntitySet="Conditions" />
             <End Role="HomeProperties_MetaData" EntitySet="HomeProperties_MetaData" />
           </AssociationSet>
-          <AssociationSet Name="FK_HomeProperties_MetaData_Facilities" Association="RealState_DBModel.FK_HomeProperties_MetaData_Facilities">
-            <End Role="Facility" EntitySet="Facilities" />
-            <End Role="HomeProperties_MetaData" EntitySet="HomeProperties_MetaData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SubUsages_Usages" Association="RealState_DBModel.FK_SubUsages_Usages">
-            <End Role="Usage" EntitySet="Usages" />
-            <End Role="SubUsage" EntitySet="SubUsages" />
-          </AssociationSet>
-          <EntitySet Name="Cultures" EntityType="RealState_DBModel.Culture" />
-          <EntitySet Name="Users" EntityType="RealState_DBModel.User" />
           <AssociationSet Name="FK_Users_Cultures" Association="RealState_DBModel.FK_Users_Cultures">
             <End Role="Culture" EntitySet="Cultures" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_HomeProperties_MetaData_Facilities" Association="RealState_DBModel.FK_HomeProperties_MetaData_Facilities">
+            <End Role="Facility" EntitySet="Facilities" />
+            <End Role="HomeProperties_MetaData" EntitySet="HomeProperties_MetaData" />
+          </AssociationSet>
           <AssociationSet Name="FK_Users_Roles" Association="RealState_DBModel.FK_Users_Roles">
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubUsages_Usages" Association="RealState_DBModel.FK_SubUsages_Usages">
+            <End Role="Usage" EntitySet="Usages" />
+            <End Role="SubUsage" EntitySet="SubUsages" />
           </AssociationSet>
           <EntitySet Name="HomeProperties" EntityType="RealState_DBModel.HomeProperty" />
           <AssociationSet Name="FK_HomeProperties_Cultures" Association="RealState_DBModel.FK_HomeProperties_Cultures">
@@ -518,6 +516,16 @@
           <Property Name="CountryTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CountryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cities" Relationship="RealState_DBModel.FK_Cities_Countries" FromRole="Country" ToRole="City" />
+        </EntityType>
+        <EntityType Name="Culture">
+          <Key>
+            <PropertyRef Name="CultureID" />
+          </Key>
+          <Property Name="CultureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CultureTitle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CultureCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="RealState_DBModel.FK_Users_Cultures" FromRole="Culture" ToRole="User" />
+          <NavigationProperty Name="HomeProperties" Relationship="RealState_DBModel.FK_HomeProperties_Cultures" FromRole="Culture" ToRole="HomeProperty" />
         </EntityType>
         <EntityType Name="Facility">
           <Key>
@@ -608,6 +616,23 @@
           <Property Name="UsageCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SubUsages" Relationship="RealState_DBModel.FK_SubUsages_Usages" FromRole="Usage" ToRole="SubUsage" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="CultureID" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ActiveCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="RegisterDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Culture" Relationship="RealState_DBModel.FK_Users_Cultures" FromRole="User" ToRole="Culture" />
+          <NavigationProperty Name="Role" Relationship="RealState_DBModel.FK_Users_Roles" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="HomeProperties" Relationship="RealState_DBModel.FK_HomeProperties_HomeProperties" FromRole="User" ToRole="HomeProperty" />
+        </EntityType>
         <Association Name="FK_Cities_Countries">
           <End Type="RealState_DBModel.Country" Role="Country" Multiplicity="1" />
           <End Type="RealState_DBModel.City" Role="City" Multiplicity="*" />
@@ -644,57 +669,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HomeProperties_MetaData_Facilities">
-          <End Type="RealState_DBModel.Facility" Role="Facility" Multiplicity="0..1" />
-          <End Type="RealState_DBModel.HomeProperties_MetaData" Role="HomeProperties_MetaData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Facility">
-              <PropertyRef Name="FacilityID" />
-            </Principal>
-            <Dependent Role="HomeProperties_MetaData">
-              <PropertyRef Name="FacilityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SubUsages_Usages">
-          <End Type="RealState_DBModel.Usage" Role="Usage" Multiplicity="1" />
-          <End Type="RealState_DBModel.SubUsage" Role="SubUsage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usage">
-              <PropertyRef Name="UsageID" />
-            </Principal>
-            <Dependent Role="SubUsage">
-              <PropertyRef Name="UsageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Culture">
-          <Key>
-            <PropertyRef Name="CultureID" />
-          </Key>
-          <Property Name="CultureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CultureTitle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CultureCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="RealState_DBModel.FK_Users_Cultures" FromRole="Culture" ToRole="User" />
-          <NavigationProperty Name="HomeProperties" Relationship="RealState_DBModel.FK_HomeProperties_Cultures" FromRole="Culture" ToRole="HomeProperty" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="CultureID" Type="Int32" />
-          <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ActiveCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="RegisterDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Culture" Relationship="RealState_DBModel.FK_Users_Cultures" FromRole="User" ToRole="Culture" />
-          <NavigationProperty Name="Role" Relationship="RealState_DBModel.FK_Users_Roles" FromRole="User" ToRole="Role" />
-          <NavigationProperty Name="HomeProperties" Relationship="RealState_DBModel.FK_HomeProperties_HomeProperties" FromRole="User" ToRole="HomeProperty" />
-        </EntityType>
         <Association Name="FK_Users_Cultures">
           <End Type="RealState_DBModel.Culture" Role="Culture" Multiplicity="0..1" />
           <End Type="RealState_DBModel.User" Role="User" Multiplicity="*" />
@@ -704,6 +678,18 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="CultureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeProperties_MetaData_Facilities">
+          <End Type="RealState_DBModel.Facility" Role="Facility" Multiplicity="0..1" />
+          <End Type="RealState_DBModel.HomeProperties_MetaData" Role="HomeProperties_MetaData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facility">
+              <PropertyRef Name="FacilityID" />
+            </Principal>
+            <Dependent Role="HomeProperties_MetaData">
+              <PropertyRef Name="FacilityID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -719,28 +705,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubUsages_Usages">
+          <End Type="RealState_DBModel.Usage" Role="Usage" Multiplicity="1" />
+          <End Type="RealState_DBModel.SubUsage" Role="SubUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usage">
+              <PropertyRef Name="UsageID" />
+            </Principal>
+            <Dependent Role="SubUsage">
+              <PropertyRef Name="UsageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="HomeProperty">
           <Key>
             <PropertyRef Name="HomePropertyID" />
           </Key>
           <Property Name="HomePropertyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PropertyTypeID" Type="Int32" Nullable="false" />
-          <Property Name="CultureID" Type="Int32" Nullable="false" />
-          <Property Name="RegionID" Type="Int32" Nullable="false" />
-          <Property Name="StatusID" Type="Int32" Nullable="false" />
-          <Property Name="SubUsageID" Type="Int32" Nullable="false" />
-          <Property Name="CreateUserID" Type="Int32" Nullable="false" />
-          <Property Name="HomePrice" Type="Decimal" Precision="12" Scale="0" />
-          <Property Name="MortgagePrice" Type="Decimal" Precision="12" Scale="0" />
-          <Property Name="RentPrice" Type="Decimal" Precision="12" Scale="0" />
-          <Property Name="LocLatitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocLongitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyTypeID" Type="Int32" />
+          <Property Name="CultureID" Type="Int32" />
+          <Property Name="RegionID" Type="Int32" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="SubUsageID" Type="Int32" />
+          <Property Name="CreateUserID" Type="Int32" />
           <Property Name="LocArea" Type="Int32" />
           <Property Name="LocAge" Type="Int32" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="HomePrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MortgagePrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RentPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LocLatitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocLongitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Culture" Relationship="RealState_DBModel.FK_HomeProperties_Cultures" FromRole="HomeProperty" ToRole="Culture" />
           <NavigationProperty Name="User" Relationship="RealState_DBModel.FK_HomeProperties_HomeProperties" FromRole="HomeProperty" ToRole="User" />
           <NavigationProperty Name="HomeProperty_Status" Relationship="RealState_DBModel.FK_HomeProperties_HomeProperty_Status" FromRole="HomeProperty" ToRole="HomeProperty_Status" />
@@ -749,10 +746,9 @@
           <NavigationProperty Name="Rigion" Relationship="RealState_DBModel.FK_HomeProperties_Rigions" FromRole="HomeProperty" ToRole="Rigion" />
           <NavigationProperty Name="SubUsage" Relationship="RealState_DBModel.FK_HomeProperties_SubUsages" FromRole="HomeProperty" ToRole="SubUsage" />
           <NavigationProperty Name="HomeProperty_Galleries" Relationship="RealState_DBModel.FK_HomeProperty_Galleries_HomeProperty_Galleries" FromRole="HomeProperty" ToRole="HomeProperty_Galleries" />
-          <Property Name="GeoLocation" Type="Geography" Nullable="false" />
         </EntityType>
         <Association Name="FK_HomeProperties_Cultures">
-          <End Type="RealState_DBModel.Culture" Role="Culture" Multiplicity="1" />
+          <End Type="RealState_DBModel.Culture" Role="Culture" Multiplicity="0..1" />
           <End Type="RealState_DBModel.HomeProperty" Role="HomeProperty" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Culture">
@@ -764,7 +760,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_HomeProperties">
-          <End Type="RealState_DBModel.User" Role="User" Multiplicity="1" />
+          <End Type="RealState_DBModel.User" Role="User" Multiplicity="0..1" />
           <End Type="RealState_DBModel.HomeProperty" Role="HomeProperty" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -776,7 +772,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_HomeProperty_Status">
-          <End Type="RealState_DBModel.HomeProperty_Status" Role="HomeProperty_Status" Multiplicity="1" />
+          <End Type="RealState_DBModel.HomeProperty_Status" Role="HomeProperty_Status" Multiplicity="0..1" />
           <End Type="RealState_DBModel.HomeProperty" Role="HomeProperty" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HomeProperty_Status">
@@ -788,7 +784,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_HomeProperty_Type">
-          <End Type="RealState_DBModel.HomeProperty_Type" Role="HomeProperty_Type" Multiplicity="1" />
+          <End Type="RealState_DBModel.HomeProperty_Type" Role="HomeProperty_Type" Multiplicity="0..1" />
           <End Type="RealState_DBModel.HomeProperty" Role="HomeProperty" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HomeProperty_Type">
@@ -812,7 +808,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_Rigions">
-          <End Type="RealState_DBModel.Rigion" Role="Rigion" Multiplicity="1" />
+          <End Type="RealState_DBModel.Rigion" Role="Rigion" Multiplicity="0..1" />
           <End Type="RealState_DBModel.HomeProperty" Role="HomeProperty" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rigion">
@@ -824,7 +820,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProperties_SubUsages">
-          <End Type="RealState_DBModel.SubUsage" Role="SubUsage" Multiplicity="1" />
+          <End Type="RealState_DBModel.SubUsage" Role="SubUsage" Multiplicity="0..1" />
           <End Type="RealState_DBModel.HomeProperty" Role="HomeProperty" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubUsage">
@@ -878,6 +874,15 @@
                 <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
                 <ScalarProperty Name="CountryTitle" ColumnName="CountryTitle" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cultures">
+            <EntityTypeMapping TypeName="RealState_DBModel.Culture">
+              <MappingFragment StoreEntitySet="Cultures">
+                <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+                <ScalarProperty Name="CultureTitle" ColumnName="CultureTitle" />
+                <ScalarProperty Name="CultureID" ColumnName="CultureID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -966,15 +971,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Cultures">
-            <EntityTypeMapping TypeName="RealState_DBModel.Culture">
-              <MappingFragment StoreEntitySet="Cultures">
-                <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
-                <ScalarProperty Name="CultureTitle" ColumnName="CultureTitle" />
-                <ScalarProperty Name="CultureID" ColumnName="CultureID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="RealState_DBModel.User">
               <MappingFragment StoreEntitySet="Users">
@@ -993,18 +989,16 @@
           <EntitySetMapping Name="HomeProperties">
             <EntityTypeMapping TypeName="RealState_DBModel.HomeProperty">
               <MappingFragment StoreEntitySet="HomeProperties">
-                <ScalarProperty Name="GeoLocation" ColumnName="GeoLocation" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="LocAge" ColumnName="LocAge" />
-                <ScalarProperty Name="LocArea" ColumnName="LocArea" />
                 <ScalarProperty Name="LocLongitude" ColumnName="LocLongitude" />
                 <ScalarProperty Name="LocLatitude" ColumnName="LocLatitude" />
                 <ScalarProperty Name="RentPrice" ColumnName="RentPrice" />
                 <ScalarProperty Name="MortgagePrice" ColumnName="MortgagePrice" />
                 <ScalarProperty Name="HomePrice" ColumnName="HomePrice" />
+                <ScalarProperty Name="LocAge" ColumnName="LocAge" />
+                <ScalarProperty Name="LocArea" ColumnName="LocArea" />
                 <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
                 <ScalarProperty Name="SubUsageID" ColumnName="SubUsageID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />

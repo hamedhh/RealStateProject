@@ -49,6 +49,6 @@ namespace DataLayer.DB
         [Display(Name = "RegisterDate", ResourceType = typeof(Resources.Resource_User))]
         public Nullable<System.DateTime> RegisterDate { get; set; }
 
-        public System.Data.Entity.Spatial.DbGeography GeoLocation { get; set; }
+        
     }
 }
