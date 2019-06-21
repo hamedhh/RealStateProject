@@ -755,7 +755,7 @@ img {
   box-shadow: 1px 2px 5px 3px #ccc;
 }
 .aa-properties-item .aa-properties-item-img {
-  width: 100%;
+   width: 100%; height:150px ; overflow:hidden; display:block;
 }
 .aa-properties-item .aa-properties-item-img img {
   width: 100%;
@@ -798,6 +798,7 @@ img {
   float: left;
   width: 100%;
   padding: 10px;
+  height:125px;
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-about h3 {
   margin-top: 0px;

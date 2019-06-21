@@ -26,7 +26,7 @@ namespace RealStateProject.Controllers
             _cookie.Value = Language;
             Response.Cookies.Add(_cookie);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
     }
 }

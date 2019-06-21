@@ -67,6 +67,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="250" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ImageNamae" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="HomeProperties_MetaData">
           <Key>
@@ -746,6 +747,7 @@
           <NavigationProperty Name="Rigion" Relationship="RealState_DBModel.FK_HomeProperties_Rigions" FromRole="HomeProperty" ToRole="Rigion" />
           <NavigationProperty Name="SubUsage" Relationship="RealState_DBModel.FK_HomeProperties_SubUsages" FromRole="HomeProperty" ToRole="SubUsage" />
           <NavigationProperty Name="HomeProperty_Galleries" Relationship="RealState_DBModel.FK_HomeProperty_Galleries_HomeProperty_Galleries" FromRole="HomeProperty" ToRole="HomeProperty_Galleries" />
+          <Property Name="ImageNamae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_HomeProperties_Cultures">
           <End Type="RealState_DBModel.Culture" Role="Culture" Multiplicity="0..1" />
@@ -989,6 +991,7 @@
           <EntitySetMapping Name="HomeProperties">
             <EntityTypeMapping TypeName="RealState_DBModel.HomeProperty">
               <MappingFragment StoreEntitySet="HomeProperties">
+                <ScalarProperty Name="ImageNamae" ColumnName="ImageNamae" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Title" ColumnName="Title" />

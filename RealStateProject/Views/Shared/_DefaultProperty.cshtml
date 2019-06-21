@@ -1,27 +1,28 @@
-﻿    <article class="aa-properties-item">
-        <a href="/Property/ShowDetailProperty" class="aa-properties-item-img">
-            <img src="~/Images/single-property.jpg" alt="img">
+﻿@model DataLayer.DB.HomeProperty
+    <article class="aa-properties-item">
+        <a href="/Property/ShowDetailProperty?id=@Model.HomePropertyID" class="aa-properties-item-img">
+            <img src="~/Areas/UserPanel/HomePropertyUploadImages/Thumb/@Model.ImageNamae" alt="img">
         </a>
         <div class="aa-tag for-rent">
-            برای فروش
+            @Model.HomeProperty_Status.StatusTitle
         </div>
         <div class="aa-properties-item-content">
             <div class="aa-properties-info">
-                <span>5 اتاق</span>
-                <span>2 تخت</span>
-                <span>3 حموم</span>
-                <span>1100 مترمربع</span>
+                <span><span>2<span class="fa fa-bed"></span></span></span>
+                <span>@Model.LocAge سن بنا </span>
+                <span>@Model.LocArea مترمربع</span>
+                <span style="color:cornflowerblue">محدوده :<span style="color:black !important">@Model.Rigion.RegionTitle</span></span>
             </div>
             <div class="aa-properties-about">
-                <h3><a href="/Property/ShowDetailProperty">یک واحد آپارتمان خوب</a></h3>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
-                <p><span id="dots">...</span></p>
+                <h3><a href="/Property/?id=@Model.HomePropertyID">@Model.Title</a></h3>
+                <p>@Model.Description
+                <span id="dots">...</span></p>
             </div>
             <div class="aa-properties-detial">
                 <span class="aa-price">
-                    ريال 35000
+                  @Model.RentPrice  تومان 
                 </span>
-                <a href="/Property/ShowDetailProperty" class="aa-secondary-btn">نمایش جزئیات</a>
+                <a href="/Property/ShowDetailProperty?id=@Model.HomePropertyID" class="aa-secondary-btn">نمایش جزئیات</a>
             </div>
         </div>
     </article>

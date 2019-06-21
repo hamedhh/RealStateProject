@@ -13,67 +13,131 @@ namespace DataLayer.DB
 {
     public class HomePropertyMetaData
     {
-        
+        [Key]
+        public int HomePropertyID { get; set; }
+
         [Display(Name = "نوع آگهی")]
-        public int PropertyTypeID { get; set; }
+        public Nullable<int> PropertyTypeID { get; set; }
 
-        [Display(Name = "کشور ثبت شده")]
-        public int CultureID { get; set; }
+        [Display(Name = "محدوده کشور آگهی")]
+        ////[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public Nullable<int> CultureID { get; set; }
 
-        [Display(Name = "محدوده ")]
-        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public int RegionID { get; set; }
+        [Display(Name = "محدوده آگهی")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public Nullable<int> RegionID { get; set; }
 
         [Display(Name = "وضعیت آگهی")]
-        public int StatusID { get; set; }
+        ////[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public Nullable<int> StatusID { get; set; }
 
-        [Display(Name = "نوع ملک")]
+
+        [Display(Name = "نوع کاربری")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public Nullable<int> SubUsageID { get; set; }
+
+        [Display(Name = "کاربر ثبت کننده")]
         //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public int SubUsageID { get; set; }
+        public Nullable<int> CreateUserID { get; set; }
 
-        [Display(Name = "کاربر ایجاد کننده")]
-        public int CreateUserID { get; set; }
+        [Display(Name = "متراژ")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public Nullable<int> LocArea { get; set; }
 
-        [Display(Name = "قیمت")]
-        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Display(Name = "سن بنا")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public Nullable<int> LocAge { get; set; }
+
+        [Display(Name = "قیمت فروش")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public Nullable<decimal> HomePrice { get; set; }
 
         [Display(Name = "قیمت رهن")]
-        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public Nullable<decimal> MortgagePrice { get; set; }
 
-
-
         [Display(Name = "قیمت اجاره")]
-        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public Nullable<decimal> RentPrice { get; set; }
-
 
         public string LocLatitude { get; set; }
         public string LocLongitude { get; set; }
 
-        [Display(Name = "متراژ")]
-        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public Nullable<int> LocArea { get; set; }
-
-        [Display(Name = "سن بنا")]
-        public Nullable<int> LocAge { get; set; }
-
         [Display(Name = "عنوان آگهی")]
-        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public string Title { get; set; }
 
-        [Display(Name = "توضیحات")]
-        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+
+        [Display(Name = "تاریخ ایجاد")]
+        public Nullable<System.DateTime> CreateDate { get; set; }
+
+        [Display(Name = "توضحیات")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        //[Display(Name = "تصویر آگهی")]
-        //public string ImageName { get; set; }
+        public string ImageNamae { get; set; }
 
-        [Display(Name = "تاریخ ایجاد")]
-        [DisplayFormat(DataFormatString = "{0: yyyy/mm/dd}")]
-        public System.DateTime CreateDate { get; set; }
+
+        //[Display(Name = "نوع آگهی")]
+        //public int PropertyTypeID { get; set; }
+
+        //[Display(Name = "کشور ثبت شده")]
+        //public int CultureID { get; set; }
+
+        //[Display(Name = "محدوده ")]
+        ////[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        //public int RegionID { get; set; }
+
+        //[Display(Name = "وضعیت آگهی")]
+        //public int StatusID { get; set; }
+
+        //[Display(Name = "نوع ملک")]
+        ////[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        //public int SubUsageID { get; set; }
+
+        //[Display(Name = "کاربر ایجاد کننده")]
+        //public int CreateUserID { get; set; }
+
+        //[Display(Name = "قیمت")]
+        ////[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        //public Nullable<decimal> HomePrice { get; set; }
+
+        //[Display(Name = "قیمت رهن")]
+        ////[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        //public Nullable<decimal> MortgagePrice { get; set; }
+
+
+
+        //[Display(Name = "قیمت اجاره")]
+        ////[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        //public Nullable<decimal> RentPrice { get; set; }
+
+
+        //public string LocLatitude { get; set; }
+        //public string LocLongitude { get; set; }
+
+        //[Display(Name = "متراژ")]
+        ////[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        //public Nullable<int> LocArea { get; set; }
+
+        //[Display(Name = "سن بنا")]
+        //public Nullable<int> LocAge { get; set; }
+
+        //[Display(Name = "عنوان آگهی")]
+        ////[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        //public string Title { get; set; }
+
+        //[Display(Name = "توضیحات")]
+        ////[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        //[DataType(DataType.MultilineText)]
+        //public string Description { get; set; }
+
+        ////[Display(Name = "تصویر آگهی")]
+        ////public string ImageName { get; set; }
+
+        //[Display(Name = "تاریخ ایجاد")]
+        //[DisplayFormat(DataFormatString = "{0: yyyy/mm/dd}")]
+        //public System.DateTime CreateDate { get; set; }
 
 
     }
