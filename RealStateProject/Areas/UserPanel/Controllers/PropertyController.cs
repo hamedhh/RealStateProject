@@ -127,7 +127,7 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             //    RoleTitle = "test"
             //});
             _db.SaveChanges();
-
+            var res = _homeProperty.HomePropertyID;
             foreach (var item in fileUpload)
             {
                 if (item != null && item.IsImage())
