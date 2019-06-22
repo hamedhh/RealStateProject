@@ -146,6 +146,7 @@ namespace RealStateProject.Areas.UserPanel.Controllers
 
             }
             _db.SaveChanges();
+<<<<<<< HEAD
             var res = _homeProperty.HomePropertyID;
             foreach (var item in fileUpload)
 =======
