@@ -75,7 +75,7 @@ namespace DataLayer.DB
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        public string ImageNamae { get; set; }
+        public string ImageName { get; set; }
 
 
         //[Display(Name = "نوع آگهی")]

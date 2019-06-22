@@ -40,7 +40,7 @@ namespace DataLayer.DB
         public string Title { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public string Description { get; set; }
-        public string ImageNamae { get; set; }
+        public string ImageName { get; set; }
     
         public virtual Culture Culture { get; set; }
         public virtual User User { get; set; }

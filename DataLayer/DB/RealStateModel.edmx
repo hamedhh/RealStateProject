@@ -67,7 +67,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="250" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="ImageNamae" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="HomeProperties_MetaData">
           <Key>
@@ -151,18 +151,6 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="RegisterDate" Type="datetime" />
         </EntityType>
-        <Association Name="FK_Cities_Countries">
-          <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
-          <End Role="Cities" Type="Self.Cities" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Countries">
-              <PropertyRef Name="CountryID" />
-            </Principal>
-            <Dependent Role="Cities">
-              <PropertyRef Name="CountryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_HomeProperties_Cultures">
           <End Role="Cultures" Type="Self.Cultures" Multiplicity="0..1" />
           <End Role="HomeProperties" Type="Self.HomeProperties" Multiplicity="*" />
@@ -347,10 +335,6 @@
           <EntitySet Name="SubUsages" EntityType="Self.SubUsages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usages" EntityType="Self.Usages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Cities_Countries" Association="Self.FK_Cities_Countries">
-            <End Role="Countries" EntitySet="Countries" />
-            <End Role="Cities" EntitySet="Cities" />
-          </AssociationSet>
           <AssociationSet Name="FK_HomeProperties_Cultures" Association="Self.FK_HomeProperties_Cultures">
             <End Role="Cultures" EntitySet="Cultures" />
             <End Role="HomeProperties" EntitySet="HomeProperties" />
@@ -747,7 +731,7 @@
           <NavigationProperty Name="Rigion" Relationship="RealState_DBModel.FK_HomeProperties_Rigions" FromRole="HomeProperty" ToRole="Rigion" />
           <NavigationProperty Name="SubUsage" Relationship="RealState_DBModel.FK_HomeProperties_SubUsages" FromRole="HomeProperty" ToRole="SubUsage" />
           <NavigationProperty Name="HomeProperty_Galleries" Relationship="RealState_DBModel.FK_HomeProperty_Galleries_HomeProperty_Galleries" FromRole="HomeProperty" ToRole="HomeProperty_Galleries" />
-          <Property Name="ImageNamae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_HomeProperties_Cultures">
           <End Type="RealState_DBModel.Culture" Role="Culture" Multiplicity="0..1" />
@@ -991,7 +975,7 @@
           <EntitySetMapping Name="HomeProperties">
             <EntityTypeMapping TypeName="RealState_DBModel.HomeProperty">
               <MappingFragment StoreEntitySet="HomeProperties">
-                <ScalarProperty Name="ImageNamae" ColumnName="ImageNamae" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Title" ColumnName="Title" />

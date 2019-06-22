@@ -16,15 +16,163 @@ namespace RealStateProject.Areas.UserPanel.Controllers
 
         public virtual ActionResult Create()
         {
-            ViewBag.Country = new SelectList(_db.Countries, "CountryID", "CountryTitle");
-            ViewBag.City = new SelectList(_db.Cities, "CityID", "CityTitle");
-            ViewBag.Rigion = new SelectList(_db.Rigions, "RigionID", "RegionTitle");
+            ViewBag.CountryID = new SelectList(_db.Countries, "CountryID", "CountryTitle");
+            ViewBag.PropertyTypeID = new SelectList(_db.HomeProperty_Type, "PropertyTypeID", "Title");
+            ViewBag.usageID = new SelectList(_db.Usages, "UsageID", "UsageTitle");
+            ViewBag.Facilities = _db.Facilities.ToList();
+            ViewBag.Conditions = _db.Conditions.ToList();
             return View();
         }
 
         [HttpPost]
-        public virtual ActionResult Create(HomeProperty _homeProperty)
+        public virtual ActionResult Create(CreatePropertyViewModel _createPropertyViewModel, List<int> checkFacility, List<int> checkCondition, List<HttpPostedFileBase> fileUpload, List<string> DeletedPhotp)
         {
+            int _cultureID = 1;
+            int UserID = 1;
+            List<string> ImageNames = new List<string>();
+            if (User.Identity.IsAuthenticated)
+            {
+                var res = _db.Users.SingleOrDefault(a => a.UserName == User.Identity.Name);
+                if (res != null)
+                    UserID = res.UserID;
+            }
+            if (fileUpload[0] == null)
+            {
+                _createPropertyViewModel.ImageName = "home-defualt.png";
+                ImageNames.Add(_createPropertyViewModel.ImageName);
+            }
+            else
+            {
+                _createPropertyViewModel.ImageName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(fileUpload[0].FileName);
+                fileUpload[0].SaveAs(Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/") + _createPropertyViewModel.ImageName);
+                ImageResizer img = new ImageResizer();
+                img.Resize(Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/") + _createPropertyViewModel.ImageName,
+                Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/Thumb/") + _createPropertyViewModel.ImageName);
+            }
+            switch (System.Globalization.CultureInfo.CurrentCulture.Name)
+            {
+                case "fa-IR":
+                    {
+                        _cultureID = 1;
+                        break;
+                    }
+
+                case "en-US":
+                    {
+                        _cultureID = 2;
+                        break;
+                    }
+
+            }
+            if (_createPropertyViewModel.PropertyTypeID == 1)
+            {
+                _createPropertyViewModel.RentPrice = 0;
+                _createPropertyViewModel.MortgagePrice = 0;
+            }
+            else
+            {
+                _createPropertyViewModel.HomePrice = 0;
+            }
+            HomeProperty _homeProperty = new HomeProperty()
+            {
+                CreateDate = DateTime.Now,
+                Title = _createPropertyViewModel.Title,
+                CreateUserID = UserID,
+                SubUsageID = _createPropertyViewModel.SubUsageID,
+                StatusID = 1,
+                RegionID = _createPropertyViewModel.rigionID,
+                CultureID = _cultureID,
+                PropertyTypeID = _createPropertyViewModel.PropertyTypeID,
+                LocAge = _createPropertyViewModel.LocAge,
+                LocArea = _createPropertyViewModel.LocArea,
+                Description = _createPropertyViewModel.Description,
+                HomePrice = _createPropertyViewModel.HomePrice,
+                MortgagePrice = _createPropertyViewModel.MortgagePrice,
+                RentPrice = _createPropertyViewModel.RentPrice,
+                ImageName = _createPropertyViewModel.ImageName
+            };
+            if (ModelState.IsValid)
+            {
+                _db.HomeProperties.Add(_homeProperty);
+                _db.SaveChanges();
+
+                if (fileUpload != null)
+                {
+                    foreach (var item in fileUpload)
+                    {
+                        if (item != null && item.IsImage())
+                        {
+                            if (DeletedPhotp != null)
+                            {
+                                if (DeletedPhotp.Contains(item.FileName))
+                                {
+                                    continue;
+                                }
+
+                            }
+                            _createPropertyViewModel.ImageName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(item.FileName);
+                            ImageNames.Add(_createPropertyViewModel.ImageName);
+                            item.SaveAs(Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/") + _createPropertyViewModel.ImageName);
+                            ImageResizer img = new ImageResizer();
+                            img.Resize(Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/") + _createPropertyViewModel.ImageName,
+                            Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/Thumb/") + _createPropertyViewModel.ImageName);
+
+                        }
+
+                    }
+                }
+
+                #region facility
+                if (checkFacility != null)
+                {
+                    foreach (var item in checkFacility)
+                    {
+                        _db.HomeProperties_MetaData.Add(new HomeProperties_MetaData()
+                        {
+                            HomePropertyID = _homeProperty.HomePropertyID,
+                            FacilityID = item
+                        });
+                    }
+                }
+                #endregion
+
+                #region condition
+                if (checkCondition != null)
+                {
+                    foreach (var item in checkCondition)
+                    {
+                        _db.HomeProperties_MetaData.Add(new HomeProperties_MetaData()
+                        {
+                            HomePropertyID = _homeProperty.HomePropertyID,
+                            ConditionID = item
+                        });
+                    }
+                }
+                #endregion
+
+                #region ImageGallry
+                if (ImageNames != null)
+                {
+                    foreach (var item in ImageNames)
+                    {
+                        _db.HomeProperty_Galleries.Add(new HomeProperty_Galleries()
+                        {
+                            HomePropertyID = _homeProperty.HomePropertyID,
+                            ImageName = item
+                        });
+                    }
+                }
+                #endregion
+                _db.SaveChanges();
+                Session["InsertProperty"] = true;
+                ModelState.Clear();
+            }
+            ViewBag.CountryID = new SelectList(_db.Countries, "CountryID", "CountryTitle");
+            ViewBag.PropertyTypeID = new SelectList(_db.HomeProperty_Type, "PropertyTypeID", "Title");
+            ViewBag.usageID = new SelectList(_db.Usages, "UsageID", "UsageTitle");
+            ViewBag.Facilities = _db.Facilities.ToList();
+            ViewBag.Conditions = _db.Conditions.ToList();
+
             return View();
         }
 
@@ -86,9 +234,10 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 if (res != null)
                     UserID = res.UserID;
             }
-            if (fileUpload == null)
+            if (fileUpload[0] == null)
             {
                 _createPropertyViewModel.ImageName = "home-defualt.png";
+                ImageNames.Add(_createPropertyViewModel.ImageName);
             }
             else
             {
@@ -138,96 +287,90 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 HomePrice = _createPropertyViewModel.HomePrice,
                 MortgagePrice = _createPropertyViewModel.MortgagePrice,
                 RentPrice = _createPropertyViewModel.RentPrice,
-                ImageNamae = _createPropertyViewModel.ImageName
+                ImageName = _createPropertyViewModel.ImageName
             };
             if (ModelState.IsValid)
             {
                 _db.HomeProperties.Add(_homeProperty);
+                _db.SaveChanges();
 
-            }
-            _db.SaveChanges();
-<<<<<<< HEAD
-            var res = _homeProperty.HomePropertyID;
-            foreach (var item in fileUpload)
-=======
-
-            if (fileUpload != null)
->>>>>>> d22f35297d3923a495df04de4dd777719e4da2b7
-            {
-                foreach (var item in fileUpload)
+                if (fileUpload != null)
                 {
-                    if (item != null && item.IsImage())
+                    foreach (var item in fileUpload)
                     {
-                        if (DeletedPhotp != null)
+                        if (item != null && item.IsImage())
                         {
-                            if (DeletedPhotp.Contains(item.FileName))
+                            if (DeletedPhotp != null)
                             {
-                                continue;
+                                if (DeletedPhotp.Contains(item.FileName))
+                                {
+                                    continue;
+                                }
+
                             }
+                            _createPropertyViewModel.ImageName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(item.FileName);
+                            ImageNames.Add(_createPropertyViewModel.ImageName);
+                            item.SaveAs(Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/") + _createPropertyViewModel.ImageName);
+                            ImageResizer img = new ImageResizer();
+                            img.Resize(Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/") + _createPropertyViewModel.ImageName,
+                            Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/Thumb/") + _createPropertyViewModel.ImageName);
 
                         }
-                        _createPropertyViewModel.ImageName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(item.FileName);
-                        ImageNames.Add(_createPropertyViewModel.ImageName);
-                        item.SaveAs(Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/") + _createPropertyViewModel.ImageName);
-                        ImageResizer img = new ImageResizer();
-                        img.Resize(Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/") + _createPropertyViewModel.ImageName,
-                        Server.MapPath("/Areas/UserPanel/HomePropertyUploadImages/Thumb/") + _createPropertyViewModel.ImageName);
 
                     }
-
                 }
-            }
 
-            #region facility
-            if (checkFacility.Count > 0)
-            {
-                foreach (var item in checkFacility)
+                #region facility
+                if (checkFacility!= null)
                 {
-                    _db.HomeProperties_MetaData.Add(new HomeProperties_MetaData()
+                    foreach (var item in checkFacility)
                     {
-                        HomePropertyID = _homeProperty.HomePropertyID,
-                        FacilityID = item
-                    });
+                        _db.HomeProperties_MetaData.Add(new HomeProperties_MetaData()
+                        {
+                            HomePropertyID = _homeProperty.HomePropertyID,
+                            FacilityID = item
+                        });
+                    }
                 }
-            }
-            #endregion
+                #endregion
 
-            #region condition
-            if (checkCondition.Count > 0)
-            {
-                foreach (var item in checkCondition)
+                #region condition
+                if (checkCondition != null)
                 {
-                    _db.HomeProperties_MetaData.Add(new HomeProperties_MetaData()
+                    foreach (var item in checkCondition)
                     {
-                        HomePropertyID = _homeProperty.HomePropertyID,
-                        ConditionID = item
-                    });
+                        _db.HomeProperties_MetaData.Add(new HomeProperties_MetaData()
+                        {
+                            HomePropertyID = _homeProperty.HomePropertyID,
+                            ConditionID = item
+                        });
+                    }
                 }
-            }
-            #endregion
+                #endregion
 
-            #region ImageGallry
-            if (ImageNames.Count > 0)
-            {
-                foreach (var item in ImageNames)
+                #region ImageGallry
+                if (ImageNames != null)
                 {
-                    _db.HomeProperty_Galleries.Add(new HomeProperty_Galleries()
+                    foreach (var item in ImageNames)
                     {
-                        HomePropertyID = _homeProperty.HomePropertyID,
-                        ImageName = item
-                    });
+                        _db.HomeProperty_Galleries.Add(new HomeProperty_Galleries()
+                        {
+                            HomePropertyID = _homeProperty.HomePropertyID,
+                            ImageName = item
+                        });
+                    }
                 }
+                #endregion
+                _db.SaveChanges();
+                Session["InsertProperty"] = true;
+                ModelState.Clear();
             }
-            #endregion
-            _db.SaveChanges();
-
-
-
             ViewBag.CountryID = new SelectList(_db.Countries, "CountryID", "CountryTitle");
             ViewBag.PropertyTypeID = new SelectList(_db.HomeProperty_Type, "PropertyTypeID", "Title");
             ViewBag.usageID = new SelectList(_db.Usages, "UsageID", "UsageTitle");
             ViewBag.Facilities = _db.Facilities.ToList();
             ViewBag.Conditions = _db.Conditions.ToList();
+           
             return View();
 
 

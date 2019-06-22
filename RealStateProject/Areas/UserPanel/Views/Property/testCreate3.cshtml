@@ -3,12 +3,31 @@
 @{
     ViewBag.Title = "testCreate3";
     Layout = "~/Areas/UserPanel/Views/Shared/_PanelLayout.cshtml";
+    bool? insertPerson = (bool?)Session["InsertProperty"];
 }
 <link href="~/Areas/UserPanel/Content/CustomPanel.css" rel="stylesheet" />
 @using (Html.BeginForm("testCreate3", "Property", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+    <div id="InsertPropertyModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                    <h4 class="modal-title" style="color: green;">توجه!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>ثبت آگهی با موفقیت انجام شد</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="color: tomato;">بستن</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-8">
@@ -17,7 +36,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.PropertyTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownList("PropertyTypeID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("PropertyTypeID", null, htmlAttributes: new { @class = "form-control", @id = "drpPropertyType" })
                         @Html.ValidationMessageFor(model => model.PropertyTypeID, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -64,25 +83,25 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.HomePrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.HomePrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblPrice" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.HomePrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.HomePrice, new { htmlAttributes = new { @class = "form-control", @id = "txtPrice" } })
                         @Html.ValidationMessageFor(model => model.HomePrice, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.MortgagePrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.MortgagePrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblMortgage" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.MortgagePrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.MortgagePrice, new { htmlAttributes = new { @class = "form-control", @id = "txtMortgage" } })
                         @Html.ValidationMessageFor(model => model.MortgagePrice, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.RentPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.RentPrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblRent" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.RentPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.RentPrice, new { htmlAttributes = new { @class = "form-control", @id = "txtRent" } })
                         @Html.ValidationMessageFor(model => model.RentPrice, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -124,7 +143,6 @@
                         <input type="submit" value="Create" class="btn btn-default" />
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -174,9 +192,9 @@
                         @Html.Hidden("hdnFileUpload")
                     </div>
                     <br />
-                    @*<div class="col-lg-6">
-                            <button class="btn btn-primary" id="btnAddIssue" type="submit">Submit</button>
-                        </div>*@
+                    <div class="col-lg-6">
+                        <button class="btn btn-primary" id="btnAddIssue" type="submit">Submit</button>
+                    </div>
                     <br />
                     <div class="control-section" style="padding: 0px;">
                         <div id="selectedFiles"></div>
@@ -188,11 +206,118 @@
 
         </div>
     </div>
+
+    @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body" id="myModalBody">
+
+                    </div>
+                </div>
+            </div>
+        </div>*@
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+@if (insertPerson == true)
+{
+    Session["InsertProperty"] = false;
+    <script>
+        $(function () {
+            $("#InsertPropertyModal").modal("show");
+        });
+    </script>
 }
 
+@*<script>
+        function submit() {
+            $.alert({
+                title: 'پیغام',
+                content: 'اطلاعات ثبت شود؟',
+                rtl: true,
+                closeIcon: true,
+                buttons: {
+                    confirm: {
+                        text: 'بله',
+                        btnClass: 'btn btn-danger btn-xs',
+                        action: function () {
+                            $.get("/Admin/Product_Groups/Delete?id=" + id,
+                                function () { $('#group_' + id).hide('slow') })
+
+                            //$.alert('تایید شد.');
+                        }
+                    },
+                    cancel: {
+                        text: 'خیر',
+                        btnClass: 'btn btn-primary btn-xs',
+                        action: function () {
+                            success()
+                        }
+                    }
+                }
+            });
+        }
+
+        function success() {
+            $("#myModal").modal('hide');
+        }
+
+    </script>*@
+<script>
+    $(document).ready(function () {
+        var valyeType = $('#drpPropertyType').val();
+        if (valyeType != null) {
+            if (valyeType == 1) {
+                $('#txtPrice').show();
+                $('#lblPrice').show();
+                $('#txtMortgage').fadeOut("slow"); $('#txtMortgage').val(0);
+                $('#lblMortgage').fadeOut("slow");
+                $('#txtRent').fadeOut("slow"); $('#txtRent').val(0);
+                $('#lblRent').fadeOut("slow");
+            }
+            if (valyeType == 2) {
+                $('#txtPrice').fadeOut("slow"); $('#txtPrice').val(0);
+                $('#lblPrice').fadeOut("slow");
+                $('#txtMortgage').show();
+                $('#lblMortgage').show();
+                $('#txtRent').show();
+                $('#lblRent').show();
+            }
+        }
+
+    });
+    $(document).ready(function () {
+        $('#drpPropertyType').change(function () {
+            var valyeType = $('#drpPropertyType').val();
+            if (valyeType != null) {
+                if (valyeType == 1) {
+                    $('#txtPrice').show();
+                    $('#lblPrice').show();
+                    $('#txtMortgage').fadeOut("slow"); $('#txtMortgage').val(0);
+                    $('#lblMortgage').fadeOut("slow");
+                    $('#txtRent').fadeOut("slow"); $('#txtRent').val(0);
+                    $('#lblRent').fadeOut("slow");
+                }
+                if (valyeType == 2) {
+                    $('#txtPrice').fadeOut("slow"); $('#txtPrice').val(0);
+                    $('#lblPrice').fadeOut("slow");
+                    $('#txtMortgage').show();
+                    $('#lblMortgage').show();
+                    $('#txtRent').show();
+                    $('#lblRent').show();
+                }
 
 
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+            }
+        });
+    });
+</script>
+
+
+
 <script type="text/javascript">
     $(document).ready(function () {
         $('#drpCity option').remove();
@@ -297,6 +422,42 @@
 </script>
 
 @*<script>
+        $(document).ready(function () {
+            $('#drpCity').change(function () {
+                loadRegion($(this).find(':selected').val())
+            })
+        })
+    </script>
+    <script>
+        function loadRegion(cityid) {
+            $("#drpRigion").children().remove()
+            $.getJSON('/UserPanel/Property/FindRigion', { id: $('#drpCity').val() },
+                function (data) {
+                    $.each(data, function () {
+                        $('#drpRigion').append('<option value=' +
+                            this.RigionID + '>' + this.RegionTitle + '</option>');
+                    });
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert('Error getting Rigion!');
+                });
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: "ajax/ajax.php",
+            //    data: "get=state&countryId=" + cityid
+            //}).done(function (result) {
+            //    $(result).each(function () {
+            //        $("#state").append($('<option>', {
+            //            value: this.id,
+            //            text: this.name,
+            //        }));
+            //    })
+            //});
+        }
+
+    </script>*@
+
+@*<script>
 
         function readURL(input) {
             //alert(input.files.length)
@@ -331,111 +492,111 @@
     </script>*@
 
 
-<script>
-    var nowTemp = new Date();
-    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-    var files;
-    var storedFiles = [];
-    var upc = 0;
+    <script>
+        var nowTemp = new Date();
+        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+        var files;
+        var storedFiles = [];
+        var upc = 0;
 
-    $(function () {
+        $(function () {
 
-        $(":file").attr('title', '  ');
-        var $loading = $('#loadingDiv').hide();
+            $(":file").attr('title', '  ');
+            var $loading = $('#loadingDiv').hide();
 
-        $("input[id^='fileToUpload']").change(function (e) {
-            doReCreate(e);
+            $("input[id^='fileToUpload']").change(function (e) {
+                doReCreate(e);
+            });
+
+            selDiv = $("#selectedFiles");
         });
 
-        selDiv = $("#selectedFiles");
-    });
+        function doReCreate(e) {
 
-    function doReCreate(e) {
+            upc = upc + 1;
+            handleFileSelect(e);
 
-        upc = upc + 1;
-        handleFileSelect(e);
+            $("input[id^='fileToUpload']").hide();
 
-        $("input[id^='fileToUpload']").hide();
+            $('<input>').attr({
+                type: 'file',
+                multiple: 'multiple',
+                id: 'fileToUpload' + upc,
+                class: 'fUpload',
+                name: 'fileUpload',
+                style: 'float: left',
+                title: '  ',
+                onchange: "doReCreate(event)"
 
-        $('<input>').attr({
-            type: 'file',
-            multiple: 'multiple',
-            id: 'fileToUpload' + upc,
-            class: 'fUpload',
-            name: 'fileUpload',
-            style: 'float: left',
-            title: '  ',
-            onchange: "doReCreate(event)"
-
-        }).appendTo('#uploaders');
-    }
-
-    function handleFileSelect(e) {
-
-        //selDiv.innerHTML = ""; storedFiles = [];
-        selDiv = document.querySelector("#selectedFiles");
-
-        if (!e.target.files) return;
-
-        //selDiv.innerHTML = "";
-        files = e.target.files;
-
-        for (var i = 0; i < files.length; i++) {
-            //if (i == 0) { selDiv.innerHTML = ""; storedFiles = []; }
-            var f = files[i];
-
-            selDiv.innerHTML += "<div>" + f.name +
-                "<a onclick='removeAtt(this)' id='" + f.id +"'"+ "> X </a></div>";
-            storedFiles.push(f.name);
+            }).appendTo('#uploaders');
         }
-        $('#@Html.IdFor(i => i.FilesToBeUploaded)').val(storedFiles);
-    }
 
-        function removeAtt(t) {
+        function handleFileSelect(e) {
 
+            //selDiv.innerHTML = ""; storedFiles = [];
+            selDiv = document.querySelector("#selectedFiles");
 
+            if (!e.target.files) return;
 
-            var serEle = $(t).parent().text().slice(0, -3);
+            //selDiv.innerHTML = "";
+            files = e.target.files;
 
-        var index = storedFiles.indexOf(serEle);
-        if (index !== -1) {
-            storedFiles.splice(index, 1);
+            for (var i = 0; i < files.length; i++) {
+                //if (i == 0) { selDiv.innerHTML = ""; storedFiles = []; }
+                var f = files[i];
+
+                selDiv.innerHTML += "<div>" + f.name +
+                    "<a onclick='removeAtt(this)' id='" + f.id +"'"+ "> X </a></div>";
+                storedFiles.push(f.name);
             }
-            $('#divdelete').append(
-                $('<input>', {
-                    type: 'text',
-                    val: serEle,
-                    name: "DeletedPhotp"
-                })
-            );
-        $(t).parent().remove();
-
-        $('#@Html.IdFor(i => i.FilesToBeUploaded)').val(storedFiles);
-
-    }
-</script>
-
-<script>
-    function readURL(input) {
-
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#imgPre').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
+            $('#@Html.IdFor(i => i.FilesToBeUploaded)').val(storedFiles);
         }
-    }
 
-    $("#fileToUpload").change(function () {
-        readURL(this);
-    });
+            function removeAtt(t) {
 
 
 
-</script>
+                var serEle = $(t).parent().text().slice(0, -3);
+
+            var index = storedFiles.indexOf(serEle);
+            if (index !== -1) {
+                storedFiles.splice(index, 1);
+                }
+                $('#divdelete').append(
+                    $('<input>', {
+                        type: 'text',
+                        val: serEle,
+                        name: "DeletedPhotp"
+                    })
+                );
+            $(t).parent().remove();
+
+            $('#@Html.IdFor(i => i.FilesToBeUploaded)').val(storedFiles);
+
+        }
+    </script>
+
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgPre').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#fileToUpload").change(function () {
+            readURL(this);
+        });
+
+
+
+    </script>
 @*<script>
         $(function () {
             $('#ImageUploader').fileupload({
