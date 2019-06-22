@@ -58,11 +58,11 @@ namespace DataLayer.ViewModels
         public Nullable<int> LocArea { get; set; }
 
         [Display(Name = "سن بنا")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public Nullable<int> LocAge { get; set; }
 
         [Display(Name = "عنوان آگهی")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        [DataType(DataType.MultilineText)]
         public string Title { get; set; }
 
         [Display(Name = "توضیحات")]

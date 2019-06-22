@@ -1740,7 +1740,26 @@
     <Content Include="Areas\UserPanel\Content\AdminPanel\dist\js\persian-date-0.1.8.min.js" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\dist\js\persian-date.js" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\dist\js\persian-datepicker-0.4.5.min.js" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\0d665c7c-80ac-43a2-88a6-d3ce6930b227.jpeg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\1eade04f-fc20-40d5-8476-f10f3be57d4d.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\22f53f37-788b-4ec9-b9ae-c75a9cab05e4.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\30065c19-0b1a-4348-9db4-37034a1f3c78.jpeg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\4b814901-b589-4685-bd80-2885214cfe3b.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\5cbbd691-d723-46cd-8d63-2e0aed37795b.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\61c058fe-0288-4d43-afaf-9ad158a670e5.jpeg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\750ad056-829e-4155-bf6c-0547b5780186.jpeg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\7afc112f-38c6-416e-a6ee-63dba0a3b4ac.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\98cbd2f9-540d-4641-8418-0e8bef969748.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\9ffe6408-8088-4940-9fa0-8a85d35ecf28.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\a4239b66-2d0f-42aa-bea9-ec01823ffd7c.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\cafac5a0-2ab1-441d-bf86-f4768b8901a8.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\f90f024b-2e9d-4735-8138-0fd725783635.jpg" />
     <Content Include="Areas\UserPanel\HomePropertyUploadImages\home-defualt.png" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\Thumb\0d665c7c-80ac-43a2-88a6-d3ce6930b227.jpeg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\Thumb\1eade04f-fc20-40d5-8476-f10f3be57d4d.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\Thumb\4b814901-b589-4685-bd80-2885214cfe3b.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\Thumb\d5c78955-b06f-4e8b-a562-e09b0.jpg" />
+    <Content Include="Areas\UserPanel\HomePropertyUploadImages\Thumb\home-defualt.png" />
     <Content Include="Areas\UserPanel\Images\home-defualt.png" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\Images\User_.png" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\plugins\bootstrap-slider\bootstrap-slider.js" />
@@ -2487,7 +2506,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\UserPanel\HomePropertyUploadImages\Thumb\" />
     <Folder Include="Areas\UserPanel\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>
