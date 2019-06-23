@@ -25,10 +25,13 @@ namespace DataLayer.ViewModels
         public int CityID { get; set; }
         
 
-        [Display(Name = "محله")]
-        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        
+        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public int rigionID { get; set; }
 
+        [Display(Name = "محله")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public int rigionTitle { get; set; }
 
         [Display(Name = "نوع کاربری")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
@@ -41,21 +44,24 @@ namespace DataLayer.ViewModels
 
         [Display(Name = "قیمت")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public Nullable<decimal> HomePrice { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = true)]
+        public string HomePrice { get; set; }
 
         [Display(Name = "قیمت رهن")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public Nullable<decimal> MortgagePrice { get; set; }
+        [DisplayFormat(DataFormatString = "{0:n0}")]
+        public string MortgagePrice { get; set; }
         
 
         [Display(Name = "قیمت اجاره")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public Nullable<decimal> RentPrice { get; set; }
+        //[RegularExpression(@"^[0-9]+(\.[0-9]{1,2})$", ErrorMessage = "Valid Decimal number with maximum 2 decimal places.")]
+        public string RentPrice { get; set; }
 
 
         [Display(Name = "متراژ")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public Nullable<int> LocArea { get; set; }
+        public string LocArea { get; set; }
 
         [Display(Name = "سن بنا")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
@@ -69,6 +75,8 @@ namespace DataLayer.ViewModels
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+
+        public string txtSearch { get; set; }
 
         public string FilesToBeUploaded { get; set; }
         public string ImageName { get; set; }

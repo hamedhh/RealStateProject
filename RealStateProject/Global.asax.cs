@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-
+using Utilities;
 
 namespace RealStateProject
 {
@@ -16,6 +16,7 @@ namespace RealStateProject
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            ModelBinders.Binders.Add(typeof(decimal), new DecimalModelBinder());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -46,6 +47,8 @@ namespace RealStateProject
                 Thread.CurrentThread.CurrentCulture = persianCulture;
                 Thread.CurrentThread.CurrentUICulture = persianCulture;
             }
+
+
         }
     }
 }

@@ -44,6 +44,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckContentImage.cs" />
+    <Compile Include="DecimalModelBinder.cs" />
+    <Compile Include="FormattableObject.cs" />
     <Compile Include="ImageResizer.cs" />
     <Compile Include="PartialToStringClass.cs" />
     <Compile Include="PersianCulture.cs" />

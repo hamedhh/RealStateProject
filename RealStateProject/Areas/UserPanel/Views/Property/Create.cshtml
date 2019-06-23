@@ -25,7 +25,7 @@
 <script src="~/Areas/UserPanel/Process_Stepper/bootstrap.min.js"></script>
 <link href="~/Content/leaflet.css" rel="stylesheet" />
 <script src="~/Scripts/leaflet.js"></script>
-
+<script src="~/Scripts/_CheckValidation.js"></script>
 
 <!------ Include the above in your HEAD tag ---------->
 <div class="container">
@@ -100,33 +100,36 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.rigionID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.rigionTitle, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.DropDownList("rigionID", new SelectList(string.Empty), "انتخاب محله", htmlAttributes: new { @class = "form-control", @id = "drpRigion" })
-                                @Html.ValidationMessageFor(model => model.rigionID, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(model => model.rigionTitle, new { @class = "form-control", @id = "rigionTitle" })
+                                @Html.HiddenFor(model => model.rigionID, new { @id = "rigionID" })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.HomePrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblPrice" })
+
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.HomePrice, new { htmlAttributes = new { @class = "form-control", @id = "txtPrice" } })
-                                @Html.ValidationMessageFor(model => model.HomePrice, "", new { @class = "text-danger" })
+                                @*<input type="text" class="form-control" id="txtPrice" onchange="validateDecimal(this);" />*@
+                                @Html.EditorFor(model => model.HomePrice, new { htmlAttributes = new { @class = "form-control", @id = "txtPrice", placeholder = "تومان" } })
+                                @Html.ValidationMessageFor(model => model.HomePrice, "", new { @class = "text-danger", @id = "errPrice" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.MortgagePrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblMortgage" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.MortgagePrice, new { htmlAttributes = new { @class = "form-control", @id = "txtMortgage" } })
-                                @Html.ValidationMessageFor(model => model.MortgagePrice, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.MortgagePrice, new { htmlAttributes = new { @class = "form-control", @id = "txtMortgage", placeholder = "تومان" } })
+                                @Html.ValidationMessageFor(model => model.MortgagePrice, "", new { @class = "text-danger", @id = "errMortgage" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.RentPrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblRent" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.RentPrice, new { htmlAttributes = new { @class = "form-control", @id = "txtRent" } })
-                                @Html.ValidationMessageFor(model => model.RentPrice, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.RentPrice, new { htmlAttributes = new { @class = "form-control", @id = "txtRent", placeholder = "تومان" } })
+                                @Html.ValidationMessageFor(model => model.RentPrice, "", new { @class = "text-danger", @id = "errRent" })
                             </div>
                         </div>
 
@@ -173,16 +176,16 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.LocArea, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.LocArea, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.LocArea, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.LocArea, new { htmlAttributes = new { @class = "form-control", @id = "txtArea", placeholder = "متر مربع" } })
+                                @Html.ValidationMessageFor(model => model.LocArea, "", new { @class = "text-danger", @id = "errArea" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.LocAge, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.LocAge, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.LocAge, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.LocAge, new { htmlAttributes = new { @class = "form-control", @id = "txtAge", placeholder = "سال" } })
+                                @Html.ValidationMessageFor(model => model.LocAge, "", new { @class = "text-danger", @id = "errAge" })
                             </div>
                         </div>
 
@@ -206,53 +209,53 @@
 
         <div class="row setup-content" id="step-3">
 
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="control-label col-md-2">امکانات</label>
-                        <div class="col-md-10">
-                            <ul class="ks-cboxtags">
-                                @foreach (var item in _facility)
-                                {
-                                    <li><input name="checkFacility" type="checkbox" id="Checkfacility_@item.FacilityID" value="@item.FacilityID"><label class="checkBoxSub" for="Checkfacility_@item.FacilityID">@item.FacilityTitle</label></li>
-                                }
-                            </ul>
-                        </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-2">امکانات</label>
+                    <div class="col-md-10">
+                        <ul class="ks-cboxtags">
+                            @foreach (var item in _facility)
+                            {
+                                <li><input name="checkFacility" type="checkbox" id="Checkfacility_@item.FacilityID" value="@item.FacilityID"><label class="checkBoxSub" for="Checkfacility_@item.FacilityID">@item.FacilityTitle</label></li>
+                            }
+                        </ul>
                     </div>
-
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">شرایط</label>
-                        <div class="col-md-10">
-                            <ul class="ks-cboxtags">
-                                @foreach (var item in _conditions)
-                                {
-                                    <li><input name="checkCondition" type="checkbox" id="Checkcondition_@item.ConditionID" value="@item.ConditionID"><label class="checkBoxSub" for="Checkcondition_@item.ConditionID">@item.ConditionTile</label></li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label com-md-2">تصویر</label>
-                        @Html.HiddenFor(i => i.FilesToBeUploaded)
-                        <div id="divdelete" hidden>
-                        </div>
-                        <div id="uploaders">
-                            <input type="file" id="fileToUpload" name="fileUpload" multiple="multiple" style="float: left;" />
-                            <br />
-                            <img src="~/Areas/UserPanel/Images/home-defualt.png" class="thumbnail" style="margin:8px auto;width: 250px;" id="imgPre" />
-                            <span id="spnFile" style="float: left; color: #FF0000"></span>
-                            @Html.ValidationMessage("File")
-                            @Html.Hidden("hdnFileUpload")
-                        </div>
-                        <br />
-                        <div class="control-section" style="padding: 0px;">
-                            <div id="selectedFiles"></div>
-                        </div>
-                    </div>
-                    <button class="btn btn-success btn-lg pull-left" type="submit">ثبت آگهی</button>
                 </div>
-      
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">شرایط</label>
+                    <div class="col-md-10">
+                        <ul class="ks-cboxtags">
+                            @foreach (var item in _conditions)
+                            {
+                                <li><input name="checkCondition" type="checkbox" id="Checkcondition_@item.ConditionID" value="@item.ConditionID"><label class="checkBoxSub" for="Checkcondition_@item.ConditionID">@item.ConditionTile</label></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label com-md-2">تصویر</label>
+                    @Html.HiddenFor(i => i.FilesToBeUploaded)
+                    <div id="divdelete" hidden>
+                    </div>
+                    <div id="uploaders">
+                        <input type="file" id="fileToUpload" name="fileUpload" multiple="multiple" style="float: left;" />
+                        <br />
+                        <img src="~/Areas/UserPanel/Images/home-defualt.png" class="thumbnail" style="margin:8px auto;width: 250px;" id="imgPre" />
+                        <span id="spnFile" style="float: left; color: #FF0000"></span>
+                        @Html.ValidationMessage("File")
+                        @Html.Hidden("hdnFileUpload")
+                    </div>
+                    <br />
+                    <div class="control-section" style="padding: 0px;">
+                        <div id="selectedFiles"></div>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-lg pull-left" type="submit">ثبت آگهی</button>
+            </div>
+
         </div>
 
     }
@@ -566,6 +569,7 @@
 
 
 
+
 @*دریافت لوکیشن از مارکر------------------------------------------------------------ر-----------------------------------------------------*@
 @*<script>
         map.on('click', function (ev) {
@@ -610,3 +614,156 @@
         };
         map.on('click', onMapClick);
     </script>*@
+<script src="~/Scripts/autoNumeric-1.9.18.js"></script>
+<script src="~/Scripts/jquery-1.10.0.min.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+
+<script>
+
+    $(function () {
+            $('#rigionTitle').autocomplete( {
+            source: function(requset, response) {
+                $.ajax({
+                    //url:@Url.Action("searchRigion", "Property"),
+                    url:'/Property/searchRigion',
+                    dataType: JSON,
+                    data: {
+                        Areas: 'UserPanel',
+                        sreachText: requset.term
+                    },
+                    //type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (val, item) {
+                            //return item;
+                            return {
+                                label: val.Name,
+                                value: val.Name,
+                                customerId: val.ID
+                            }
+                        }))
+                    },
+                    select: function (event, ui) {
+                        $("#rigionID").val(ui.item.val);
+                    },
+                    minLength: 0
+                }).focus(function () {
+                    $(this).autocomplete("rigionTitle")
+                });
+            }
+        });
+
+    });
+
+    @*$(document).ready(function () {
+        $('#rigionTitle').autocomplete( {
+            source: function(requset, response) {
+                $.ajax({
+                    //url:@Url.Action("searchRigion", "Property"),
+                    url:'/Property/searchRigion/',
+                    dataType: JSON,
+                    data: {
+                        Areas: 'UserPanel',
+                        sreachText: requset.term
+                    },
+                    //type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (val, item) {
+                            //return item;
+                            return {
+                                label: val.Name,
+                                value: val.Name,
+                                customerId: val.ID
+                            }
+                        }))
+                    },
+                    select: function (event, ui) {
+                        $("#rigionID").val(ui.item.val);
+                    },
+                    minLength: 0
+                }).focus(function () {
+                    $(this).autocomplete("search")
+                });
+            }
+        });
+            });*@
+
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#txtPrice').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errPrice').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 999999999999) {
+                $('#errPrice').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+
+
+        });
+    });
+    $(document).ready(function () {
+        $('#txtMortgage').keypress(function (e) {
+
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errMortgage').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 999999999999) {
+                $('#errMortgage').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+        });
+    });
+    $(document).ready(function () {
+        $('#txtRent').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errRent').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 999999999999) {
+                $('#errRent').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+        });
+    });
+    $(document).ready(function () {
+        $('#txtArea').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errArea').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 99999999) {
+                $('#errArea').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('#txtAge').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errAge').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 999) {
+                $('#errAge').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+        });
+    });
+
+    $(function ($) {
+        $('#txtPrice').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+        $('#txtMortgage').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+        $('#txtRent').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+        $('#txtArea').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    });
+
+</script>
+
+@*<script src="~/Scripts/number-divider.js"></script>*@
