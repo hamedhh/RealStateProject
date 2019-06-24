@@ -1,29 +1,84 @@
 ﻿@model DataLayer.DB.HomeProperty
-    <article class="aa-properties-item">
-        <a href="/Property/ShowDetailProperty?id=@Model.HomePropertyID" class="aa-properties-item-img">
-            <img src="~/Areas/UserPanel/HomePropertyUploadImages/Thumb/@Model.ImageName" alt="img">
-        </a>
-        <div class="aa-tag for-rent">
-            @Model.HomeProperty_Status.StatusTitle
+<article class="aa-properties-item">
+    <a href="/Property/ShowDetailProperty?id=@Model.HomePropertyID" class="aa-properties-item-img">
+        <img src="~/Areas/UserPanel/HomePropertyUploadImages/Thumb/@Model.ImageName" alt="img">
+    </a>
+    @{
+        if (Model.StatusID == 1)
+        {
+            <div class="aa-tag for-sale">
+                @Model.HomeProperty_Status.StatusTitle
+            </div>
+        }
+        else if (Model.StatusID == 2)
+        {
+            <div class="aa-tag for-rent">
+                @Model.HomeProperty_Status.StatusTitle
+            </div>
+        }
+        else if (Model.StatusID == 3)
+        {
+            <div class="aa-tag sold-out">
+                @Model.HomeProperty_Status.StatusTitle
+            </div>
+        }
+
+    }
+    <div class="aa-properties-item-content">
+        <div class="aa-properties-info">
+            <span><span>2<span class="fa fa-bed"></span></span></span>
+            <span>@Model.LocAge سن بنا </span>
+            <span>@Model.LocArea مترمربع</span>
+            <span style="color:cornflowerblue">محدوده :<span style="color:black !important">@Model.Rigion.RegionTitle</span></span>
         </div>
-        <div class="aa-properties-item-content">
-            <div class="aa-properties-info">
-                <span><span>2<span class="fa fa-bed"></span></span></span>
-                <span>@Model.LocAge سن بنا </span>
-                <span>@Model.LocArea مترمربع</span>
-                <span style="color:cornflowerblue">محدوده :<span style="color:black !important">@Model.Rigion.RegionTitle</span></span>
-            </div>
-            <div class="aa-properties-about">
-                <h3><a href="/Property/?id=@Model.HomePropertyID">@Model.Title</a></h3>
-                <p>@Model.Description
-                <span id="dots">...</span></p>
-            </div>
-            <div class="aa-properties-detial">
+        <div class="aa-properties-about">
+            <h3><a href="/Property/?id=@Model.HomePropertyID">@Model.Title</a></h3>
+            <p>
+                @Model.Description
+                <span id="dots">...</span>
+            </p>
+        </div>
+
+        <div class="aa-properties-detial">
+            <table class="table table-striped">
+
+                
+                <tr>
+                    <td>@(Model.PropertyTypeID == 1 ? "فروش" : "رهن")</td>
+                    <td>2500</td>
+                </tr>
+                @*<tr>
+                    @if (Model.PropertyTypeID == 2)
+                    {
+
+                        <td>@(Model.PropertyTypeID == 2 ? "اجاره" : "")</td>
+                        <td>2500</td>
+
+                    }
+
+                </tr>*@
+
+
+            </table>
+
+           @*@{
+            if (Model.PropertyTypeID == 1)
+            {
                 <span class="aa-price">
-                  @Model.RentPrice  تومان 
+                    @Model.HomePrice  تومان
                 </span>
-                <a href="/Property/ShowDetailProperty?id=@Model.HomePropertyID" class="aa-secondary-btn">نمایش جزئیات</a>
-            </div>
+            }
+            else if (Model.PropertyTypeID == 2)
+            {
+                <span><span class="aa-price">@Model.MortgagePrice  تومان</span> رهن:</span>
+   
+            }
+        }*@
+
+
+
+            <a href="/Property/ShowDetailProperty?id=@Model.HomePropertyID" class="aa-secondary-btn">نمایش جزئیات</a>
         </div>
-    </article>
+    </div>
+</article>
  

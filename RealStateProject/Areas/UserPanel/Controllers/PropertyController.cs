@@ -31,6 +31,9 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             decimal rentPrice = 0;
             decimal mortgagePrice = 0;
             int locArea = 0;
+            int locAge = 0;
+            string _lat = "";
+            string _long= "";
 
             if (!string.IsNullOrEmpty(_createPropertyViewModel.HomePrice))
             {
@@ -60,7 +63,18 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 else
                     locArea = int.Parse(_createPropertyViewModel.LocArea);
             }
-
+            if (!string.IsNullOrEmpty(_createPropertyViewModel.LocAge))
+            {
+                if (_createPropertyViewModel.LocAge.Contains(','))
+                    locAge = int.Parse(_createPropertyViewModel.LocAge.Replace(",", ""));
+                else
+                    locAge = int.Parse(_createPropertyViewModel.LocAge);
+            }
+            if(!string.IsNullOrEmpty(_createPropertyViewModel.latlongMap))
+            {
+                _lat = _createPropertyViewModel.latlongMap.Split(',')[0];
+                _long = _createPropertyViewModel.latlongMap.Split(',')[1];
+            }
             int _cultureID = 1;
             int UserID = 1;
             List<string> ImageNames = new List<string>();
@@ -113,17 +127,20 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 Title = _createPropertyViewModel.Title,
                 CreateUserID = UserID,
                 SubUsageID = _createPropertyViewModel.SubUsageID,
-                StatusID = 1,
+                StatusID = (_createPropertyViewModel.PropertyTypeID==1?1:2),
                 RegionID = _createPropertyViewModel.rigionID,
                 CultureID = _cultureID,
                 PropertyTypeID = _createPropertyViewModel.PropertyTypeID,
-                LocAge = _createPropertyViewModel.LocAge,
+                LocAge = locAge,
                 LocArea = locArea,
                 Description = _createPropertyViewModel.Description,
                 HomePrice = homeprice,
                 MortgagePrice = mortgagePrice,
                 RentPrice = rentPrice,
-                ImageName = _createPropertyViewModel.ImageName
+                ImageName = _createPropertyViewModel.ImageName,
+                LocLatitude=_lat,
+                LocLongitude=_long
+                
             };
             if (ModelState.IsValid)
             {
@@ -415,10 +432,19 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             return View();
         }
 
-        
-        public JsonResult searchRigion(string Areas, string sreachText = "")
+        [HttpPost]
+        public JsonResult searchRigion( string searchText = "", int idCity = 0)
         {
-            var _rigion = _db.Rigions.Where(a => a.RegionTitle.ToLower().Contains(sreachText.ToLower())).Select(c => new { ID = c.RigionID, Name = c.RegionCode }).Distinct().ToList();
+            var _rigion = _db.Rigions.Where(a =>a.CityID==idCity&& a.RegionTitle.ToLower().Contains(searchText.ToLower())).Select(c => new {  Name = c.RegionTitle,ID = c.RigionID }).Distinct().ToList();
+            //if (_rigion != null)
+            //{
+            //    foreach (var item in _rigion)
+            //    {
+            //        ViewBag.valRegion = item.ID;
+
+            //    }
+            //}
+
             return Json(_rigion, JsonRequestBehavior.AllowGet);
         }
 
