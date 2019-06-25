@@ -45,5 +45,7 @@ namespace RealStateProject.Controllers
             var res = _db.HomeProperties.ToList();
             return PartialView(res);
         }
+
+        
     }
 }

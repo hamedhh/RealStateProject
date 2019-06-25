@@ -72,32 +72,38 @@
         </div>*@
     <div class="aa-properties-info">
         <h2> @Model.Title</h2>
-        <span class="aa-price">@Model.HomePrice تومان</span>
+
+
+
+        @{
+            if (Model.PropertyTypeID == 1)
+            {
+                
+                <span style="color:black">قیمت :   <span id="txtPrice" style="font-size: 20px !important;" class="aa-price">@Model.HomePrice</span> <span style="font-size: 13px !important; color: darkgray !important;">   تومان</span> </span>
+
+
+            }
+            else if (Model.PropertyTypeID == 2)
+            {
+
+                <span style="color:black">رهن :   <span id="txtMortgage" style="font-size: 20px !important;" class="aa-price">@Model.MortgagePrice</span> <span style="font-size: 13px !important; color: darkgray !important;">   تومان</span> </span>
+                <span class="fa fa-circle"></span>
+                <br />
+
+                <span style="color:black">اجاره :   <span id="txtRent" style="font-size: 20px !important;" class="aa-price">@Model.RentPrice</span> <span style="font-size: 13px !important; color: darkgray !important;">   تومان</span> </span>
+                <span class="fa fa-circle"></span>
+
+            }
+
+
+        }
+
         <div id="attribSP-place">
             <span class="attribSP"><i class="fa fa-map"></i><span>..</span> <span></span> <span>متراژ:</span>   <span class="bold">@Model.LocArea</span>   <span>متر مربع</span>   </span>
             <span class="attribSP"><i class="fa fa-bed"></i> <span>..</span> <span></span> <span>تعداد خواب:</span>   <span class="bold">3</span>  <span></span>    </span>
             <span class="attribSP"><i class="fa fa-circle"></i> <span>..</span> <span></span> <span>سن بنا:</span>   <span class="bold">@Model.LocAge  </span>سال<span></span>    </span>
         </div>
         <p>@Model.Description</p>
-        @*<p>
-                فرمانیه شرقی سنبل برج باغ ۳۰۰ متر ۴ خواب ۲ خواب مستر فول استخر سونا جکوزی ۱۰طبقه ۴ واحدی طبقه ۴ لابی مجلل ملکی خاص از لحاظ طرحو نقشه و سازه ای بنام در منطقه نشیمن جدا جکوزی داخل واحد نور و ونقشه بی نظیر
-                املاک فرواک
-                واحد اجاره ای
-                ۱۶۰ متر ۲ خواب
-                واحد مجتمع باغ بهشت
-                دوبلکس
-                واحد کلید نخورده
-                لابی مجلل
-                سالن اجتماعات
-                سالن جم
-                سالن بیلیارد
-                پیست دوچرخه سواری
-                پیست پیاده روی
-                بهترین لوکیشن
-                تبدیل ۲۰۰ میلیون تومان پیش
-                ماهی ۱۰ میلیون تومان اجاره
-                اجاره یکسال گرفته میشود
-            </p>*@
         @{
             List<DataLayer.DB.HomeProperties_MetaData> facility = ViewBag.facility;
             List<DataLayer.DB.HomeProperties_MetaData> condition = ViewBag.condition;
@@ -133,7 +139,7 @@
         </div>
 
         @*<h4>Property Video</h4>
-            <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" frameborder="0" allowfullscreen=""></iframe>*@
+        <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" frameborder="0" allowfullscreen=""></iframe>*@
         <h4>ویژگی های محل</h4>
         <hr />
         <div id="map" style="height: 400px;"></div>
@@ -179,4 +185,24 @@
     }).addTo(map);
 
     var marker = L.marker([@Model.LocLatitude, @Model.LocLongitude]).addTo(map);
+</script>
+<script>
+    $(document).ready(function () {
+        $('#txtPrice').text(ToRial($('#txtPrice').text()));
+        $('#txtRent').text(ToRial($('#txtRent').text()));
+        $('#txtMortgage').text(ToRial($('#txtMortgage').text()));
+    });
+    function ToRial(str) {
+      
+            str = str.replace(/\,/g, '');
+            var objRegex = new RegExp('(-?[0-9]+)([0-9]{3})');
+
+            while (objRegex.test(str)) {
+                str = str.replace(objRegex, '$1,$2');
+            
+        }
+
+
+        return str;
+    }
 </script>

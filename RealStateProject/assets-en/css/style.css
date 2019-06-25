@@ -791,7 +791,7 @@ img {
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-info span {
   margin: 0px 5px;
-  font-size: 14px;
+  font-size: 12px;
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-about {
   display: inline;
@@ -3448,4 +3448,8 @@ img {
     left: 38%;  
   }
   
+}
+.aa-search-btn:hover {
+    border-color: darkslategrey !important;
+    background-color: darkslategrey !important;
 }

@@ -18,6 +18,8 @@
         }
         else if (Model.StatusID == 3)
         {
+
+
             <div class="aa-tag sold-out">
                 @Model.HomeProperty_Status.StatusTitle
             </div>
@@ -40,45 +42,61 @@
         </div>
 
         <div class="aa-properties-detial">
-            <table class="table table-striped">
+            <table id="tblPrice" class="table table-striped">
 
-                
+
                 <tr>
-                    <td>@(Model.PropertyTypeID == 1 ? "فروش" : "رهن")</td>
-                    <td>2500</td>
+                    <td style="padding: 1px !important; font-size: 13px !important;">@(Model.PropertyTypeID == 1 ? "فروش" : "رهن")</td>
+                    <td class="txtdecimal" style="padding: 1px !important; font-size: 13px !important;">@(Model.PropertyTypeID == 1 ? Model.HomePrice : Model.MortgagePrice) تومان</td>
                 </tr>
-                @*<tr>
-                    @if (Model.PropertyTypeID == 2)
-                    {
+                <tr>
+                    @{
+                        if (Model.PropertyTypeID == 2)
+                        {
+                            //var str = '\B(?=(\d{3})+(?!\d))';
+                            <td style="padding: 1px !important;font-size: 13px !important;">@(Model.PropertyTypeID == 2 ? "اجاره" : "")</td>
+                            <td class="txtdecimal" style="padding: 1px !important; font-size: 13px !important;">@(Model.PropertyTypeID == 2 ? Model.RentPrice: 0) تومان</td>
 
-                        <td>@(Model.PropertyTypeID == 2 ? "اجاره" : "")</td>
-                        <td>2500</td>
-
+                        }
                     }
 
-                </tr>*@
+
+                </tr>
 
 
             </table>
-
-           @*@{
-            if (Model.PropertyTypeID == 1)
-            {
-                <span class="aa-price">
-                    @Model.HomePrice  تومان
-                </span>
-            }
-            else if (Model.PropertyTypeID == 2)
-            {
-                <span><span class="aa-price">@Model.MortgagePrice  تومان</span> رهن:</span>
-   
-            }
-        }*@
-
-
-
             <a href="/Property/ShowDetailProperty?id=@Model.HomePropertyID" class="aa-secondary-btn">نمایش جزئیات</a>
         </div>
     </div>
 </article>
- 
+<script src="~/Scripts/jquery.js"></script>
+
+<script>
+    //function eArabic(x) {
+    //    return x.toLocaleString('ar-EG');
+    //}
+    //$(function ($) {
+    //    $('.txtdecimal').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 1, currencySymbol: ' €' });
+    //});
+    $(document).ready(function () {
+        $('#tblPrice .txtdecimal').each(function () {
+            //console.log($(this).html());
+           
+           $(this).text(ToRial($(this).text()));
+        });
+    });
+
+    function ToRial(str) {
+
+        str = str.replace(/\,/g, '');
+        var objRegex = new RegExp('(-?[0-9]+)([0-9]{3})');
+
+        while (objRegex.test(str)) {
+            str = str.replace(objRegex, '$1,$2');
+        }
+
+        return str;
+    }
+
+</script>
+
