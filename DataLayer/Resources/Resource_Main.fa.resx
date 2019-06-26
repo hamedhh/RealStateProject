@@ -195,4 +195,19 @@
   <data name="LoginUserError" xml:space="preserve">
     <value>نام کاربری یا گذرواژه انتخابی نادرست است</value>
   </data>
+  <data name="City" xml:space="preserve">
+    <value>شهر</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>کشور</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>محله</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>خرید</value>
+  </data>
+  <data name="MortgageRent" xml:space="preserve">
+    <value>رهن/اجاره</value>
+  </data>
 </root>

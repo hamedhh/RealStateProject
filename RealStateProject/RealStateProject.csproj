@@ -2518,7 +2518,7 @@
     <Content Include="Views\Property\NearbyProperty.cshtml" />
     <Content Include="Views\Shared\_Notification.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Search\Defualt.cshtml" />
     <Content Include="Views\Shared\_SearchMaster.cshtml" />
   </ItemGroup>
   <ItemGroup>
