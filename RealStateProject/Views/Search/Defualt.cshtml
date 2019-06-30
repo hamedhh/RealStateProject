@@ -2,8 +2,16 @@
 @{
     bool? IsBuy = (bool?)Session["Buy"];
 }
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
 @using (Html.BeginForm("Defualt", "Search", FormMethod.Post))
 {
+    @Html.HiddenFor(model=>model.MaxArea)
+    @Html.HiddenFor(model=>model.minArea)
+    @Html.HiddenFor(model=>model.maxPrice)
+    @Html.HiddenFor(model=>model.minPrice)
+    @Html.HiddenFor(model=>model.maxRent)
+    @Html.HiddenFor(model=>model.minRent)
     <section id="aa-advance-search">
         <div class="container">
             <div class="aa-advance-search-area">
@@ -12,7 +20,9 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="aa-single-advance-search">
-                                    <input type="text" name="regionTitle" placeholder="@DataLayer.Resources.Resource_Main.Ph_Search">
+                                    <input type="text" name="regionTitle" id="txtrigionTitle" placeholder="@DataLayer.Resources.Resource_Main.Ph_Search">
+                                    @Html.HiddenFor(model => model.RegionID, new { @id = "txtrigionID" })
+                                    @Html.ValidationMessageFor(model => model.regionTitle, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -97,7 +107,7 @@
         </div>
     </section>
 }
-<script src="~/Scripts/jquery.js"></script>
+
 <script>
 
     $(document).ready(function () {
@@ -106,14 +116,14 @@
             if ($('#drpProperty').val() == 3) {
                 $('#headerBuy').show();
                 $('#headerRent').fadeOut('slow');
-                $('#valRent').fadeOut('slow'); 
-                $('#lblRent').fadeOut('slow'); 
+                $('#valRent').fadeOut('slow');
+                $('#lblRent').fadeOut('slow');
             }
-            if ($('#drpProperty').val()  == 2) {
+            if ($('#drpProperty').val() == 2) {
                 $('#headerBuy').fadeOut('slow');
                 $('#headerRent').show();
                 $('#valRent').show();
-                $('#lblRent').show(); 
+                $('#lblRent').show();
             }
         });
     });
@@ -124,13 +134,13 @@
             $('#headerBuy').show();
             $('#headerRent').fadeOut('slow');
             $('#valRent').fadeOut('slow');
-            $('#lblRent').fadeOut('slow'); 
+            $('#lblRent').fadeOut('slow');
         }
         if ($('#drpProperty').val() == 2) {
             $('#headerBuy').fadeOut('slow');
             $('#headerRent').show();
             $('#valRent').show();
-            $('#lblRent').show(); 
+            $('#lblRent').show();
         }
     });
 
@@ -157,7 +167,6 @@
 
     });
 
-
     $(document).ready(function () {
         $('#drpCountry').change(function () {
             $('#drpCity option').remove();
@@ -178,4 +187,108 @@
             });
         });
     });
+</script>
+
+<script>
+    $('#txtrigionTitle').keyup(function () {
+        if (!this.value) {
+            $('#txtrigionID').val('');
+        }
+    })
+</script>
+
+@*<script src="~/Scripts/jquery.js"></script>*@
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+    <script src="/Scripts/jquery-ui.min.js"></script>
+    <link href="/Content/jquery-ui.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            $("#txtrigionTitle").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/UserPanel/Property/searchRigion',
+                        //data: "{ 'searchText': '" + request.term + "' , 'idCity': '" + $('#dropDownId').val() + "'}",
+                        data: {
+                            searchText: request.term,
+                            idCity: $('#drpCity').val()
+                        },
+                        dataType: "json",
+                        type: "POST",
+                        //contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data, function (val, item) {
+                                return {
+                                    label: val.Name,
+                                    value: val.Name,
+                                    txtrigionID: val.ID,
+
+                                }
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    //if (ViewBag.valRegion != null)
+                    //$('#txtregionID').val(ViewBag.valRegion);
+                    $("#txtrigionID").val(ui.item.txtrigionID);
+                    $("#txtrigionTitle").val(ui.item.label);
+                },
+                minLength: 0
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+        });
+    </script>
+<script>
+    //-----------------------------------------------Price-----------------------------------------
+    $(document).ready(function () {
+        $('#skip-value-upper2').on('DOMSubtreeModified', function () {
+            $('#maxPrice').val($('#skip-value-upper2').text());
+        })
+  
+    });
+
+    $(document).ready(function () {
+        $('#skip-value-lower2').on('DOMSubtreeModified', function () {
+            $('#minPrice').val($('#skip-value-lower2').text());
+        })
+       
+    });
+
+    //----------------------------------------------Area---------------------------------------------
+    $(document).ready(function () {
+        $('#skip-value-lower').on('DOMSubtreeModified', function () {
+            $('#minArea').val($('#skip-value-lower').text());
+        })
+      
+    });
+
+    $(document).ready(function () {
+        $('#skip-value-lower').on('DOMSubtreeModified', function () {
+            $('#MaxArea').val($('#skip-value-lower').text());
+        })
+       
+    });
+
+     //----------------------------------------------Rent---------------------------------------------
+    $(document).ready(function () {
+        $('#skip-value-lower3').on('DOMSubtreeModified', function () {
+            $('#minRent').val($('#skip-value-lower3').text());
+        })
+      
+    });
+
+    $(document).ready(function () {
+        $('#skip-value-upper3').on('DOMSubtreeModified', function () {
+            $('#maxRent').val($('#skip-value-upper3').text());
+        })
+
+    });
+
 </script>
