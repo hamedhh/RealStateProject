@@ -12,7 +12,7 @@
         }
         else if (Model.StatusID == 2)
         {
-            <div class="aa-tag for-rent">
+            <div class="aa-tag for-rent"> 
                 @Model.HomeProperty_Status.StatusTitle
             </div>
         }
@@ -48,8 +48,17 @@
                 <tr>
                     <td style="padding: 1px !important; font-size: 13px !important;">@(Model.PropertyTypeID == 1 ? "فروش" : "رهن")</td>
                     <td class="txtdecimal" style="padding: 1px !important; font-size: 13px !important;">@(Model.PropertyTypeID == 1 ? Model.HomePrice : Model.MortgagePrice) تومان</td>
+                    @{
+                        if (Model.PropertyTypeID == 2)
+                        {
+                            //var str = '\B(?=(\d{3})+(?!\d))';
+                            <td style="padding: 1px !important;font-size: 13px !important;">@(Model.PropertyTypeID == 2 ? "اجاره" : "")</td>
+                            <td class="txtdecimal" style="padding: 1px !important; font-size: 13px !important;">@(Model.PropertyTypeID == 2 ? Model.RentPrice: 0) تومان</td>
+
+                        }
+                    }
                 </tr>
-                <tr>
+                @*<tr>
                     @{
                         if (Model.PropertyTypeID == 2)
                         {
@@ -61,7 +70,7 @@
                     }
 
 
-                </tr>
+                </tr>*@
 
 
             </table>

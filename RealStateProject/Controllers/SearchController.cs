@@ -17,16 +17,28 @@ namespace RealStateProject.Controllers
             ViewBag.CountryID = new SelectList(_db.Countries.ToList(), "CountryID", "CountryTitle");
             ViewBag.usageID = new SelectList(_db.Usages.ToList(), "UsageID", "UsageTitle");
             ViewBag.propertyTypeID = new SelectList(_db.HomeProperty_Type.Where(a=>a.PropertyTypeID==3 || a.PropertyTypeID==2).OrderByDescending(a=>a.PropertyTypeID), "PropertyTypeID", "Title");
-            Session["Buy"] = true;
+            //Session["Buy"] = true;
             return PartialView();
         }
 
-        [HttpPost]
-        public ActionResult Defualt(DefualtSearchViewModel _defualtSearchViewModel)
-        {
-            ViewBag.CountryID = new SelectList(_db.Countries.ToList(), "CountryID", "CountryTitle");
-            return PartialView();
-        }
+        //[HttpPost]
+        //public ActionResult Defualt(DefualtSearchViewModel _defualtSearchViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        ViewBag.CountryID = new SelectList(_db.Countries.ToList(), "CountryID", "CountryTitle");
+        //        ViewBag.usageID = new SelectList(_db.Usages.ToList(), "UsageID", "UsageTitle");
+        //        ViewBag.propertyTypeID = new SelectList(_db.HomeProperty_Type.Where(a => a.PropertyTypeID == 3 || a.PropertyTypeID == 2).OrderByDescending(a => a.PropertyTypeID), "PropertyTypeID", "Title");
+        //        //return PartialView(_defualtSearchViewModel);
+        //        return View("Index", "Home", _defualtSearchViewModel);
+        //    }
+        //    else
+        //    {
+        //        //ModelState.AddModelError("", "");
+        //        return RedirectToAction("","",_defualtSearchViewModel);
+        //    }
+                
+        //}
 
         public JsonResult findCity(int id)
         {

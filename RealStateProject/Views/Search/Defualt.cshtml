@@ -4,14 +4,14 @@
 }
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 
-@using (Html.BeginForm("Defualt", "Search", FormMethod.Post))
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
-    @Html.HiddenFor(model=>model.MaxArea)
-    @Html.HiddenFor(model=>model.minArea)
-    @Html.HiddenFor(model=>model.maxPrice)
-    @Html.HiddenFor(model=>model.minPrice)
-    @Html.HiddenFor(model=>model.maxRent)
-    @Html.HiddenFor(model=>model.minRent)
+    @Html.HiddenFor(model => model.MaxArea)
+    @Html.HiddenFor(model => model.minArea)
+    @Html.HiddenFor(model => model.maxPrice)
+    @Html.HiddenFor(model => model.minPrice)
+    @Html.HiddenFor(model => model.maxRent)
+    @Html.HiddenFor(model => model.minRent)
     <section id="aa-advance-search">
         <div class="container">
             <div class="aa-advance-search-area">
@@ -54,7 +54,9 @@
 
                             <div class="col-md-2">
                                 <div class="aa-single-advance-search">
-                                    <input style="margin-top: 10px !important;" class="aa-search-btn" type="submit" value="@DataLayer.Resources.Resource_Main.Search">
+
+                                    <input type="submit"  style="margin-top: 10px !important;" class="aa-search-btn" value="@DataLayer.Resources.Resource_Main.Search">
+                                    @*Html.ActionLink(DataLayer.Resources.Resource_Main.Search,"Index","Home",Model,null)*@
                                 </div>
                             </div>
                         </div>
@@ -107,6 +109,18 @@
         </div>
     </section>
 }
+<script>
+    function resultView() {
+        var model = @Html.Raw(Json.Encode(Model))
+        $.ajax({
+            url: '/Home/Index/',
+            dataType: 'json',
+            type: 'POST',
+                data: JSON.stringify({ _defualtSearchViewModel: model }),
+            contentType: 'application/json; charset=utf-8',
+        });
+    }
+</script>
 
 <script>
 
@@ -198,67 +212,67 @@
 </script>
 
 @*<script src="~/Scripts/jquery.js"></script>*@
-    <script src="/Scripts/jquery-1.10.2.js"></script>
-    <script src="/Scripts/jquery-ui.min.js"></script>
-    <link href="/Content/jquery-ui.css" rel="stylesheet" />
-    <script type="text/javascript">
-        $(function () {
-            $("#txtrigionTitle").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: '/UserPanel/Property/searchRigion',
-                        //data: "{ 'searchText': '" + request.term + "' , 'idCity': '" + $('#dropDownId').val() + "'}",
-                        data: {
-                            searchText: request.term,
-                            idCity: $('#drpCity').val()
-                        },
-                        dataType: "json",
-                        type: "POST",
-                        //contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            response($.map(data, function (val, item) {
-                                return {
-                                    label: val.Name,
-                                    value: val.Name,
-                                    txtrigionID: val.ID,
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script src="/Scripts/jquery-ui.min.js"></script>
+<link href="/Content/jquery-ui.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(function () {
+        $("#txtrigionTitle").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/UserPanel/Property/searchRigion',
+                    //data: "{ 'searchText': '" + request.term + "' , 'idCity': '" + $('#dropDownId').val() + "'}",
+                    data: {
+                        searchText: request.term,
+                        idCity: $('#drpCity').val()
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    //contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (val, item) {
+                            return {
+                                label: val.Name,
+                                value: val.Name,
+                                txtrigionID: val.ID,
 
-                                }
-                            }))
-                        },
-                        error: function (response) {
-                            alert(response.responseText);
-                        },
-                        failure: function (response) {
-                            alert(response.responseText);
-                        }
-                    });
-                },
-                select: function (event, ui) {
-                    //if (ViewBag.valRegion != null)
-                    //$('#txtregionID').val(ViewBag.valRegion);
-                    $("#txtrigionID").val(ui.item.txtrigionID);
-                    $("#txtrigionTitle").val(ui.item.label);
-                },
-                minLength: 0
-            }).focus(function () {
-                $(this).autocomplete("search");
-            });
+                            }
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                //if (ViewBag.valRegion != null)
+                //$('#txtregionID').val(ViewBag.valRegion);
+                $("#txtrigionID").val(ui.item.txtrigionID);
+                $("#txtrigionTitle").val(ui.item.label);
+            },
+            minLength: 0
+        }).focus(function () {
+            $(this).autocomplete("search");
         });
-    </script>
+    });
+</script>
 <script>
     //-----------------------------------------------Price-----------------------------------------
     $(document).ready(function () {
         $('#skip-value-upper2').on('DOMSubtreeModified', function () {
             $('#maxPrice').val($('#skip-value-upper2').text());
         })
-  
+
     });
 
     $(document).ready(function () {
         $('#skip-value-lower2').on('DOMSubtreeModified', function () {
             $('#minPrice').val($('#skip-value-lower2').text());
         })
-       
+
     });
 
     //----------------------------------------------Area---------------------------------------------
@@ -266,22 +280,22 @@
         $('#skip-value-lower').on('DOMSubtreeModified', function () {
             $('#minArea').val($('#skip-value-lower').text());
         })
-      
+
     });
 
     $(document).ready(function () {
         $('#skip-value-lower').on('DOMSubtreeModified', function () {
             $('#MaxArea').val($('#skip-value-lower').text());
         })
-       
+
     });
 
-     //----------------------------------------------Rent---------------------------------------------
+    //----------------------------------------------Rent---------------------------------------------
     $(document).ready(function () {
         $('#skip-value-lower3').on('DOMSubtreeModified', function () {
             $('#minRent').val($('#skip-value-lower3').text());
         })
-      
+
     });
 
     $(document).ready(function () {
