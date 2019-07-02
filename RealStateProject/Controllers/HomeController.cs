@@ -87,6 +87,7 @@ namespace RealStateProject.Controllers
                             maxPrice = decimal.Parse(_defualtSearchViewModel.maxPrice);
                         homeProperty.Where(a => a.RentPrice <= maxPrice).ToList();
                     }
+
                     //---------------------------------------Mortgage-----------------------------------------------
 
                     if (!string.IsNullOrEmpty(_defualtSearchViewModel.minRent))
