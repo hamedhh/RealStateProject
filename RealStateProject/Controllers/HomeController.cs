@@ -38,13 +38,26 @@ namespace RealStateProject.Controllers
             List<HomeProperty> homeProperty = new List<HomeProperty>();
             if (ModelState.IsValid)
             {
-                if (_defualtSearchViewModel.CityID > 0 && string.IsNullOrEmpty(_defualtSearchViewModel.regionTitle))
-                    homeProperty.AddRange(_db.HomeProperties.Where(a => a.Rigion.CityID == _defualtSearchViewModel.CityID));
-                if (!string.IsNullOrEmpty(_defualtSearchViewModel.regionTitle) && _defualtSearchViewModel.RegionID > 0)
-                    homeProperty.AddRange(_db.HomeProperties.Where(a => a.RegionID == _defualtSearchViewModel.RegionID));
-                if (_defualtSearchViewModel.usageID > 0)
-                    homeProperty.AddRange(_db.HomeProperties.Where(a => a.SubUsage.UsageID == _defualtSearchViewModel.usageID));
+                //if (_defualtSearchViewModel.CityID > 0 && !string.IsNullOrEmpty(_defualtSearchViewModel.regionTitle))
+                //    homeProperty.AddRange(_db.HomeProperties.Where(a => a.Rigion.CityID == _defualtSearchViewModel.CityID));
+                //if (!string.IsNullOrEmpty(_defualtSearchViewModel.regionTitle) && _defualtSearchViewModel.RegionID > 0)
+                //    homeProperty.AddRange(_db.HomeProperties.Where(a => a.RegionID == _defualtSearchViewModel.RegionID));
+                //if (_defualtSearchViewModel.usageID > 0)
+                //    homeProperty.AddRange(_db.HomeProperties.Where(a => a.SubUsage.UsageID == _defualtSearchViewModel.usageID));
 
+                if (_defualtSearchViewModel.CityID > 0 && !string.IsNullOrEmpty(_defualtSearchViewModel.regionTitle)&&
+                    !string.IsNullOrEmpty(_defualtSearchViewModel.regionTitle) && _defualtSearchViewModel.RegionID > 0 &&
+                    _defualtSearchViewModel.usageID > 0 && _defualtSearchViewModel.propertyTypeID>0)
+                {
+                    homeProperty = _db.HomeProperties.Where(a => a.SubUsage.UsageID == _defualtSearchViewModel.usageID
+                                              && a.RegionID == _defualtSearchViewModel.RegionID &&
+                                               a.Rigion.CityID == _defualtSearchViewModel.CityID && a.PropertyTypeID==_defualtSearchViewModel.propertyTypeID).ToList();
+                                            
+                }
+
+
+
+                homeProperty=homeProperty.Distinct().ToList();
                 if (_defualtSearchViewModel.propertyTypeID == 3)
                 {
                     //------------------------------------------------HomePrice--------------------------------------
@@ -55,7 +68,7 @@ namespace RealStateProject.Controllers
                             minPrice = decimal.Parse(_defualtSearchViewModel.minPrice.Replace(",", ""));
                         else
                             minPrice = decimal.Parse(_defualtSearchViewModel.minPrice);
-                        homeProperty.Where(a => a.HomePrice >= minPrice).ToList();
+                        homeProperty=homeProperty.Where(a => a.HomePrice >= minPrice).ToList();
                     }
                     if (!string.IsNullOrEmpty(_defualtSearchViewModel.maxPrice))
                     {
@@ -63,7 +76,7 @@ namespace RealStateProject.Controllers
                             maxPrice = decimal.Parse(_defualtSearchViewModel.maxPrice.Replace(",", ""));
                         else
                             maxPrice = decimal.Parse(_defualtSearchViewModel.maxPrice);
-                        homeProperty.Where(a => a.HomePrice <= maxPrice).ToList();
+                        homeProperty=homeProperty.Where(a => a.HomePrice <= maxPrice).ToList();
                     }
 
                 }
@@ -77,7 +90,7 @@ namespace RealStateProject.Controllers
                             minPrice = decimal.Parse(_defualtSearchViewModel.minPrice.Replace(",", ""));
                         else
                             minPrice = decimal.Parse(_defualtSearchViewModel.minPrice);
-                        homeProperty.Where(a => a.RentPrice >= minPrice).ToList();
+                        homeProperty= homeProperty.Where(a => a.RentPrice >= minPrice).ToList();
                     }
                     if (!string.IsNullOrEmpty(_defualtSearchViewModel.maxPrice))
                     {
@@ -85,7 +98,7 @@ namespace RealStateProject.Controllers
                             maxPrice = decimal.Parse(_defualtSearchViewModel.maxPrice.Replace(",", ""));
                         else
                             maxPrice = decimal.Parse(_defualtSearchViewModel.maxPrice);
-                        homeProperty.Where(a => a.RentPrice <= maxPrice).ToList();
+                        homeProperty=homeProperty.Where(a => a.RentPrice <= maxPrice).ToList();
                     }
 
                     //---------------------------------------Mortgage-----------------------------------------------
@@ -96,7 +109,7 @@ namespace RealStateProject.Controllers
                             minRent = decimal.Parse(_defualtSearchViewModel.minRent.Replace(",", ""));
                         else
                             minRent = decimal.Parse(_defualtSearchViewModel.minRent);
-                        homeProperty.Where(a => a.MortgagePrice >= minRent).ToList();
+                        homeProperty=homeProperty.Where(a => a.MortgagePrice >= minRent).ToList();
                     }
                     if (!string.IsNullOrEmpty(_defualtSearchViewModel.maxRent))
                     {
@@ -104,14 +117,14 @@ namespace RealStateProject.Controllers
                             maxRent = decimal.Parse(_defualtSearchViewModel.maxRent.Replace(",", ""));
                         else
                             maxRent = decimal.Parse(_defualtSearchViewModel.maxRent);
-                        homeProperty.Where(a => a.MortgagePrice <= maxPrice).ToList();
+                        homeProperty=homeProperty.Where(a => a.MortgagePrice <= maxPrice).ToList();
                     }
 
                 }
             }
             else
             {
-                homeProperty = _db.HomeProperties.ToList();
+                homeProperty=homeProperty = _db.HomeProperties.ToList();
             }
             //------------------------------------------------Area--------------------------------------
             if (!string.IsNullOrEmpty(_defualtSearchViewModel.MaxArea))
@@ -128,7 +141,7 @@ namespace RealStateProject.Controllers
                     minLocArea = int.Parse(_defualtSearchViewModel.minArea.Replace(",", ""));
                 else
                     minLocArea = int.Parse(_defualtSearchViewModel.minArea);
-                homeProperty.Where(a => a.LocArea <= maxLocArea).ToList();
+                homeProperty.Where(a => a.LocArea <= minLocArea).ToList();
             }
 
             return View(homeProperty.ToPagedList(pageIndex, pageSize));
