@@ -5,29 +5,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="abc3991295084c008c154ae745adc503" Name="Diagram1">
-        <EntityTypeShape EntityType="RealState_DBModel.City" Width="1.5" PointX="1.5" PointY="23.625" />
+        <EntityTypeShape EntityType="RealState_DBModel.City" Width="1.5" PointX="1.5" PointY="10.5" />
         <EntityTypeShape EntityType="RealState_DBModel.Condition" Width="1.5" PointX="6" PointY="1.5" />
-        <EntityTypeShape EntityType="RealState_DBModel.Country" Width="1.5" PointX="1.5" PointY="26.75" />
+        <EntityTypeShape EntityType="RealState_DBModel.Country" Width="1.5" PointX="1.5" PointY="13.75" />
         <EntityTypeShape EntityType="RealState_DBModel.Culture" Width="1.5" PointX="0.75" PointY="5.625" />
         <EntityTypeShape EntityType="RealState_DBModel.Facility" Width="1.5" PointX="6" PointY="13" />
+        <EntityTypeShape EntityType="RealState_DBModel.HomeProperty" Width="1.5" PointX="3" PointY="3.625" />
         <EntityTypeShape EntityType="RealState_DBModel.HomeProperties_MetaData" Width="1.5" PointX="8.25" PointY="5.5" />
         <EntityTypeShape EntityType="RealState_DBModel.HomeProperty_Galleries" Width="1.5" PointX="5.25" PointY="9.75" />
-        <EntityTypeShape EntityType="RealState_DBModel.HomeProperty_Status" Width="1.5" PointX="0.75" PointY="18" />
-        <EntityTypeShape EntityType="RealState_DBModel.HomeProperty_Type" Width="1.5" PointX="0.75" PointY="15.5" />
-        <EntityTypeShape EntityType="RealState_DBModel.Rigion" Width="1.5" PointX="0.75" PointY="20.625" />
+        <EntityTypeShape EntityType="RealState_DBModel.HomeProperty_Status" Width="1.5" PointX="0.75" PointY="16.5" />
+        <EntityTypeShape EntityType="RealState_DBModel.HomeProperty_Type" Width="1.5" PointX="0.75" PointY="25" />
+        <EntityTypeShape EntityType="RealState_DBModel.Rigion" Width="1.5" PointX="0.75" PointY="1.5" />
         <EntityTypeShape EntityType="RealState_DBModel.Role" Width="1.5" PointX="3.75" PointY="0.75" />
-        <EntityTypeShape EntityType="RealState_DBModel.SubUsage" Width="1.5" PointX="0.75" PointY="9.625" />
-        <EntityTypeShape EntityType="RealState_DBModel.Usage" Width="1.5" PointX="1.5" PointY="12.75" />
+        <EntityTypeShape EntityType="RealState_DBModel.SubUsage" Width="1.5" PointX="0.75" PointY="19" />
+        <EntityTypeShape EntityType="RealState_DBModel.Usage" Width="1.5" PointX="1.5" PointY="22.25" />
         <EntityTypeShape EntityType="RealState_DBModel.User" Width="1.5" PointX="6" PointY="5" />
         <AssociationConnector Association="RealState_DBModel.FK_Cities_Countries" />
         <AssociationConnector Association="RealState_DBModel.FK_Rigions_Cities" />
         <AssociationConnector Association="RealState_DBModel.FK_HomeProperties_MetaData_Conditions" />
+        <AssociationConnector Association="RealState_DBModel.FK_HomeProperties_Cultures" />
         <AssociationConnector Association="RealState_DBModel.FK_Users_Cultures" />
         <AssociationConnector Association="RealState_DBModel.FK_HomeProperties_MetaData_Facilities" />
-        <AssociationConnector Association="RealState_DBModel.FK_Users_Roles" />
-        <AssociationConnector Association="RealState_DBModel.FK_SubUsages_Usages" />
-        <EntityTypeShape EntityType="RealState_DBModel.HomeProperty" Width="1.5" PointX="8.25" PointY="11" />
-        <AssociationConnector Association="RealState_DBModel.FK_HomeProperties_Cultures" />
         <AssociationConnector Association="RealState_DBModel.FK_HomeProperties_HomeProperties" />
         <AssociationConnector Association="RealState_DBModel.FK_HomeProperties_HomeProperty_Status" />
         <AssociationConnector Association="RealState_DBModel.FK_HomeProperties_HomeProperty_Type" />
@@ -35,7 +33,9 @@
         <AssociationConnector Association="RealState_DBModel.FK_HomeProperties_Rigions" />
         <AssociationConnector Association="RealState_DBModel.FK_HomeProperties_SubUsages" />
         <AssociationConnector Association="RealState_DBModel.FK_HomeProperty_Galleries_HomeProperty_Galleries" />
-        </Diagram>
+        <AssociationConnector Association="RealState_DBModel.FK_Users_Roles" />
+        <AssociationConnector Association="RealState_DBModel.FK_SubUsages_Usages" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

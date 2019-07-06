@@ -33,8 +33,8 @@ namespace DataLayer.DB
         public Nullable<System.DateTime> RegisterDate { get; set; }
     
         public virtual Culture Culture { get; set; }
-        public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HomeProperty> HomeProperties { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

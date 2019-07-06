@@ -1,0 +1,161 @@
+﻿@model IEnumerable<DataLayer.DB.HomeProperty>
+
+@{
+    ViewBag.Title = "PropertyList";
+    Layout = "~/Areas/UserPanel/Views/Shared/_PanelLayout.cshtml";
+}
+<p>
+    <a class="btn btn-primary" href="/UserPanel/Property/Create">آگهی جدید</a>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.LocArea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocAge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomePrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MortgagePrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RentPrice)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.LocLatitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocLongitude)
+            </th>*@
+
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        @*<th>
+                    @Html.DisplayNameFor(model => model.ImageName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Culture.CultureTitle)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.HomeProperty_Status.StatusTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeProperty_Type.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rigion.RegionTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubUsage.SubUsageTitle)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.LocArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocAge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MortgagePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RentPrice)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.LocLatitude)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocLongitude)
+                </td>*@
+
+            <td></td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            @* <td>
+                     @Html.DisplayFor(modelItem => item.ImageName)
+                 </td>
+                <td>
+                     @Html.DisplayFor(modelItem => item.Culture.CultureTitle)
+                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeProperty_Status.StatusTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeProperty_Type.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rigion.RegionTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubUsage.SubUsageTitle)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.HomePropertyID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.HomePropertyID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.HomePropertyID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script src="~/Scripts/jquery.js"></script>
+<script>
+    $(function () {
+        calTime();
+    });
+
+        function calTime() {
+            $.ajax({
+                dataType: "json",
+                data: { "dateTime": '2019-06-22 15:08:10.453' },
+                type: "GET",
+                url: "/UserPanel/Property/getTime"
+
+            });
+        }
+    
+</script>
+@*<script>
+        function calTime(dateItem){
+            $.ajax({
+                dataType: "json",
+                data: { "dateTime": dateItem },
+                type: "GET",
+                url: "/UserPanel/Property/getTime"
+
+            });
+        }
+    </script>*@

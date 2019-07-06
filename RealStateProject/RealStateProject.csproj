@@ -2495,6 +2495,7 @@
     <Content Include="Areas\UserPanel\Views\Property\testCreate2.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\testCreate3.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\UploadAction.cshtml" />
+    <Content Include="Areas\UserPanel\Views\Property\PropertyList.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.0.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -7,6 +7,7 @@ using DataLayer.DB;
 using DataLayer.ViewModels;
 using InsertShowImage;
 using KooyWebApp_MVC.Classes;
+using Utilities;
 
 namespace RealStateProject.Areas.UserPanel.Controllers
 {
@@ -30,7 +31,7 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             decimal homeprice = 0;
             decimal rentPrice = 0;
             decimal mortgagePrice = 0;
-            int locArea = 0;
+            int locArea = 0; 
             int locAge = 0;
             string _lat = "";
             string _long= "";
@@ -448,8 +449,6 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             return Json(_rigion, JsonRequestBehavior.AllowGet);
         }
 
-
-
         [HttpPost]
         public virtual ActionResult UploadAction(CreatePropertyViewModel _createPropertyViewModel, List<HttpPostedFileBase> fileUpload, List<string> my)
         {
@@ -465,25 +464,39 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             //}
             return View("Index");
         }
-
-
         public virtual JsonResult FindCity(int id)
         {
             var res = _db.Cities.Where(a => a.CountryID == id).Select(c => new { c.CityID, c.CityTitle });
             return Json(res, JsonRequestBehavior.AllowGet);
         }
-
         public virtual JsonResult FindRigion(int id)
         {
             var res = _db.Rigions.Where(a => a.CityID == id).Select(c => new { c.RigionID, c.RegionTitle });
             return Json(res, JsonRequestBehavior.AllowGet);
         }
-
         public virtual JsonResult FindSubUsage(int id)
         {
             var res = _db.SubUsages.Where(a => a.UsageID == id).Select(c => new { c.SubUsageID, c.SubUsageTitle });
             return Json(res, JsonRequestBehavior.AllowGet);
         }
         //
+
+        public ActionResult PropertyList()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var properties = _db.HomeProperties.Where(a => a.User.UserName == User.Identity.Name).ToList();
+                return View(properties);
+
+            }
+            else
+                return RedirectToAction("Index", "Home", new { area=""});
+        }
+
+        public JsonResult getTime(string dateTime)
+        {
+            var datetime = ReturnPastTime.calculatDate(Convert.ToDateTime(dateTime));
+            return Json(datetime, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="DB\HomeProperties_MetaData.cs">
       <DependentUpon>RealStateModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MetaDataClasses\HomeProperties_MetaDataMetaData.cs" />
     <Compile Include="DB\HomeProperty.cs">
       <DependentUpon>RealStateModel.tt</DependentUpon>
     </Compile>
@@ -102,7 +103,6 @@
     <Compile Include="MetaDataClasses\ConditionMetaData.cs" />
     <Compile Include="MetaDataClasses\CountryMetaData.cs" />
     <Compile Include="MetaDataClasses\FacilityMetaData.cs" />
-    <Compile Include="MetaDataClasses\HomeProperties_MetaDataMetaData.cs" />
     <Compile Include="MetaDataClasses\HomePropertyMetaData.cs" />
     <Compile Include="MetaDataClasses\HomeProperty_GalleriesMetaData.cs" />
     <Compile Include="MetaDataClasses\HomeProperty_StatusMetaData.cs" />
