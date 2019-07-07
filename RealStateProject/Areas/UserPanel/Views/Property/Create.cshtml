@@ -109,7 +109,7 @@
 
     @using (Html.BeginForm("Create", "Property", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        @Html.HiddenFor(model=>model.latlongMap)
+        @Html.HiddenFor(model => model.latlongMap)
         <div id="InsertPropertyModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -163,7 +163,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.rigionTitle, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.TextBoxFor(model => model.rigionTitle, new { @class = "form-control", @id = "txtrigionTitle" , placeholder ="محله را وارد کنید"})
+                                @Html.TextBoxFor(model => model.rigionTitle, new { @class = "form-control", @id = "txtrigionTitle", placeholder = "محله را وارد کنید" })
                                 @Html.HiddenFor(model => model.rigionID, new { @id = "txtrigionID" })
                                 @Html.ValidationMessageFor(model => model.rigionTitle, "", new { @class = "text-danger" })
                             </div>
@@ -633,13 +633,13 @@
 
 @*دریافت لوکیشن از مارکر------------------------------------------------------------ر-----------------------------------------------------*@
 <script>
-        map.on('click', function (ev) {
-            var latlng = map.mouseEventToLatLng(ev.originalEvent);
-            $('#latlongMap').val(latlng.lat + ',' + latlng.lng);
-            //console.log(latlng.lat + ', ' + latlng.lng);
-        });
-        //35.71379969931505, 51.44191503524781
-    </script>
+    map.on('click', function (ev) {
+        var latlng = map.mouseEventToLatLng(ev.originalEvent);
+        $('#latlongMap').val(latlng.lat + ',' + latlng.lng);
+        //console.log(latlng.lat + ', ' + latlng.lng);
+    });
+    //35.71379969931505, 51.44191503524781
+</script>
 
 
 @*<script>

@@ -8,6 +8,8 @@ using DataLayer.ViewModels;
 using InsertShowImage;
 using KooyWebApp_MVC.Classes;
 using Utilities;
+using PagedList;
+
 
 namespace RealStateProject.Areas.UserPanel.Controllers
 {
@@ -481,12 +483,15 @@ namespace RealStateProject.Areas.UserPanel.Controllers
         }
         //
 
-        public ActionResult PropertyList()
+        public ActionResult PropertyList(int? page)
         {
+            int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            int pageSiza = 6;
             if (User.Identity.IsAuthenticated)
             {
                 var properties = _db.HomeProperties.Where(a => a.User.UserName == User.Identity.Name).ToList();
-                return View(properties);
+                
+                return View(properties.ToPagedList(pageIndex,pageSiza));
 
             }
             else

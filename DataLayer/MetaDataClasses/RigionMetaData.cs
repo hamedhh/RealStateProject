@@ -6,10 +6,23 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataLayer.DB
 {
-    internal class RigionMetaData
+    public class RigionMetaData
     {
+        [Key]
+        public int RigionID { get; set; }
+        public int CityID { get; set; }
+
+        [Display(Name = "محل آگهی")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public string RegionTitle { get; set; }
+
+        [Display(Name = "کد محل آگهی ")]
+        public string RegionCode { get; set; }
+
     }
 }
