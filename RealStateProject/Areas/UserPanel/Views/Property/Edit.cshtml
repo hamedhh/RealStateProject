@@ -1,7 +1,7 @@
 ﻿@model DataLayer.ViewModels.CreatePropertyViewModel
 @using DataLayer.DB
 @{
-    ViewBag.Title = "testCreate3";
+    ViewBag.Title = "Edit";
     Layout = "~/Areas/UserPanel/Views/Shared/_PanelLayout.cshtml";
     bool? insertPerson = (bool?)Session["InsertProperty"];
 }
@@ -10,12 +10,6 @@
     List<Condition> _conditions = ViewBag.Conditions;
 }
 
-@*<script src="~/Scripts/_AutoComplete.js"></script>
-        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
-    <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css"
-          rel="Stylesheet" type="text/css" />*@
 <script src="~/Scripts/jquery.js"></script>
 <script src="~/Scripts/jquery-ui.js"></script>
 <script src="~/Scripts/jquery-ui.min.js"></script>
@@ -66,8 +60,6 @@
     });
 </script>
 
-
-
 <link href="~/Areas/UserPanel/Content/CustomPanel.css" rel="stylesheet" />
 <link href="~/Areas/UserPanel/Process_Stepper/ProcessStepper.css" rel="stylesheet" />
 
@@ -86,8 +78,6 @@
 <script src="~/Scripts/leaflet.js"></script>
 <script src="~/Scripts/_CheckValidation.js"></script>
 
-
-<!------ Include the above in your HEAD tag ---------->
 <div class="container">
 
     <div class="stepwizard col-md-offset-3">
@@ -107,7 +97,7 @@
         </div>
     </div>
 
-    @using (Html.BeginForm("Create", "Property", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Edit", "Property", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.HiddenFor(model => model.latlongMap)
         <div id="InsertPropertyModal" class="modal fade" role="dialog">
@@ -322,7 +312,6 @@
     }
 
 </div>
-
 <script src="~/Areas/UserPanel/Process_Stepper/ProcessStepper.js"></script>
 <script src="~/Scripts/autoNumeric-1.9.18.js"></script>
 @*-------------------------------------------------------------------------------------------------------#region Forms*@
@@ -638,120 +627,6 @@
     //35.71379969931505, 51.44191503524781
 </script>
 
-
-@*<script>
-        mapdiv = document.getElementById("map")
-
-        mapdiv.ondragover = function (e) {
-            e.preventDefault()
-            e.dataTransfer.dropEffect = "move"
-        }
-
-        mapdiv.ondrop = function (e) {
-            e.preventDefault()
-            imagePath = e.dataTransfer.getData("text/plain")
-            coordinates = map.containerPointToLatLng(L.point([e.clientX, e.clientY]))
-            L.marker(coordinates, {
-                icon: L.icon({ iconUrl: imagePath }),
-                draggable: true
-            })
-                .addTo(map)
-        }
-    </script>*@
-
-
-@*<script>
-        function onMapClick(e) {
-            marker = new L.marker(e.latlng, { draggable: 'true' });
-            marker.on('dragend', function (event) {
-                var marker = event.target;
-                var position = marker.getLatLng();
-                marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
-                map.panTo(new L.LatLng(position.lat, position.lng))
-            });
-            map.addLayer(marker);
-        };
-        map.on('click', onMapClick);
-    </script>*@
-
-@*<script src="~/Scripts/jquery-1.10.0.min.js"></script>
-    <script src="~/Scripts/jquery-ui.min.js"></scrip
-    <script src="~/Scripts/jquery-ui.js"></script>*@
-@*<link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Scripts/jquery-ui.css" rel="stylesheet" />
-    <script>
-
-        $(function () {
-                $('#rigionTitle').autocomplete( {
-                source: function(requset, response) {
-                    $.ajax({
-                        //url:@Url.Action("searchRigion", "Property"),
-                        url:'/Property/searchRigion',
-                        dataType: JSON,
-                        data: {
-                            Areas: 'UserPanel',
-                            sreachText: requset.term
-                        },
-                        //type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            response($.map(data, function (val, item) {
-                                //return item;
-                                return {
-                                    label: val.Name,
-                                    value: val.Name,
-                                    customerId: val.ID
-                                }
-                            }))
-                        },
-                        select: function (event, ui) {
-                            $("#rigionID").val(ui.item.val);
-                        },
-                        minLength: 0
-                    }).focus(function () {
-                        $(this).autocomplete("rigionTitle")
-                    });
-                }
-            });
-
-        });
-    </script>*@
-@*$(document).ready(function () {
-    $('#rigionTitle').autocomplete( {
-        source: function(requset, response) {
-            $.ajax({
-                //url:@Url.Action("searchRigion", "Property"),
-                url:'/Property/searchRigion/',
-                dataType: JSON,
-                data: {
-                    Areas: 'UserPanel',
-                    sreachText: requset.term
-                },
-                //type: "POST",
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    response($.map(data, function (val, item) {
-                        //return item;
-                        return {
-                            label: val.Name,
-                            value: val.Name,
-                            customerId: val.ID
-                        }
-                    }))
-                },
-                select: function (event, ui) {
-                    $("#rigionID").val(ui.item.val);
-                },
-                minLength: 0
-            }).focus(function () {
-                $(this).autocomplete("search")
-            });
-        }
-    });
-        });*@
-
-
-
 <script>
     $(document).ready(function () {
         $('#txtPrice').keypress(function (e) {
@@ -835,4 +710,7 @@
     })
 </script>
 
-@*<script src="~/Scripts/number-divider.js"></script>*@
+<div>
+    <a class="btn btn-warning" href="@Url.Action("PropertyList")">بازگشت به لیست</a>
+ 
+</div>

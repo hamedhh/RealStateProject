@@ -345,10 +345,10 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-
-                            <li class="active"><a href="@Url.Action("PropertyList","Property")"><i class="fa fa-circle-o"></i> لیست آگهی ها </a></li>
+                            <li class="active"><a href="@Url.Action("Create","Property")"><i class="fa fa-circle-o"></i> ثبت آگهی جدید </a></li>
+                            <li class="active"><a href="@Url.Action("PropertyList","Property")"><i class="fa fa-circle-o"></i> مدیریت آگهی ها </a></li>
                             @*<li class="active"><a href="@Url.Action("SelectIssusReport","ReportJiraProject")"><i class="fa fa-circle-o"></i>گزارشات موضوعی</a></li>
-                                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> داشبرد دوم</a></li>*@
+        <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> داشبرد دوم</a></li>*@
                         </ul>
                     </li>
                     @*<li class="treeview">
@@ -519,7 +519,8 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    خانه
+                    <a class="" href="@Url.Action("../Home/", new { area=""})">خانه</a>
+                    
 
                 </h1>
                 <ol class="breadcrumb">

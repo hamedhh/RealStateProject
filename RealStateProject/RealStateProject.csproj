@@ -2496,6 +2496,10 @@
     <Content Include="Areas\UserPanel\Views\Property\testCreate3.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\UploadAction.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\PropertyList.cshtml" />
+    <Content Include="Areas\UserPanel\Views\Property\Edit.cshtml" />
+    <Content Include="Areas\UserPanel\Views\Property\Delete.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.0.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2528,7 +2532,9 @@
     <Content Include="Scripts\_CheckValidation.js" />
     <Content Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.settings.xml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

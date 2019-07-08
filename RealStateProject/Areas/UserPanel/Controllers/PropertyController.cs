@@ -9,7 +9,7 @@ using InsertShowImage;
 using KooyWebApp_MVC.Classes;
 using Utilities;
 using PagedList;
-
+using System.Net;
 
 namespace RealStateProject.Areas.UserPanel.Controllers
 {
@@ -502,6 +502,95 @@ namespace RealStateProject.Areas.UserPanel.Controllers
         {
             var datetime = ReturnPastTime.calculatDate(Convert.ToDateTime(dateTime));
             return Json(datetime, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            Session["InsertProperty"] = false;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var homeProperty = _db.HomeProperties.Find(id);
+            if (homeProperty == null)
+            {
+                return HttpNotFound();
+            }
+            CreatePropertyViewModel _createPropertyViewModel = new CreatePropertyViewModel() {
+                CityID = homeProperty.Rigion.CityID,
+                CountryID = homeProperty.Rigion.City.CountryID,
+                Description = homeProperty.Description,
+                HomePrice = homeProperty.HomePrice.ToString(),
+                MortgagePrice = homeProperty.MortgagePrice.ToString(),
+                PropertyTypeID = homeProperty.PropertyTypeID ?? 0,
+                RentPrice = homeProperty.RentPrice.ToString(),
+                ImageName = homeProperty.ImageName,
+                rigionID=homeProperty.RegionID??0,
+                rigionTitle=homeProperty.Rigion.RegionTitle,
+                LocAge=homeProperty.LocAge.ToString(),
+                LocArea=homeProperty.LocArea.ToString(),
+                SubUsageID=homeProperty.SubUsageID??0,
+                usageID=homeProperty.SubUsage.UsageID,
+                Title=homeProperty.Title
+
+            };
+
+            ViewBag.CountryID = new SelectList(_db.Countries, "CountryID", "CountryTitle");
+            ViewBag.PropertyTypeID = new SelectList(_db.HomeProperty_Type, "PropertyTypeID", "Title");
+            ViewBag.usageID = new SelectList(_db.Usages, "UsageID", "UsageTitle");
+            ViewBag.Facilities = _db.Facilities.ToList();
+            ViewBag.Conditions = _db.Conditions.ToList();
+            return View(_createPropertyViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(CreatePropertyViewModel _createPropertyViewModel, List<int> checkFacility, List<int> checkCondition, List<HttpPostedFileBase> fileUpload, List<string> DeletedPhotp)
+        {
+            return View(_createPropertyViewModel);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var homeProperty= _db.HomeProperties.Find(id);
+            if (homeProperty == null)
+            {
+                return HttpNotFound();
+            }
+            return View(homeProperty);
+        }
+
+        [ActionName("Delete"),HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+
+            List<HomeProperties_MetaData> homeProperties_MetaData = _db.HomeProperties_MetaData.Where(a => a.HomePropertyID == id).ToList();
+            if (homeProperties_MetaData != null)
+            {
+                foreach (var item in homeProperties_MetaData)
+                {
+                    _db.HomeProperties_MetaData.Remove(item);
+                }
+            }
+
+            List<HomeProperty_Galleries> homeProperty_Galleries = _db.HomeProperty_Galleries.Where(a => a.HomePropertyID == id).ToList();
+            if (homeProperty_Galleries != null)
+            {
+                foreach (var item in homeProperty_Galleries)
+                {
+                    _db.HomeProperty_Galleries.Remove(item);
+                }
+            }
+
+            HomeProperty homeProperty = _db.HomeProperties.Find(id);
+            _db.HomeProperties.Remove(homeProperty);
+            _db.SaveChanges();
+            return RedirectToAction("PropertyList");
+
         }
     }
 }
