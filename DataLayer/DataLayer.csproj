@@ -71,6 +71,10 @@
     <Compile Include="DB\HomeProperties_MetaData.cs">
       <DependentUpon>RealStateModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\StateSite.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MetaDataClasses\StateSiteMetaData.cs" />
     <Compile Include="MetaDataClasses\HomeProperties_MetaDataMetaData.cs" />
     <Compile Include="DB\HomeProperty.cs">
       <DependentUpon>RealStateModel.tt</DependentUpon>
@@ -152,6 +156,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PropertyViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\ShowStateViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DB\RealStateModel.edmx">

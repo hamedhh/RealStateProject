@@ -35,6 +35,7 @@
         <AssociationConnector Association="RealState_DBModel.FK_HomeProperty_Galleries_HomeProperty_Galleries" />
         <AssociationConnector Association="RealState_DBModel.FK_Users_Roles" />
         <AssociationConnector Association="RealState_DBModel.FK_SubUsages_Usages" />
+        <EntityTypeShape EntityType="RealState_DBModel.StateSite" Width="1.5" PointX="10.125" PointY="1.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

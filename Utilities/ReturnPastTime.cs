@@ -114,5 +114,77 @@ namespace Utilities
 
 
         }
+
+
+        public static DateTime SetTime(DateTime date)
+        {
+
+            var culture = CultureInfo.CurrentCulture;
+            DateTime dateEn;
+            DateTime dateIni;
+            switch (culture.Name)
+            {
+                case "fa-IR":
+
+                    PersianCalendar pc = new PersianCalendar();
+                    int year = Convert.ToInt32(date.ToString().Split('/')[2].Substring(0,4));
+                    int month = Convert.ToInt32(date.ToString().Split('/')[1]);
+                    int day = Convert.ToInt32(date.ToString().Split('/')[0]);
+                    return dateIni = pc.ToDateTime(year,month,day, 0, 0, 0, 0);
+
+
+                case "en-US":
+                    return dateEn = DateTime.Now;
+                   
+                    
+
+
+                default:
+                    return dateEn = DateTime.Now;
+
+
+            }
+
+
+        }
+
+
+        public static DateTime SetTime(string date)
+        {
+
+            var culture = CultureInfo.CurrentCulture;
+            DateTime dateEn;
+            DateTime dateIni;
+            switch (culture.Name)
+            {
+                case "fa-IR":
+
+                    PersianCalendar pc = new PersianCalendar();
+                    int year = Convert.ToInt32(date.ToString().Split('/')[2].Substring(0, 4));
+                    int month = Convert.ToInt32(date.ToString().Split('/')[1]);
+                    int day = Convert.ToInt32(date.ToString().Split('/')[0]);
+                    return dateIni = pc.ToDateTime(year, month, day, 0, 0, 0, 0);
+
+
+                case "en-US":
+                    return dateEn = DateTime.Now;
+
+
+
+
+                default:
+                    return dateEn = DateTime.Now;
+
+
+            }
+
+
+        }
+
+
+
     }
+
+
+
 }

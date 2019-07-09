@@ -120,6 +120,14 @@
           <Property Name="RoleTitle" Type="nvarchar" MaxLength="250" />
           <Property Name="RoleName" Type="varchar" MaxLength="150" />
         </EntityType>
+        <EntityType Name="StateSite">
+          <Key>
+            <PropertyRef Name="StateSiteID" />
+          </Key>
+          <Property Name="StateSiteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateSiteDate" Type="datetime" Nullable="false" />
+          <Property Name="StateSiteCount" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SubUsages">
           <Key>
             <PropertyRef Name="SubUsageID" />
@@ -344,6 +352,7 @@
           <EntitySet Name="HomeProperty_Type" EntityType="Self.HomeProperty_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rigions" EntityType="Self.Rigions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StateSite" EntityType="Self.StateSite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubUsages" EntityType="Self.SubUsages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usages" EntityType="Self.Usages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -488,6 +497,7 @@
             <End Role="Usage" EntitySet="Usages" />
             <End Role="SubUsage" EntitySet="SubUsages" />
           </AssociationSet>
+          <EntitySet Name="StateSites" EntityType="RealState_DBModel.StateSite" />
         </EntityContainer>
         <EntityType Name="City">
           <Key>
@@ -845,6 +855,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="StateSite">
+          <Key>
+            <PropertyRef Name="StateSiteID" />
+          </Key>
+          <Property Name="StateSiteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateSiteDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="StateSiteCount" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1009,6 +1027,15 @@
                 <ScalarProperty Name="CultureID" ColumnName="CultureID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StateSites">
+            <EntityTypeMapping TypeName="RealState_DBModel.StateSite">
+              <MappingFragment StoreEntitySet="StateSite">
+                <ScalarProperty Name="StateSiteCount" ColumnName="StateSiteCount" />
+                <ScalarProperty Name="StateSiteDate" ColumnName="StateSiteDate" />
+                <ScalarProperty Name="StateSiteID" ColumnName="StateSiteID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -40,5 +40,6 @@ namespace DataLayer.DB
         public virtual DbSet<SubUsage> SubUsages { get; set; }
         public virtual DbSet<Usage> Usages { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<StateSite> StateSites { get; set; }
     }
 }

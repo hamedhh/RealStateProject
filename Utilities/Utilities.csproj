@@ -63,6 +63,7 @@
     <Compile Include="RealStateProjectRoleProvider.cs" />
     <Compile Include="ReturnPastTime.cs" />
     <Compile Include="SendEmail.cs" />
+    <Compile Include="StateClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">

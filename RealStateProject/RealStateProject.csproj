@@ -2498,6 +2498,7 @@
     <Content Include="Areas\UserPanel\Views\Property\PropertyList.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\Edit.cshtml" />
     <Content Include="Areas\UserPanel\Views\Property\Delete.cshtml" />
+    <Content Include="Areas\UserPanel\Views\Home\ShowState.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
