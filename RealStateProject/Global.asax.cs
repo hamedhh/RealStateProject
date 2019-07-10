@@ -55,12 +55,30 @@ namespace RealStateProject
 
         protected void Session_Start()
         {
-            StateClass.CounterState();
-            HttpContext.Current.Application["OnlineUser"] = (int)HttpContext.Current.Application["OnlineUser"] + 1;
+            try
+            {
+                StateClass.CounterState();
+                HttpContext.Current.Application["OnlineUser"] = (int)HttpContext.Current.Application["OnlineUser"] + 1;
+            }
+            catch (Exception)
+            {
+
+              
+            }
+
         }
         protected void Session_End()
         {
-            HttpContext.Current.Application["OnlineUser"] = (int)HttpContext.Current.Application["OnlineUser"] - 1;
+            try
+            {
+                HttpContext.Current.Application["OnlineUser"] = (int)HttpContext.Current.Application["OnlineUser"] - 1;
+            }
+            catch (Exception)
+            {
+
+               
+            }
+           
         }
 
     }

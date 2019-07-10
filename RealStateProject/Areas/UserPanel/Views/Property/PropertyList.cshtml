@@ -133,9 +133,9 @@
                 </td>*@
 
                     <td>
-                        <a class="btn btn-warning" href="@Url.Action("Edit", new { id=item.HomePropertyID})"> ویرایش<i class="fa fa-edit"></i></a>
-                         
-                        <a class="btn btn-danger" href="@Url.Action("Delete", new { id=item.HomePropertyID})">حذف <i class="fa fa-trash"></i></a>
+                        <a class="btn btn-default" href="@Url.Action("Edit", new { id=item.HomePropertyID})"> ویرایش <i class="fa fa-edit"></i></a>
+                        
+                        <a class="btn btn-default" style="width: 83px!important; margin-top: 7px;" href="@Url.Action("Delete", new { id=item.HomePropertyID})">حذف<i class="fa fa-trash"></i></a>
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.HomePropertyID }) |
                     @Html.ActionLink("Details", "Details", new { id = item.HomePropertyID }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.HomePropertyID })*@

@@ -13,62 +13,89 @@ namespace Utilities
     {
         static void CountUpState()
         {
-            using (RealState_DBEntities db = new RealState_DBEntities())
+            try
             {
-                DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                var state = db.StateSites.FirstOrDefault(f => f.StateSiteDate == dt);
-                if (state != null)
+                using (RealState_DBEntities db = new RealState_DBEntities())
                 {
-                    state.StateSiteCount += 1;
-                }
-                else
-                {
-                    db.StateSites.Add(new StateSite()
+                    DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                    var state = db.StateSites.FirstOrDefault(f => f.StateSiteDate == dt);
+                    if (state != null)
                     {
-                        StateSiteDate = dt,
-                        StateSiteCount = 1
-                    });
+                        state.StateSiteCount += 1;
+                    }
+                    else
+                    {
+                        db.StateSites.Add(new StateSite()
+                        {
+                            StateSiteDate = dt,
+                            StateSiteCount = 1
+                        });
+                    }
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
             }
+            catch (Exception)
+            {
+
+                
+            }
+
         }
 
         public static void CounterState()
         {
-            DateTime dt = ReturnPastTime.SetTime(DateTime.Now);
-            if (HttpContext.Current.Request.Cookies["StateSite"] != null)
+            try
             {
-                if (ReturnPastTime.SetTime(HttpContext.Current.Request.Cookies["StateSite"].Value.ToString()) != dt)
+                DateTime dt = ReturnPastTime.SetTime(DateTime.Now);
+                if (HttpContext.Current.Request.Cookies["StateSite"] != null)
                 {
-                    HttpCookie cookieCode = new HttpCookie("StateSite", dt.ToString());
-                    HttpContext.Current.Response.Cookies.Add(cookieCode);
+                    if (ReturnPastTime.SetTime(HttpContext.Current.Request.Cookies["StateSite"].Value.ToString()) != dt)
+                    {
+                        HttpCookie cookieCode = new HttpCookie("StateSite", dt.ToString());
+                        HttpContext.Current.Response.Cookies.Add(cookieCode);
+                        CountUpState();
+                    }
+                }
+                else
+                {
                     CountUpState();
+                    HttpCookie cookie = new HttpCookie("StateSite");
+                    cookie.Value = dt.ToString();
+                    HttpContext.Current.Response.Cookies.Add(cookie);
                 }
             }
-            else
+            catch (Exception)
             {
-                CountUpState();
-                HttpCookie cookie = new HttpCookie("StateSite");
-                cookie.Value = dt.ToString();
-                HttpContext.Current.Response.Cookies.Add(cookie);
+
+               
             }
+
         }
 
 
         public static ShowStateViewModel ShowState()
         {
-            using (RealState_DBEntities db = new RealState_DBEntities())
+            try
             {
-                DateTime dt = ReturnPastTime.SetTime(DateTime.Now);
-                DateTime dt2 = dt.AddDays(-1);
-                return new ShowStateViewModel()
+                using (RealState_DBEntities db = new RealState_DBEntities())
                 {
-                    OnlineUser = (int)HttpContext.Current.Application["OnlineUser"],
-                    SeeSum = db.StateSites.Sum(s => s.StateSiteCount)??0,
-                    SeeToday = db.StateSites.First(s => s.StateSiteDate == dt).StateSiteCount??0,
-                    SeeYesterday = db.StateSites.Where(s => s.StateSiteDate == dt2).Select(s => s.StateSiteCount).FirstOrDefault()??0
-                };
+                    DateTime dt = ReturnPastTime.SetTime(DateTime.Now);
+                    DateTime dt2 = dt.AddDays(-1);
+                    return new ShowStateViewModel()
+                    {
+                        OnlineUser = (int)HttpContext.Current.Application["OnlineUser"],
+                        SeeSum = db.StateSites.Sum(s => s.StateSiteCount) ?? 0,
+                        SeeToday = db.StateSites.First(s => s.StateSiteDate == dt).StateSiteCount ?? 0,
+                        SeeYesterday = db.StateSites.Where(s => s.StateSiteDate == dt2).Select(s => s.StateSiteCount).FirstOrDefault() ?? 0
+                    };
+                }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

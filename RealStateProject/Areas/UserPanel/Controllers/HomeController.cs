@@ -19,7 +19,9 @@ namespace RealStateProject.Areas.UserPanel.Controllers
 
         public ActionResult ShowState()
         {
-            return PartialView(StateClass.ShowState());
+            Session["IsCreate"] = false;
+            Session["IsList"] = false;
+            return View(StateClass.ShowState());
         }
 
     }

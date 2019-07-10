@@ -24,6 +24,9 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             ViewBag.usageID = new SelectList(_db.Usages, "UsageID", "UsageTitle");
             ViewBag.Facilities = _db.Facilities.ToList();
             ViewBag.Conditions = _db.Conditions.ToList();
+            Session["IsCreate"] = true;
+            Session["IsList"] = false;
+
             return View();
         }
 
@@ -485,6 +488,8 @@ namespace RealStateProject.Areas.UserPanel.Controllers
 
         public ActionResult PropertyList(int? page)
         {
+            Session["IsCreate"] = false;
+            Session["IsList"] = true;
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             int pageSiza = 6;
             if (User.Identity.IsAuthenticated)

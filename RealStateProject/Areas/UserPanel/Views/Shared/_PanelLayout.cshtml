@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+
+    bool? isCreate = (bool?)Session["IsCreate"];
+    bool? isList = (bool?)Session["IsList"];
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -295,7 +300,7 @@
                                         <a href="#" class="btn btn-default btn-flat">پروفایل</a>
                                     </div>
                                     <div class="pull-left">
-                                        <a href="@Url.Action("LogOff","Account")" class="btn btn-default btn-flat">خروج</a>
+                                        <a href="@Url.Action("LogOff", "Account")" class="btn btn-default btn-flat">خروج</a>
                                     </div>
                                 </li>
                             </ul>
@@ -345,8 +350,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="active"><a href="@Url.Action("Create","Property")"><i class="fa fa-circle-o"></i> ثبت آگهی جدید </a></li>
-                            <li class="active"><a href="@Url.Action("PropertyList","Property")"><i class="fa fa-circle-o"></i> مدیریت آگهی ها </a></li>
+                            <li class="active"><a href="@Url.Action("Create", "Property")"><i class="fa fa-circle-o"></i> ثبت آگهی جدید </a></li>
+                            <li class="active"><a href="@Url.Action("PropertyList", "Property")"><i class="fa fa-circle-o"></i> مدیریت آگهی ها </a></li>
                             @*<li class="active"><a href="@Url.Action("SelectIssusReport","ReportJiraProject")"><i class="fa fa-circle-o"></i>گزارشات موضوعی</a></li>
         <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> داشبرد دوم</a></li>*@
                         </ul>
@@ -519,8 +524,23 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    <a class="" href="@Url.Action("../Home/", new { area=""})">خانه</a>
-                    
+                    <a class="" href="@Url.Action("../Home/", new { area = "" })">خانه</a>
+                    <span>></span>
+                    <a class="" href="@Url.Action("../Home/ShowState", new { area = "UserPanel" })">پنل مدیریت</a>
+                    @{
+                        if (isCreate == true)
+                        {
+                            <span>></span>
+                            <a class="" href="@Url.Action("../Property/Create", new { area = "UserPanel" })">ثبت آگهی</a>
+                        }
+                    }
+                    @{
+                        if (isList == true)
+                        {
+                            <span>></span>
+                            <a class="" href="@Url.Action("../Property/PropertyList", new { area = "UserPanel" })">مدیریت آگهی ها</a>
+                        }
+                    }
 
                 </h1>
                 <ol class="breadcrumb">
@@ -548,7 +568,7 @@
                             </button>
                         </div>
                     </div>
-                    @Html.Action("ShowState", "Home", new { area="UserPanel"})
+                    @*@Html.Action("ShowState", "Home", new { area="UserPanel"})*@
                     <div class="box-body">
                         @RenderBody()
                     </div>
