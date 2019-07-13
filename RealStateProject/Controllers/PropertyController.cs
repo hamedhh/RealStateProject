@@ -21,6 +21,7 @@ namespace RealStateProject.Controllers
         
         public virtual ActionResult ShowDetailProperty(int id)
         {
+
             var homeProperty = _db.HomeProperties.SingleOrDefault(a=>a.HomePropertyID==id);
             if (homeProperty != null)
             {

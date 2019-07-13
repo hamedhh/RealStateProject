@@ -10,6 +10,7 @@ using KooyWebApp_MVC.Classes;
 using Utilities;
 using PagedList;
 using System.Net;
+using System.Web.Helpers;
 
 namespace RealStateProject.Areas.UserPanel.Controllers
 {
@@ -36,10 +37,10 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             decimal homeprice = 0;
             decimal rentPrice = 0;
             decimal mortgagePrice = 0;
-            int locArea = 0; 
+            int locArea = 0;
             int locAge = 0;
             string _lat = "";
-            string _long= "";
+            string _long = "";
 
             if (!string.IsNullOrEmpty(_createPropertyViewModel.HomePrice))
             {
@@ -76,7 +77,7 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 else
                     locAge = int.Parse(_createPropertyViewModel.LocAge);
             }
-            if(!string.IsNullOrEmpty(_createPropertyViewModel.latlongMap))
+            if (!string.IsNullOrEmpty(_createPropertyViewModel.latlongMap))
             {
                 _lat = _createPropertyViewModel.latlongMap.Split(',')[0];
                 _long = _createPropertyViewModel.latlongMap.Split(',')[1];
@@ -133,7 +134,7 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 Title = _createPropertyViewModel.Title,
                 CreateUserID = UserID,
                 SubUsageID = _createPropertyViewModel.SubUsageID,
-                StatusID = (_createPropertyViewModel.PropertyTypeID==1?1:2),
+                StatusID = (_createPropertyViewModel.PropertyTypeID == 1 ? 1 : 2),
                 RegionID = _createPropertyViewModel.rigionID,
                 CultureID = _cultureID,
                 PropertyTypeID = _createPropertyViewModel.PropertyTypeID,
@@ -144,9 +145,9 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 MortgagePrice = mortgagePrice,
                 RentPrice = rentPrice,
                 ImageName = _createPropertyViewModel.ImageName,
-                LocLatitude=_lat,
-                LocLongitude=_long
-                
+                LocLatitude = _lat,
+                LocLongitude = _long
+
             };
             if (ModelState.IsValid)
             {
@@ -427,7 +428,7 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             //ViewBag.usageID = new SelectList(_db.Usages, "UsageID", "UsageTitle");
             //ViewBag.Facilities = _db.Facilities.ToList();
             //ViewBag.Conditions = _db.Conditions.ToList();
-           
+
             return View();
 
 
@@ -439,9 +440,9 @@ namespace RealStateProject.Areas.UserPanel.Controllers
         }
 
         [HttpPost]
-        public JsonResult searchRigion( string searchText = "", int idCity = 0)
+        public JsonResult searchRigion(string searchText = "", int idCity = 0)
         {
-            var _rigion = _db.Rigions.Where(a =>a.CityID==idCity&& a.RegionTitle.ToLower().Contains(searchText.ToLower())).Select(c => new {  Name = c.RegionTitle,ID = c.RigionID }).Distinct().ToList();
+            var _rigion = _db.Rigions.Where(a => a.CityID == idCity && a.RegionTitle.ToLower().Contains(searchText.ToLower())).Select(c => new { Name = c.RegionTitle, ID = c.RigionID }).Distinct().ToList();
             //if (_rigion != null)
             //{
             //    foreach (var item in _rigion)
@@ -495,12 +496,12 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var properties = _db.HomeProperties.Where(a => a.User.UserName == User.Identity.Name).ToList();
-                
-                return View(properties.ToPagedList(pageIndex,pageSiza));
+
+                return View(properties.ToPagedList(pageIndex, pageSiza));
 
             }
             else
-                return RedirectToAction("Index", "Home", new { area=""});
+                return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         public JsonResult getTime(string dateTime)
@@ -521,7 +522,8 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             {
                 return HttpNotFound();
             }
-            CreatePropertyViewModel _createPropertyViewModel = new CreatePropertyViewModel() {
+            CreatePropertyViewModel _createPropertyViewModel = new CreatePropertyViewModel()
+            {
                 CityID = homeProperty.Rigion.CityID,
                 CountryID = homeProperty.Rigion.City.CountryID,
                 Description = homeProperty.Description,
@@ -530,13 +532,13 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 PropertyTypeID = homeProperty.PropertyTypeID ?? 0,
                 RentPrice = homeProperty.RentPrice.ToString(),
                 ImageName = homeProperty.ImageName,
-                rigionID=homeProperty.RegionID??0,
-                rigionTitle=homeProperty.Rigion.RegionTitle,
-                LocAge=homeProperty.LocAge.ToString(),
-                LocArea=homeProperty.LocArea.ToString(),
-                SubUsageID=homeProperty.SubUsageID??0,
-                usageID=homeProperty.SubUsage.UsageID,
-                Title=homeProperty.Title
+                rigionID = homeProperty.RegionID ?? 0,
+                rigionTitle = homeProperty.Rigion.RegionTitle,
+                LocAge = homeProperty.LocAge.ToString(),
+                LocArea = homeProperty.LocArea.ToString(),
+                SubUsageID = homeProperty.SubUsageID ?? 0,
+                usageID = homeProperty.SubUsage.UsageID,
+                Title = homeProperty.Title
 
             };
 
@@ -560,7 +562,7 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var homeProperty= _db.HomeProperties.Find(id);
+            var homeProperty = _db.HomeProperties.Find(id);
             if (homeProperty == null)
             {
                 return HttpNotFound();
@@ -568,7 +570,7 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             return View(homeProperty);
         }
 
-        [ActionName("Delete"),HttpPost]
+        [ActionName("Delete"), HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -597,5 +599,22 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             return RedirectToAction("PropertyList");
 
         }
+
+        public ActionResult ShowChart()
+        {
+            return PartialView();
+        }
+
+//        [HttpPost]
+//        public ActionResult ShowChart(int id)
+//        {
+//            var chart = new Chart(width: 300, height: 200)
+//.AddSeries(chartType: "pie",
+//                xValue: new[] { "10 ", "50", "30 ", "70" },
+//                yValues: new[] { "50", "70", "90", "110" })
+//                .GetBytes("png");
+//            return File(chart, "image/bytes");
+
+//        }
     }
 }
