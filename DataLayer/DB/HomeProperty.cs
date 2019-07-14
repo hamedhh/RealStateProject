@@ -21,6 +21,7 @@ namespace DataLayer.DB
         {
             this.HomeProperties_MetaData = new HashSet<HomeProperties_MetaData>();
             this.HomeProperty_Galleries = new HashSet<HomeProperty_Galleries>();
+            this.PropertyViews = new HashSet<PropertyView>();
         }
     
         public int HomePropertyID { get; set; }
@@ -52,5 +53,7 @@ namespace DataLayer.DB
         public virtual SubUsage SubUsage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HomeProperty_Galleries> HomeProperty_Galleries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PropertyView> PropertyViews { get; set; }
     }
 }

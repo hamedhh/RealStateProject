@@ -36,6 +36,8 @@
         <AssociationConnector Association="RealState_DBModel.FK_Users_Roles" />
         <AssociationConnector Association="RealState_DBModel.FK_SubUsages_Usages" />
         <EntityTypeShape EntityType="RealState_DBModel.StateSite" Width="1.5" PointX="10.125" PointY="1.625" />
+        <EntityTypeShape EntityType="RealState_DBModel.PropertyView" Width="1.5" PointX="5.25" PointY="15.75" />
+        <AssociationConnector Association="RealState_DBModel.FK_PropertyView_PropertyView" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -600,9 +600,14 @@ namespace RealStateProject.Areas.UserPanel.Controllers
 
         }
 
-        public ActionResult ShowChart()
+        public ActionResult ShowChart(int id=20)
         {
+            if (_db.PropertyViews.Any(a => a.HomePropertyID == id))
+            {
+                return PartialView(_db.PropertyViews.Where(a => a.HomePropertyID == id).ToList());
+            }
             return PartialView();
+           
         }
 
 //        [HttpPost]

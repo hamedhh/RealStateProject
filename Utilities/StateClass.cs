@@ -84,9 +84,9 @@ namespace Utilities
                     return new ShowStateViewModel()
                     {
                         OnlineUser = (int)HttpContext.Current.Application["OnlineUser"],
-                        SeeSum = db.StateSites.Sum(s => s.StateSiteCount) ?? 0,
-                        SeeToday = db.StateSites.First(s => s.StateSiteDate == dt).StateSiteCount ?? 0,
-                        SeeYesterday = db.StateSites.Where(s => s.StateSiteDate == dt2).Select(s => s.StateSiteCount).FirstOrDefault() ?? 0
+                        SeeSum = db.StateSites.Sum(s => s.StateSiteCount) ,
+                        SeeToday = db.StateSites.First(s => s.StateSiteDate == dt).StateSiteCount ,
+                        SeeYesterday = db.StateSites.Where(s => s.StateSiteDate == dt2).Select(s => s.StateSiteCount).FirstOrDefault()
                     };
                 }
             }

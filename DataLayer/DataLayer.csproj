@@ -71,6 +71,10 @@
     <Compile Include="DB\HomeProperties_MetaData.cs">
       <DependentUpon>RealStateModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\PropertyView.cs">
+      <DependentUpon>RealStateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MetaDataClasses\PropertyViewMetaData.cs" />
     <Compile Include="DB\StateSite.cs">
       <DependentUpon>RealStateModel.tt</DependentUpon>
     </Compile>

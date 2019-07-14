@@ -103,6 +103,15 @@
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="code" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="PropertyView">
+          <Key>
+            <PropertyRef Name="PropertyViewID" />
+          </Key>
+          <Property Name="PropertyViewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HomePropertyID" Type="int" Nullable="false" />
+          <Property Name="PropertyViewDate" Type="datetime" Nullable="false" />
+          <Property Name="PropertyViewCount" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Rigions">
           <Key>
             <PropertyRef Name="RigionID" />
@@ -291,6 +300,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PropertyView_PropertyView">
+          <End Role="HomeProperties" Type="Self.HomeProperties" Multiplicity="1" />
+          <End Role="PropertyView" Type="Self.PropertyView" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomeProperties">
+              <PropertyRef Name="HomePropertyID" />
+            </Principal>
+            <Dependent Role="PropertyView">
+              <PropertyRef Name="HomePropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rigions_Cities">
           <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
           <End Role="Rigions" Type="Self.Rigions" Multiplicity="*" />
@@ -350,6 +371,7 @@
           <EntitySet Name="HomeProperty_Galleries" EntityType="Self.HomeProperty_Galleries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HomeProperty_Status" EntityType="Self.HomeProperty_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HomeProperty_Type" EntityType="Self.HomeProperty_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PropertyView" EntityType="Self.PropertyView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rigions" EntityType="Self.Rigions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StateSite" EntityType="Self.StateSite" Schema="dbo" store:Type="Tables" />
@@ -399,6 +421,10 @@
           <AssociationSet Name="FK_HomeProperty_Galleries_HomeProperty_Galleries" Association="Self.FK_HomeProperty_Galleries_HomeProperty_Galleries">
             <End Role="HomeProperties" EntitySet="HomeProperties" />
             <End Role="HomeProperty_Galleries" EntitySet="HomeProperty_Galleries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PropertyView_PropertyView" Association="Self.FK_PropertyView_PropertyView">
+            <End Role="HomeProperties" EntitySet="HomeProperties" />
+            <End Role="PropertyView" EntitySet="PropertyView" />
           </AssociationSet>
           <AssociationSet Name="FK_Rigions_Cities" Association="Self.FK_Rigions_Cities">
             <End Role="Cities" EntitySet="Cities" />
@@ -498,6 +524,11 @@
             <End Role="SubUsage" EntitySet="SubUsages" />
           </AssociationSet>
           <EntitySet Name="StateSites" EntityType="RealState_DBModel.StateSite" />
+          <EntitySet Name="PropertyViews" EntityType="RealState_DBModel.PropertyView" />
+          <AssociationSet Name="FK_PropertyView_PropertyView" Association="RealState_DBModel.FK_PropertyView_PropertyView">
+            <End Role="HomeProperty" EntitySet="HomeProperties" />
+            <End Role="PropertyView" EntitySet="PropertyViews" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="City">
           <Key>
@@ -577,6 +608,7 @@
           <NavigationProperty Name="Rigion" Relationship="RealState_DBModel.FK_HomeProperties_Rigions" FromRole="HomeProperty" ToRole="Rigion" />
           <NavigationProperty Name="SubUsage" Relationship="RealState_DBModel.FK_HomeProperties_SubUsages" FromRole="HomeProperty" ToRole="SubUsage" />
           <NavigationProperty Name="HomeProperty_Galleries" Relationship="RealState_DBModel.FK_HomeProperty_Galleries_HomeProperty_Galleries" FromRole="HomeProperty" ToRole="HomeProperty_Galleries" />
+          <NavigationProperty Name="PropertyViews" Relationship="RealState_DBModel.FK_PropertyView_PropertyView" FromRole="HomeProperty" ToRole="PropertyView" />
         </EntityType>
         <EntityType Name="HomeProperties_MetaData">
           <Key>
@@ -863,6 +895,28 @@
           <Property Name="StateSiteDate" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="StateSiteCount" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="PropertyView">
+          <Key>
+            <PropertyRef Name="PropertyViewID" />
+          </Key>
+          <Property Name="PropertyViewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HomePropertyID" Type="Int32" Nullable="false" />
+          <Property Name="PropertyViewDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PropertyViewCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HomeProperty" Relationship="RealState_DBModel.FK_PropertyView_PropertyView" FromRole="PropertyView" ToRole="HomeProperty" />
+        </EntityType>
+        <Association Name="FK_PropertyView_PropertyView">
+          <End Type="RealState_DBModel.HomeProperty" Role="HomeProperty" Multiplicity="1" />
+          <End Type="RealState_DBModel.PropertyView" Role="PropertyView" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomeProperty">
+              <PropertyRef Name="HomePropertyID" />
+            </Principal>
+            <Dependent Role="PropertyView">
+              <PropertyRef Name="HomePropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1036,6 +1090,16 @@
                 <ScalarProperty Name="StateSiteCount" ColumnName="StateSiteCount" />
                 <ScalarProperty Name="StateSiteDate" ColumnName="StateSiteDate" />
                 <ScalarProperty Name="StateSiteID" ColumnName="StateSiteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PropertyViews">
+            <EntityTypeMapping TypeName="RealState_DBModel.PropertyView">
+              <MappingFragment StoreEntitySet="PropertyView">
+                <ScalarProperty Name="PropertyViewCount" ColumnName="PropertyViewCount" />
+                <ScalarProperty Name="PropertyViewDate" ColumnName="PropertyViewDate" />
+                <ScalarProperty Name="HomePropertyID" ColumnName="HomePropertyID" />
+                <ScalarProperty Name="PropertyViewID" ColumnName="PropertyViewID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

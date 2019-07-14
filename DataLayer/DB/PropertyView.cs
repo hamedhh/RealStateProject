@@ -13,11 +13,14 @@ namespace DataLayer.DB
     using System;
     using System.Collections.Generic;
     
-    [MetadataType(typeof(StateSiteMetaData))]
-    public partial class StateSite
+    [MetadataType(typeof(PropertyViewMetaData))]
+    public partial class PropertyView
     {
-        public int StateSiteID { get; set; }
-        public System.DateTime StateSiteDate { get; set; }
-        public int StateSiteCount { get; set; }
+        public int PropertyViewID { get; set; }
+        public int HomePropertyID { get; set; }
+        public System.DateTime PropertyViewDate { get; set; }
+        public int PropertyViewCount { get; set; }
+    
+        public virtual HomeProperty HomeProperty { get; set; }
     }
 }
