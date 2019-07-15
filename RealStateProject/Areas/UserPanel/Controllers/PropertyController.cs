@@ -601,25 +601,25 @@ namespace RealStateProject.Areas.UserPanel.Controllers
         }
 
         public ActionResult ShowChart(int id=20)
-        {
-            if (_db.PropertyViews.Any(a => a.HomePropertyID == id))
-            {
-                return PartialView(_db.PropertyViews.Where(a => a.HomePropertyID == id).ToList());
-            }
+       {
+            ViewBag.homePropertyID = id;
             return PartialView();
            
         }
 
-//        [HttpPost]
-//        public ActionResult ShowChart(int id)
-//        {
-//            var chart = new Chart(width: 300, height: 200)
-//.AddSeries(chartType: "pie",
-//                xValue: new[] { "10 ", "50", "30 ", "70" },
-//                yValues: new[] { "50", "70", "90", "110" })
-//                .GetBytes("png");
-//            return File(chart, "image/bytes");
+        [HttpPost]
+        public JsonResult getPropertyView(int id)
+        {
+            if (_db.PropertyViews.Any(a => a.HomePropertyID == id))
+            {
+                return Json(_db.PropertyViews.Where(a => a.HomePropertyID == id).OrderBy(a=>a.PropertyViewDate).Select(c=>new {c.StringDate, c.PropertyViewCount }).Take(5),JsonRequestBehavior.AllowGet);
+            }
+            else
+             return Json(null);
 
-//        }
+        } 
+        
+
+
     }
 }

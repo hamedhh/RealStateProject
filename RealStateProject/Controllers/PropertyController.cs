@@ -22,14 +22,15 @@ namespace RealStateProject.Controllers
 
         public virtual ActionResult ShowDetailProperty(int id)
         {
+            var datetime = DateTime.Now;
             if (_db.PropertyViews.Any(a => a.HomePropertyID == id))
             {
-                var propertyView = _db.PropertyViews.Single(a => a.HomePropertyID == id);
+                var propertyView = _db.PropertyViews.Where(a => a.HomePropertyID == id).OrderByDescending(a => a.PropertyViewID).FirstOrDefault();
                 if (propertyView != null)
                 {
                     _db.Entry(propertyView).State = EntityState.Modified;
                     var date = propertyView.PropertyViewDate.Date;
-                    var now = DateTime.Now.Date;
+                    var now = datetime.Date;
                     if (date == now)
                     {
                         propertyView.PropertyViewCount = propertyView.PropertyViewCount + 1;
@@ -40,8 +41,9 @@ namespace RealStateProject.Controllers
                         var viewProperty = new PropertyView()
                         {
                             HomePropertyID = id,
-                            PropertyViewDate = DateTime.Now,
-                            PropertyViewCount = 1
+                            PropertyViewDate = datetime,
+                            PropertyViewCount = 1,
+                            StringDate = datetime.Year + "/" + datetime.Month + "/" + datetime.Day
                         };
                         _db.PropertyViews.Add(viewProperty);
                         _db.SaveChanges();
@@ -53,8 +55,10 @@ namespace RealStateProject.Controllers
                 var viewProperty = new PropertyView()
                 {
                     HomePropertyID = id,
-                    PropertyViewDate = DateTime.Now,
-                    PropertyViewCount = 1
+                    PropertyViewDate = datetime,
+                    PropertyViewCount = 1,
+                    StringDate = datetime.Year + "/" + datetime.Month + "/" + datetime.Day
+
                 };
                 _db.PropertyViews.Add(viewProperty);
                 _db.SaveChanges();

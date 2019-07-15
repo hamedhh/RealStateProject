@@ -15,5 +15,7 @@ namespace DataLayer.DB
         public int HomePropertyID { get; set; }
         public System.DateTime PropertyViewDate { get; set; }
         public int PropertyViewCount { get; set; }
+
+        public string StringDate { get; set; }
     }
 }

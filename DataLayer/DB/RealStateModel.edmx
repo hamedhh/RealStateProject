@@ -111,6 +111,7 @@
           <Property Name="HomePropertyID" Type="int" Nullable="false" />
           <Property Name="PropertyViewDate" Type="datetime" Nullable="false" />
           <Property Name="PropertyViewCount" Type="int" Nullable="false" />
+          <Property Name="StringDate" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Rigions">
           <Key>
@@ -904,6 +905,7 @@
           <Property Name="PropertyViewDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PropertyViewCount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HomeProperty" Relationship="RealState_DBModel.FK_PropertyView_PropertyView" FromRole="PropertyView" ToRole="HomeProperty" />
+          <Property Name="StringDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PropertyView_PropertyView">
           <End Type="RealState_DBModel.HomeProperty" Role="HomeProperty" Multiplicity="1" />
@@ -1096,6 +1098,7 @@
           <EntitySetMapping Name="PropertyViews">
             <EntityTypeMapping TypeName="RealState_DBModel.PropertyView">
               <MappingFragment StoreEntitySet="PropertyView">
+                <ScalarProperty Name="StringDate" ColumnName="StringDate" />
                 <ScalarProperty Name="PropertyViewCount" ColumnName="PropertyViewCount" />
                 <ScalarProperty Name="PropertyViewDate" ColumnName="PropertyViewDate" />
                 <ScalarProperty Name="HomePropertyID" ColumnName="HomePropertyID" />

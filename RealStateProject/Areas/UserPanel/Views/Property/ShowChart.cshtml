@@ -3,6 +3,11 @@
 @*<script src="~/Scripts/jquery.js"></script>*@
 <script src="~/Scripts/canvasjs.min.js"></script>
 <div class="ChartView" id="chartContainer"></div>
+@{ 
+    var resid = ViewBag.homePropertyID;
+
+}
+<input id="resID" type="text" hidden value="@resid"/>
 <script type="text/javascript">
     $(document).ready(function () {
         var chart = new CanvasJS.Chart("chartContainer", {
@@ -19,7 +24,7 @@
                 {
                     type: "column", //change type to bar, line, area, pie, etc
                     dataPoints: [
-                        { x: 0, y: 0 },
+                        //{ x: 0, y: 0 },
                         //{ x: 20, y: 55 },
                         //{ x: 30, y: 50 },
                         //{ x: 40, y: 65 },
@@ -33,16 +38,30 @@
             ]
         });
         chart.render();
-        @*var items = @Html.Raw(Json.Encode(Model.ArrayDetails));
-        for (var i = 0; i < items.length; i++) {
-            chart.data[0].addTo("dataPoints", { x: 10, label: items[i].PropertyViewDate, y: 5, lable: 5 });
-        }*@
-        var date = [""];
-        date.push()
-        @foreach (var item in Model)
-        {
-            date.push("Kiwi");
-        }
+        $.ajax({
+            url: "/UserPanel/Property/getPropertyView",
+            dataType: "json",
+            type: "POST",
+            data: { id: $('#resID').val() },
+            success: function (result) {
+                if (result != null) {
+                    var xx = 10;
+                    var yy = 10;
+                    $.each(result, function (i, item) {
+
+                        chart.data[0].addTo("dataPoints", { label: item.StringDate, y: item.PropertyViewCount});
+                        //chart.data[0].addTo("dataPoints", { x: xx, label: item.StringDate, y: item.PropertyViewCount, lable: item.PropertyViewCount });
+                        xx = xx + 10;
+                        yy = yy + 5;
+                    });
+                }
+            }
+        });
+
+        @*var model = @Model;
+        var rses = model.length;
+        for (var i = 0; i < model.length; i++) {
+            chart.data[0].addTo("dataPoints", { x: 10, label: model[i].PropertyViewDate, y: 5, lable: 5 });}*@
 
 
 
@@ -60,6 +79,17 @@
         //};
 </script>
 
+
+@*var items = @Html.Raw(Json.Encode(Model.ArrayDetails));
+    for (var i = 0; i < items.length; i++) {
+        chart.data[0].addTo("dataPoints", { x: 10, label: items[i].PropertyViewDate, y: 5, lable: 5 });
+    }*@
+@*var date = [""];
+     date.push()
+    @foreach (var item in Model)
+     {
+         date.push("Kiwi");
+     }*@
 
 
 @*function Chart() {
