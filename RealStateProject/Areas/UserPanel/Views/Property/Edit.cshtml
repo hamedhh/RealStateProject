@@ -8,6 +8,7 @@
 @{
     List<Facility> _facility = ViewBag.Facilities;
     List<Condition> _conditions = ViewBag.Conditions;
+
 }
 
 <script src="~/Scripts/jquery.js"></script>
@@ -184,16 +185,21 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
-                <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">انتخاب محل</label>
+                            <div class="col-md-10">
+                                <div id="map" style="height: 400px;"></div>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <div id="map" style="height: 400px;"></div>
                     </div>
                 </div>
+
             </div>
-            <button class="btn btn-primary nextBtn btn-lg pull-left" type="button">بعدی</button>
+
+            <div class="col-md-10">
+                <button class="btn btn-primary nextBtn btn-lg pull-left" type="button">بعدی</button>
+            </div>
 
         </div>
 
@@ -316,6 +322,7 @@
 <script src="~/Scripts/autoNumeric-1.9.18.js"></script>
 @*-------------------------------------------------------------------------------------------------------#region Forms*@
 
+@*------------------------------------------------------------پیغام ثبت موفق-----------------------------------------------------*@
 @if (insertPerson == true)
 {
     Session["InsertProperty"] = false;
@@ -325,8 +332,11 @@
         });
     </script>
 }
+
+@*------------------------------------------------------------نمایش رهن/اجاره/فروش---قیمت-----------------------------------------------------*@
 <script>
     $(document).ready(function () {
+        $('#drpPropertyType').val(@Model.PropertyTypeID)
         var valyeType = $('#drpPropertyType').val();
         if (valyeType != null) {
             if (valyeType == 1) {
@@ -376,6 +386,7 @@
 </script>
 
 
+@*------------------------------------------------------------لیست های شهر/ استان / محدوده -----------------------------------------------------*@
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -449,6 +460,7 @@
 
     });
 </script>
+@*------------------------------------------------------------لیست های کاربری و موارد کاربری-----------------------------------------------------*@
 
 <script>
     $('#drpUsage').change(function () {
@@ -466,6 +478,8 @@
     });
 </script>
 
+@*------------------------------------------------------------فایل آپلود و تصاویر-----------------------------------------------------*@
+
 <script>
     $(document).ready(function () {
         var imagesArray = $("#Imgcollection").find("img").map(function () {
@@ -479,8 +493,6 @@
 
     });
 </script>
-
-
 <script>
         var nowTemp = new Date();
         var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
@@ -564,7 +576,6 @@
 
         }
 </script>
-
 <script>
     function readURL(input) {
 
@@ -586,24 +597,71 @@
 
 
 </script>
-@*-------------------------------------------------------------------------------------------------------#END--region Forms*@
 
+
+@*------------------------------------------------------------نقشه و نمایش لوکیشن -----------------------------------------------------*@
 
 
 <script>
-    var map = L.map('map')
-        .setView([35.7180961, 51.440398], 19);
+
+@*var mymap = L.map('map', {
+	center: [@Model.LocLatitude, @Model.LocLongitude],
+	zoom: 16
+    });*@
+    //var resMap = $('#locMap').val();
+   // if (resMap== null) {
+        //var map = L.map('map')
+        //    .setView([35.7180961, 51.440398], 19);
+
+        //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        //    attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        //}).addTo(map);
+   // }
+    //else {
+         var map = L.map('map')
+        .setView([@Model.LocLatitude, @Model.LocLongitude], 19);
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+
+    var circle = L.circle([@Model.LocLatitude, @Model.LocLongitude], {
+        //color: '#9416b7',
+        //fillColor: '#9416b7',
+        //fillOpacity: 0.5,
+        //radius: 30
+    }).addTo(map);
+
+    var marker = L.marker([@Model.LocLatitude, @Model.LocLongitude]).addTo(map);
+
+    //}
+
+
     // var marker = L.marker([35.7180961, 51.440398], { title: "My marker", icon: "" }).addTo(map);
 
 
 </script>
+
 <script>
     function onMapClick(e) {
+       marker.remove();
+       marker =L.marker(e.latlng, { draggable: 'true' });//L.marker([35.7180961, 51.440398], { title: "My marker"});//new L.marker(e.latlng, { draggable: 'true' });
+        marker.on('dragend', function (event) {
+            var marker = event.target;
+            var position = marker.getLatLng();
+            marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
+            map.panTo(new L.LatLng(position.lat, position.lng))
+        });
+        map.addLayer(marker);
+    };
 
+    map.on('click', onMapClick); 
+</script>
+
+
+
+@*<script>
+    function onMapClick(e) {
         marker = new L.marker(e.latlng, { draggable: 'true' });//L.marker([35.7180961, 51.440398], { title: "My marker"});//new L.marker(e.latlng, { draggable: 'true' });
         marker.on('dragend', function (event) {
             var marker = event.target;
@@ -615,7 +673,7 @@
     };
 
     map.on('click', onMapClick);
-</script>
+</script>*@
 
 @*دریافت لوکیشن از مارکر------------------------------------------------------------ر-----------------------------------------------------*@
 <script>
@@ -626,6 +684,7 @@
     });
     //35.71379969931505, 51.44191503524781
 </script>
+@*------------------------------------------------------------چک رنح اعداد-----------------------------------------------------*@
 
 <script>
     $(document).ready(function () {
@@ -692,7 +751,7 @@
             }
         });
     });
-
+    @* ------------------------------------------------------------اسپلیت اعداد-----------------------------------------------------*@
     $(function ($) {
         $('#txtPrice').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
         $('#txtMortgage').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
@@ -712,5 +771,6 @@
 
 <div>
     <a class="btn btn-warning" href="@Url.Action("PropertyList")">بازگشت به لیست</a>
- 
+
 </div>
+@*-------------------------------------------------------------------------------------------------------#END--region Forms*@

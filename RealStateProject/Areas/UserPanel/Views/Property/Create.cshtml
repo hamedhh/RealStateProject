@@ -85,7 +85,7 @@
 <link href="~/Content/leaflet.css" rel="stylesheet" />
 <script src="~/Scripts/leaflet.js"></script>
 <script src="~/Scripts/_CheckValidation.js"></script>
-  
+
 
 <!------ Include the above in your HEAD tag ---------->
 <div class="container">
@@ -203,13 +203,13 @@
 
                     </div>
                 </div>
-                
+
             </div>
-           
-                <div class="col-md-10">
-                    <button class="btn btn-primary nextBtn btn-lg pull-left" type="button">بعدی</button>
-                </div>
-           
+
+            <div class="col-md-10">
+                <button class="btn btn-primary nextBtn btn-lg pull-left" type="button">بعدی</button>
+            </div>
+
 
         </div>
 
@@ -607,21 +607,51 @@
 
 
 
+
 <script>
-    var map = L.map('map')
-        .setView([35.7180961, 51.440398], 19);
+
+@*var mymap = L.map('map', {
+	center: [@Model.LocLatitude, @Model.LocLongitude],
+	zoom: 16
+    });*@
+    //var resMap = $('#locMap').val();
+   // if (resMap== null) {
+        //var map = L.map('map')
+        //    .setView([35.7180961, 51.440398], 19);
+
+        //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        //    attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        //}).addTo(map);
+   // }
+    //else {
+         var map = L.map('map')
+             .setView([35.7180961, 51.440398 ], 19);
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+
+    var circle = L.circle([35.7180961, 51.440398], {
+        //color: '#9416b7',
+        //fillColor: '#9416b7',
+        //fillOpacity: 0.5,
+        //radius: 30
+    }).addTo(map);
+
+    var marker = L.marker([35.7180961, 51.440398]).addTo(map);
+
+    //}
+
+
     // var marker = L.marker([35.7180961, 51.440398], { title: "My marker", icon: "" }).addTo(map);
 
 
 </script>
+
 <script>
     function onMapClick(e) {
-
-        marker = new L.marker(e.latlng, { draggable: 'true' });//L.marker([35.7180961, 51.440398], { title: "My marker"});//new L.marker(e.latlng, { draggable: 'true' });
+        marker.remove();
+        marker = L.marker(e.latlng, { draggable: 'true' });//L.marker([35.7180961, 51.440398], { title: "My marker"});//new L.marker(e.latlng, { draggable: 'true' });
         marker.on('dragend', function (event) {
             var marker = event.target;
             var position = marker.getLatLng();
@@ -634,9 +664,15 @@
     map.on('click', onMapClick);
 </script>
 
+
 @*دریافت لوکیشن از مارکر------------------------------------------------------------ر-----------------------------------------------------*@
 <script>
     map.on('click', function (ev) {
+        var latlng = map.mouseEventToLatLng(ev.originalEvent);
+        $('#latlongMap').val(latlng.lat + ',' + latlng.lng);
+        //console.log(latlng.lat + ', ' + latlng.lng);
+    });
+    map.on('dragend', function (ev) {
         var latlng = map.mouseEventToLatLng(ev.originalEvent);
         $('#latlongMap').val(latlng.lat + ',' + latlng.lng);
         //console.log(latlng.lat + ', ' + latlng.lng);

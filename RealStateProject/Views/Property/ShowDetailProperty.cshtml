@@ -78,7 +78,7 @@
         @{
             if (Model.PropertyTypeID == 1)
             {
-                
+
                 <span style="color:black">قیمت :   <span id="txtPrice" style="font-size: 20px !important;" class="aa-price">@Model.HomePrice</span> <span style="font-size: 13px !important; color: darkgray !important;">   تومان</span> </span>
 
 
@@ -139,7 +139,7 @@
         </div>
 
         @*<h4>Property Video</h4>
-        <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" frameborder="0" allowfullscreen=""></iframe>*@
+            <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" frameborder="0" allowfullscreen=""></iframe>*@
         <h4>ویژگی های محل</h4>
         <hr />
         <div id="map" style="height: 400px;"></div>
@@ -163,7 +163,7 @@
     </div>
 
 </div>
-
+@*------------------------------------------------------------نمایش نقشه و لوکیشن-----------------------------------------------------*@
 <script>
 @*var mymap = L.map('map', {
 	center: [@Model.LocLatitude, @Model.LocLongitude],
@@ -186,6 +186,7 @@
 
     var marker = L.marker([@Model.LocLatitude, @Model.LocLongitude]).addTo(map);
 </script>
+@*------------------------------------------------------------اسپلیت اعداد -----------------------------------------------------*@
 <script>
     $(document).ready(function () {
         $('#txtPrice').text(ToRial($('#txtPrice').text()));
@@ -193,13 +194,13 @@
         $('#txtMortgage').text(ToRial($('#txtMortgage').text()));
     });
     function ToRial(str) {
-      
-            str = str.replace(/\,/g, '');
-            var objRegex = new RegExp('(-?[0-9]+)([0-9]{3})');
 
-            while (objRegex.test(str)) {
-                str = str.replace(objRegex, '$1,$2');
-            
+        str = str.replace(/\,/g, '');
+        var objRegex = new RegExp('(-?[0-9]+)([0-9]{3})');
+
+        while (objRegex.test(str)) {
+            str = str.replace(objRegex, '$1,$2');
+
         }
 
 

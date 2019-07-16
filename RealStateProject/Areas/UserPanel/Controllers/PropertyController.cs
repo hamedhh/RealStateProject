@@ -538,7 +538,9 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 LocArea = homeProperty.LocArea.ToString(),
                 SubUsageID = homeProperty.SubUsageID ?? 0,
                 usageID = homeProperty.SubUsage.UsageID,
-                Title = homeProperty.Title
+                Title = homeProperty.Title,
+                LocLatitude=homeProperty.LocLatitude,
+                LocLongitude=homeProperty.LocLongitude
 
             };
 
@@ -603,6 +605,17 @@ namespace RealStateProject.Areas.UserPanel.Controllers
         public ActionResult ShowChart(int id=20)
        {
             ViewBag.homePropertyID = id;
+            if (_db.PropertyViews.Any(a => a.HomePropertyID == id))
+            {
+                var resSum = _db.PropertyViews.Where(a => a.HomePropertyID == id);
+                ViewBag.sumView = resSum.Sum(a => a.PropertyViewCount);
+
+            }
+            else
+                ViewBag.sumView = 0;
+
+
+
             return PartialView();
            
         }

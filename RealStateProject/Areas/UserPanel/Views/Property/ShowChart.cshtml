@@ -5,9 +5,11 @@
 <div class="ChartView" id="chartContainer"></div>
 @{ 
     var resid = ViewBag.homePropertyID;
+    var resSum = ViewBag.sumView;
 
 }
 <input id="resID" type="text" hidden value="@resid"/>
+<input id="resSum" type="text" hidden value="@resSum"/>
 <script type="text/javascript">
     $(document).ready(function () {
         var chart = new CanvasJS.Chart("chartContainer", {
@@ -15,7 +17,7 @@
             animationEnabled: true,
 
             title: {
-                text: "تعداد بازدید به تفکیک روز"
+                text: "تعداد کل بازدید " + $('#resSum').val()
             },
             subtitles: [
                 //{ text: "Try Resizing the Browser" }

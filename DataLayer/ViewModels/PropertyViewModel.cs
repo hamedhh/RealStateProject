@@ -81,5 +81,8 @@ namespace DataLayer.ViewModels
         public string FilesToBeUploaded { get; set; }
         public string ImageName { get; set; }
 
+        public string LocLatitude { get; set; }
+        public string LocLongitude { get; set; }
+
     }
 }
