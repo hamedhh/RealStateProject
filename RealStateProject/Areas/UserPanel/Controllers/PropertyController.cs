@@ -225,6 +225,10 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 Session["InsertProperty"] = true;
                 ModelState.Clear();
             }
+            else
+            {
+                Session["NoInsertData"] = true;
+            }
             ViewBag.CountryID = new SelectList(_db.Countries, "CountryID", "CountryTitle");
             ViewBag.PropertyTypeID = new SelectList(_db.HomeProperty_Type, "PropertyTypeID", "Title");
             ViewBag.usageID = new SelectList(_db.Usages, "UsageID", "UsageTitle");
