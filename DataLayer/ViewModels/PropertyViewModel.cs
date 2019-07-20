@@ -84,5 +84,7 @@ namespace DataLayer.ViewModels
         public string LocLatitude { get; set; }
         public string LocLongitude { get; set; }
 
+        public int homePropertyId { get; set; }
+
     }
 }

@@ -630,6 +630,7 @@
     });
 
 </script>
+
 @*-------------------------------------------------------------------------------------------------------#END--region Forms*@
 
 
@@ -706,11 +707,11 @@
         $('#latlongMap').val(latlng.lat + ',' + latlng.lng);
         //console.log(latlng.lat + ', ' + latlng.lng);
     });
-    map.on('dragend', function (ev) {
-        var latlng = map.mouseEventToLatLng(ev.originalEvent);
-        $('#latlongMap').val(latlng.lat + ',' + latlng.lng);
-        //console.log(latlng.lat + ', ' + latlng.lng);
-    });
+    //map.on('dragend', function (ev) {
+    //    var latlng = map.mouseEventToLatLng(ev.originalEvent);
+    //    $('#latlongMap').val(latlng.lat + ',' + latlng.lng);
+    //    //console.log(latlng.lat + ', ' + latlng.lng);
+    //});
     //35.71379969931505, 51.44191503524781
 </script>
 
