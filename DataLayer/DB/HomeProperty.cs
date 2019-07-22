@@ -42,6 +42,7 @@ namespace DataLayer.DB
         public Nullable<System.DateTime> CreateDate { get; set; }
         public string Description { get; set; }
         public string ImageName { get; set; }
+        public string PhoneNum { get; set; }
     
         public virtual Culture Culture { get; set; }
         public virtual User User { get; set; }

@@ -106,7 +106,7 @@
     @using (Html.BeginForm("Edit", "Property", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.HiddenFor(model => model.latlongMap)
-        @Html.HiddenFor(Model=>Model.homePropertyId)
+        @Html.HiddenFor(Model => Model.homePropertyId)
         <div id="InsertPropertyModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -170,7 +170,7 @@
 
                             <div class="col-md-10">
                                 @*<input type="text" class="form-control" id="txtPrice" onchange="validateDecimal(this);" />*@
-                                @Html.EditorFor(model => model.HomePrice, new { htmlAttributes = new { @class = "form-control", @id = "txtPrice", placeholder = "تومان" } })
+                                @Html.EditorFor(model => model.HomePrice, new { htmlAttributes = new { onkeyup = "javascript:this.value=itpro(this.value);", @class = "form-control", @id = "txtPrice", placeholder = "تومان" } })
                                 @Html.ValidationMessageFor(model => model.HomePrice, "", new { @class = "text-danger", @id = "errPrice" })
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.MortgagePrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblMortgage" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.MortgagePrice, new { htmlAttributes = new { @class = "form-control", @id = "txtMortgage", placeholder = "تومان" } })
+                                @Html.EditorFor(model => model.MortgagePrice, new { htmlAttributes = new { onkeyup = "javascript:this.value=itpro(this.value);", @class = "form-control", @id = "txtMortgage", placeholder = "تومان" } })
                                 @Html.ValidationMessageFor(model => model.MortgagePrice, "", new { @class = "text-danger", @id = "errMortgage" })
                             </div>
                         </div>
@@ -186,8 +186,16 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.RentPrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblRent" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.RentPrice, new { htmlAttributes = new { @class = "form-control", @id = "txtRent", placeholder = "تومان" } })
+                                @Html.EditorFor(model => model.RentPrice, new { htmlAttributes = new { onkeyup = "javascript:this.value=itpro(this.value);", @class = "form-control", @id = "txtRent", placeholder = "تومان" } })
                                 @Html.ValidationMessageFor(model => model.RentPrice, "", new { @class = "text-danger", @id = "errRent" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNum, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblPhone" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PhoneNum, new { htmlAttributes = new { @class = "form-control", @id = "txtPhone", placeholder = "0+" } })
+                                @Html.ValidationMessageFor(model => model.PhoneNum, "", new { @class = "text-danger", @id = "errPhone" })
                             </div>
                         </div>
 
@@ -376,7 +384,7 @@
             url: "/UserPanel/Property/DeleteImage",
             data: { galleryID: id },
             success: function () {
-                $('#td_'+id).hide('slow');
+                $('#td_' + id).hide('slow');
             }
         })
     }
@@ -811,16 +819,45 @@
             }
         });
     });
-    @* ------------------------------------------------------------اسپلیت اعداد-----------------------------------------------------*@
-    $(function ($) {
-        $('#txtPrice').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
-        $('#txtMortgage').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
-        $('#txtRent').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
-        $('#txtArea').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
-        $('#txtAge').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+
+    $(document).ready(function () {
+        $('#txtPhone').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errPhone').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 999999999) {
+                $('#errPhone').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+        });
     });
 
+    @* ------------------------------------------------------------اسپلیت اعداد-----------------------------------------------------*@
+    //$(function ($) {
+    //    $('#txtPrice').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    //    $('#txtMortgage').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    //    $('#txtRent').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    //    $('#txtArea').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    //    $('#txtAge').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    //});
+
 </script>
+<script>
+    function itpro(Number) {
+        Number += '';
+        Number = Number.replace(',', ''); Number = Number.replace(',', ''); Number = Number.replace(',', '');
+        Number = Number.replace(',', ''); Number = Number.replace(',', ''); Number = Number.replace(',', '');
+        x = Number.split('.');
+        y = x[0];
+        z = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(y))
+            y = y.replace(rgx, '$1' + ',' + '$2');
+        return y + z;
+    }
+</script>
+
 <script>
     $('#txtrigionTitle').keyup(function () {
         if (!this.value) {

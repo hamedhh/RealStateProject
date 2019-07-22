@@ -2529,6 +2529,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\number-divider.js" />
     <Content Include="Scripts\number-divider.min.js" />
+    <Content Include="Scripts\NumberFormat.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_CheckValidation.js" />

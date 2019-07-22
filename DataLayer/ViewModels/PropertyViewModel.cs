@@ -76,6 +76,10 @@ namespace DataLayer.ViewModels
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
+        [Display(Name ="شماره تماس")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public string PhoneNum { get; set; }
+
         public string latlongMap { get; set; }
 
         public string FilesToBeUploaded { get; set; }

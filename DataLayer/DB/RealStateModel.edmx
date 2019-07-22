@@ -68,6 +68,7 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ImageName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNum" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="HomeProperties_MetaData">
           <Key>
@@ -610,6 +611,7 @@
           <NavigationProperty Name="SubUsage" Relationship="RealState_DBModel.FK_HomeProperties_SubUsages" FromRole="HomeProperty" ToRole="SubUsage" />
           <NavigationProperty Name="HomeProperty_Galleries" Relationship="RealState_DBModel.FK_HomeProperty_Galleries_HomeProperty_Galleries" FromRole="HomeProperty" ToRole="HomeProperty_Galleries" />
           <NavigationProperty Name="PropertyViews" Relationship="RealState_DBModel.FK_PropertyView_PropertyView" FromRole="HomeProperty" ToRole="PropertyView" />
+          <Property Name="PhoneNum" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="HomeProperties_MetaData">
           <Key>
@@ -974,6 +976,7 @@
           <EntitySetMapping Name="HomeProperties">
             <EntityTypeMapping TypeName="RealState_DBModel.HomeProperty">
               <MappingFragment StoreEntitySet="HomeProperties">
+                <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
                 <ScalarProperty Name="ImageName" ColumnName="ImageName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

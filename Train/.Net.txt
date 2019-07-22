@@ -1,0 +1,72 @@
+<section class="scripts">
+
+    <script type="text/javascript">
+
+   
+            $(document).ready(function () {
+                Initialize();
+            });
+            // "Company/GetGeoCoordinates"
+            function GetGeoCoordinates() {
+                debugger;
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetGeoCoordinates", "Company", new { companyID = Model.CompanyID })',
+                    data: { companyID: 1 },
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var mapOptions = {
+                            center: new google.maps.LatLng(result.Latitude, result.Longitude),
+                            zoom: 9,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        infoWindow = new google.maps.InfoWindow();
+                        gMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+                        //marker for current location
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(result.Latitude, result.Longitude),
+                            map: gMap,
+                            title: result.Title,
+                            icon: 'https://maps.google.com/mapfiles/kml/shapes/schools_maps.png'
+                        });
+                    },
+                    error: function (response) {
+                        alert('Problem on your Latitude or Longitude or your internet.');
+                    }
+                });
+            }
+
+            // Where all the fun happens
+            function Initialize() {
+                GetGeoCoordinates();
+            }
+
+    </script>
+</section>
+--------------------
+<script>
+    $(document).ready(function () {
+        Initialize();
+    });
+    //var mapProp = {
+    //    center: new google.maps.LatLng(51.508742, -0.120850),
+    //    zoom: 5,
+    //    mapTypeId: google.maps.MapTypeId.ROADMAP
+    //};
+
+    function Initialize() {
+        google.maps.visualRefresh = true;
+        var Liverpool = new google.maps.LatLng(51.508742, -0.120850);
+        var mapOptions = {
+            zoom: 14,
+            center: Liverpool,
+            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.open(map, marker);
+        });
+    }
+</script>

@@ -146,7 +146,8 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                 RentPrice = rentPrice,
                 ImageName = _createPropertyViewModel.ImageName,
                 LocLatitude = _lat,
-                LocLongitude = _long
+                LocLongitude = _long,
+                PhoneNum= _createPropertyViewModel.PhoneNum
 
             };
             if (ModelState.IsValid)
@@ -561,7 +562,8 @@ namespace RealStateProject.Areas.UserPanel.Controllers
                     Title = homeProperty.Title,
                     LocLatitude = homeProperty.LocLatitude,
                     LocLongitude = homeProperty.LocLongitude,
-                    homePropertyId=homeProperty.HomePropertyID
+                    homePropertyId=homeProperty.HomePropertyID,
+                    PhoneNum=homeProperty.PhoneNum
                     
 
                 };
@@ -702,7 +704,7 @@ namespace RealStateProject.Areas.UserPanel.Controllers
             _homeProperty.ImageName = _createPropertyViewModel.ImageName;
             _homeProperty.LocLatitude = _lat;
             _homeProperty.LocLongitude = _long;
-
+            _homeProperty.PhoneNum = _createPropertyViewModel.PhoneNum;
 
             if (ModelState.IsValid)
             {
