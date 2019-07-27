@@ -615,13 +615,13 @@
         map.on('click', onMapClick);
     </script>*@
 <script src="~/Scripts/autoNumeric-1.9.18.js"></script>
-<script src="~/Scripts/jquery-1.10.0.min.js"></script>
+@*<script src="~/Scripts/jquery-1.10.0.min.js"></script>*@
 <script src="~/Scripts/jquery-ui.min.js"></script>
-
+<link href="~/Areas/search/jquery-ui.css" rel="stylesheet" />
 <script>
 
     $(function () {
-            $('#rigionTitle').autocomplete( {
+        $('#rigionTitle').autocomplete({
             source: function(requset, response) {
                 $.ajax({
                     //url:@Url.Action("searchRigion", "Property"),

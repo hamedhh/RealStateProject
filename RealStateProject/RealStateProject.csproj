@@ -158,6 +158,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\search\jquery-1.10.0.min.js" />
+    <Content Include="Areas\search\jquery-ui.css" />
+    <Content Include="Areas\search\jquery-ui.min.js" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\bower_components\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\bower_components\bootstrap-slider\locks.png" />
     <Content Include="Areas\UserPanel\Content\AdminPanel\bower_components\bootstrap-slider\slider.css" />
