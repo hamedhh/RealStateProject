@@ -5,11 +5,14 @@
 
 }
 
-@{ 
+@{
     int countSlide = 0;
     int countinner = 0;
 }
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <link href="~/Content/Custom.css" rel="stylesheet" />
+<link href="~/Content/leaflet.css" rel="stylesheet" />
+<script src="~/Scripts/leaflet.js"></script>
 <!-- Start properties content body -->
 <div class="aa-properties-details col-md-8">
 
@@ -69,36 +72,42 @@
         </div>*@
     <div class="aa-properties-info">
         <h2> @Model.Title</h2>
-        <span class="aa-price">@Model.HomePrice تومان</span>
+        <h3>@Model.PhoneNum</h3>
+
+
+        @{
+            if (Model.PropertyTypeID == 1)
+            {
+
+                <span style="color:black">قیمت :   <span id="txtPrice" style="font-size: 20px !important;" class="aa-price">@Model.HomePrice</span> <span style="font-size: 13px !important; color: darkgray !important;">   تومان</span> </span>
+
+
+            }
+            else if (Model.PropertyTypeID == 2)
+            {
+
+                <span style="color:black">رهن :   <span id="txtMortgage" style="font-size: 20px !important;" class="aa-price">@Model.MortgagePrice</span> <span style="font-size: 13px !important; color: darkgray !important;">   تومان</span> </span>
+                <span class="fa fa-circle"></span>
+                <br />
+
+                <span style="color:black">اجاره :   <span id="txtRent" style="font-size: 20px !important;" class="aa-price">@Model.RentPrice</span> <span style="font-size: 13px !important; color: darkgray !important;">   تومان</span> </span>
+                <span class="fa fa-circle"></span>
+
+            }
+
+
+        }
+
         <div id="attribSP-place">
             <span class="attribSP"><i class="fa fa-map"></i><span>..</span> <span></span> <span>متراژ:</span>   <span class="bold">@Model.LocArea</span>   <span>متر مربع</span>   </span>
             <span class="attribSP"><i class="fa fa-bed"></i> <span>..</span> <span></span> <span>تعداد خواب:</span>   <span class="bold">3</span>  <span></span>    </span>
             <span class="attribSP"><i class="fa fa-circle"></i> <span>..</span> <span></span> <span>سن بنا:</span>   <span class="bold">@Model.LocAge  </span>سال<span></span>    </span>
         </div>
         <p>@Model.Description</p>
-        @*<p>
-            فرمانیه شرقی سنبل برج باغ ۳۰۰ متر ۴ خواب ۲ خواب مستر فول استخر سونا جکوزی ۱۰طبقه ۴ واحدی طبقه ۴ لابی مجلل ملکی خاص از لحاظ طرحو نقشه و سازه ای بنام در منطقه نشیمن جدا جکوزی داخل واحد نور و ونقشه بی نظیر
-            املاک فرواک
-            واحد اجاره ای
-            ۱۶۰ متر ۲ خواب
-            واحد مجتمع باغ بهشت
-            دوبلکس
-            واحد کلید نخورده
-            لابی مجلل
-            سالن اجتماعات
-            سالن جم
-            سالن بیلیارد
-            پیست دوچرخه سواری
-            پیست پیاده روی
-            بهترین لوکیشن
-            تبدیل ۲۰۰ میلیون تومان پیش
-            ماهی ۱۰ میلیون تومان اجاره
-            اجاره یکسال گرفته میشود
-        </p>*@
-       @{
-           List<DataLayer.DB.HomeProperties_MetaData> facility = ViewBag.facility;
-           List<DataLayer.DB.HomeProperties_MetaData> condition = ViewBag.condition;
-       }
+        @{
+            List<DataLayer.DB.HomeProperties_MetaData> facility = ViewBag.facility;
+            List<DataLayer.DB.HomeProperties_MetaData> condition = ViewBag.condition;
+        }
         <div class="row">
             <div class="col-md-4">
                 <h4>تسهیلات</h4>
@@ -133,7 +142,8 @@
             <iframe width="100%" height="480" src="https://www.youtube.com/embed/CegXQps0In4" frameborder="0" allowfullscreen=""></iframe>*@
         <h4>ویژگی های محل</h4>
         <hr />
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6851.201919469417!2d-86.11773906635584!3d33.47324776828677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x888bdb60cc49c571%3A0x40451ca6baf275c7!2s36008+AL-77%2C+Talladega%2C+AL+35160%2C+USA!5e0!3m2!1sbn!2sbd!4v1460452919256" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+        <div id="map" style="height: 400px;"></div>
+        @*<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6851.201919469417!2d-86.11773906635584!3d33.47324776828677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x888bdb60cc49c571%3A0x40451ca6baf275c7!2s36008+AL-77%2C+Talladega%2C+AL+35160%2C+USA!5e0!3m2!1sbn!2sbd!4v1460452919256" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen=""></iframe>*@
 
         @*<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6851.201919469417!2d-86.11773906635584!3d33.47324776828677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x888bdb60cc49c571%3A0x40451ca6baf275c7!2s36008+AL-77%2C+Talladega%2C+AL+35160%2C+USA!5e0!3m2!1sbn!2sbd!4v1460452919256" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen=""></iframe>*@
     </div>
@@ -153,3 +163,47 @@
     </div>
 
 </div>
+@*------------------------------------------------------------نمایش نقشه و لوکیشن-----------------------------------------------------*@
+<script>
+@*var mymap = L.map('map', {
+	center: [@Model.LocLatitude, @Model.LocLongitude],
+	zoom: 16
+    });*@
+
+    var map = L.map('map')
+        .setView([@Model.LocLatitude, @Model.LocLongitude], 19);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var circle = L.circle([@Model.LocLatitude, @Model.LocLongitude], {
+        color: '#9416b7',
+        fillColor: '#9416b7',
+        fillOpacity: 0.5,
+        radius: 30
+    }).addTo(map);
+
+    var marker = L.marker([@Model.LocLatitude, @Model.LocLongitude]).addTo(map);
+</script>
+@*------------------------------------------------------------اسپلیت اعداد -----------------------------------------------------*@
+<script>
+    $(document).ready(function () {
+        $('#txtPrice').text(ToRial($('#txtPrice').text()));
+        $('#txtRent').text(ToRial($('#txtRent').text()));
+        $('#txtMortgage').text(ToRial($('#txtMortgage').text()));
+    });
+    function ToRial(str) {
+
+        str = str.replace(/\,/g, '');
+        var objRegex = new RegExp('(-?[0-9]+)([0-9]{3})');
+
+        while (objRegex.test(str)) {
+            str = str.replace(objRegex, '$1,$2');
+
+        }
+
+
+        return str;
+    }
+</script>

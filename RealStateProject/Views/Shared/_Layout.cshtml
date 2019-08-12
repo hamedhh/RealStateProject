@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>انواع ملک | خانه</title>
-
+  
     <!-- Favicon -->
     <link rel="shortcut icon" href="~/assets-fa/img/favicon.ico" type="image/x-icon">
     @if (System.Globalization.CultureInfo.CurrentCulture.Name.Contains("fa"))
@@ -241,87 +241,8 @@
     </section>
     <!-- End slider  -->
     <!-- Advance Search -->
-    <section id="aa-advance-search">
-        <div class="container">
-            <div class="aa-advance-search-area">
-                <div class="form">
-                    <div class="aa-advance-search-top">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="aa-single-advance-search">
-                                    <input type="text" placeholder="@DataLayer.Resources.Resource_Main.Ph_Search">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="aa-single-advance-search">
-                                    <select>
-                                        <option value="0" selected>@DataLayer.Resources.Resource_Main.category</option>
-                                        <option value="1">یک دست</option>
-                                        <option value="2">زمین</option>
-                                        <option value="3">قطعه</option>
-                                        <option value="4">تجاری</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="aa-single-advance-search">
-                                    <select>
-                                        <option value="0" selected>@DataLayer.Resources.Resource_Main.HomeType</option>
-                                        <option value="1">یک دست</option>
-                                        <option value="2">زمین</option>
-                                        <option value="3">قطعه</option>
-                                        <option value="4">تجاری</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="aa-single-advance-search">
-                                    <select>
-                                        <option value="0" selected>@DataLayer.Resources.Resource_Main.DealType</option>
-                                        <option value="1">یک دست</option>
-                                        <option value="2">زمین</option>
-                                        <option value="3">قطعه</option>
-                                        <option value="4">تجاری</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="aa-single-advance-search">
-                                    <input class="aa-search-btn" type="submit" value="@DataLayer.Resources.Resource_Main.Search">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="aa-advance-search-bottom">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="aa-single-filter-search">
-                                    <span>@DataLayer.Resources.Resource_Main.Area</span>
-                                    <span>@DataLayer.Resources.Resource_Main.From</span>
-                                    <span id="skip-value-lower" class="example-val">30.00</span>
-                                    <span>@DataLayer.Resources.Resource_Main.To</span>
-                                    <span id="skip-value-upper" class="example-val">100.00</span>
-                                    <div id="aa-sqrfeet-range" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="aa-single-filter-search">
-                                    <span>@DataLayer.Resources.Resource_Main.Price</span>
-                                    <span>@DataLayer.Resources.Resource_Main.From</span>
-                                    <span id="skip-value-lower2" class="example-val">30.00</span>
-                                    <span>@DataLayer.Resources.Resource_Main.To</span>
-                                    <span id="skip-value-upper2" class="example-val">100.00</span>
-                                    <div id="aa-price-range" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
+    @Html.Action("Defualt", "Search")
     <!-- / Advance Search -->
     <!-- About us -->
     <!-- / About us -->
@@ -334,7 +255,7 @@
                     <span></span>
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. <p>
                 </div>
-                @RenderSection("Home_Property",false)
+                @RenderSection("Home_Property", false)
             </div>
             <div class="aa-properties-content-bottom">
                 <nav>
@@ -346,11 +267,11 @@
                             </li>*@
                         @*<li><a href="#">نمایش همه آگهی ها</a></li>*@
 
-                        <li>
+                        @*<li>
                             <a href="/Property/ShowAllProperty" aria-label="Next">
                                 <span aria-hidden="true">نمایش همه آگهی ها »</span>
                             </a>
-                        </li>
+                        </li>*@
                     </ul>
                 </nav>
             </div>
@@ -712,19 +633,22 @@
             </div>
         </div>
     </footer>
-    <script src="~/assets-fa/js/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="~/assets-fa/js/bootstrap.js"></script>
-    <!-- slick slider -->
-    <script type="text/javascript" src="~/assets-fa/js/slick.js"></script>
-    <!-- Price picker slider -->
-    <script type="text/javascript" src="~/assets-fa/js/nouislider.js"></script>
-    <!-- mixit slider -->
-    <script type="text/javascript" src="~/assets-fa/js/jquery.mixitup.js"></script>
+
+        <script src="~/assets-fa/js/jquery.min.js"></script>
+        <script src="~/Scripts/jquery-ui.js"></script>
+           <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="~/assets-fa/js/bootstrap.js"></script>
+        <!-- slick slider -->
+        <script type="text/javascript" src="~/assets-fa/js/slick.js"></script>
+        <!-- Price picker slider -->
+        <script type="text/javascript" src="~/assets-fa/js/nouislider.js"></script>
+        <!-- mixit slider -->
+        <script type="text/javascript" src="~/assets-fa/js/jquery.mixitup.js"></script>
     <!-- Add fancyBox -->
     <script type="text/javascript" src="~/assets-fa/js/jquery.fancybox.pack.js"></script>
     <!-- Custom js -->
     <script src="~/assets-fa/js/custom.js"></script>
+
     @*@if (System.Globalization.CultureInfo.CurrentCulture.Name.Contains("fa"))
         {
             <script src="~/assets-fa/js/jquery.min.js"></script>

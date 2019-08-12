@@ -6,10 +6,21 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System.ComponentModel.DataAnnotations;
 
 namespace DataLayer.DB
 {
-    internal class HomeProperty_TypeMetaData
+    public class HomeProperty_TypeMetaData
     {
+        [Key]
+        public int PropertyTypeID { get; set; }
+
+
+        [Display(Name = "ثبت شده به عنوان")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public string Title { get; set; }
+
+        [Display(Name = "گد ثبت")]
+        public string code { get; set; }
     }
 }

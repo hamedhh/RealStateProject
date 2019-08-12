@@ -1,0 +1,308 @@
+﻿@model DataLayer.ViewModels.DefualtSearchViewModel
+@{
+    bool? IsBuy = (bool?)Session["Buy"];
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.MaxArea)
+    @Html.HiddenFor(model => model.minArea)
+    @Html.HiddenFor(model => model.maxPrice)
+    @Html.HiddenFor(model => model.minPrice)
+    @Html.HiddenFor(model => model.maxRent)
+    @Html.HiddenFor(model => model.minRent)
+    <section id="aa-advance-search">
+        <div class="container">
+            <div class="aa-advance-search-area">
+                <div class="form">
+                    <div class="aa-advance-search-top">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="aa-single-advance-search">
+                                    <input type="text" name="regionTitle" id="txtrigionTitle" placeholder="@DataLayer.Resources.Resource_Main.Ph_Search">
+                                    @Html.HiddenFor(model => model.RegionID, new { @id = "txtrigionID" })
+                                    @Html.ValidationMessageFor(model => model.regionTitle, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="aa-single-advance-search">
+                                    @Html.DropDownList("propertyTypeID", null, htmlAttributes: new { @class = "form-control", @id = "drpProperty", placeholder = @DataLayer.Resources.Resource_Main.DealType })
+                                    @Html.ValidationMessageFor(model => model.propertyTypeID, "", htmlAttributes: new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="aa-single-advance-search">
+                                    @Html.DropDownList("usageID", null, htmlAttributes: new { @class = "form-control", @id = "drpUsage", placeholder = @DataLayer.Resources.Resource_Main.HomeType })
+                                    @Html.ValidationMessageFor(model => model.propertyTypeID, "", htmlAttributes: new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="aa-single-advance-search">
+                                    @Html.DropDownList("CityID", new SelectList(string.Empty), new { @class = "form-control", @id = "drpCity", placeholder = @DataLayer.Resources.Resource_Main.City })
+                                    @Html.ValidationMessageFor(model => model.CityID, "", htmlAttributes: new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="aa-single-advance-search">
+                                    @Html.DropDownList("CountryID", null, new { @class = "form-control", @id = "drpCountry", placeholder = @DataLayer.Resources.Resource_Main.Country })
+                                    @Html.ValidationMessageFor(model => model.CountryID, "", htmlAttributes: new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <div class="aa-single-advance-search">
+
+                                    <input type="submit"  style="margin-top: 10px !important;" class="aa-search-btn" value="@DataLayer.Resources.Resource_Main.Search">
+                                    @*Html.ActionLink(DataLayer.Resources.Resource_Main.Search,"Index","Home",Model,null)*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aa-title">
+                        @*<h4 id="headerBuy">@(IsBuy == true ? DataLayer.Resources.Resource_Main.Buy : DataLayer.Resources.Resource_Main.MortgageRent) </h4>*@
+                        <h4 id="headerBuy">@DataLayer.Resources.Resource_Main.Buy</h4>
+                        <h4 id="headerRent">@DataLayer.Resources.Resource_Main.MortgageRent </h4>
+                        <span></span>
+                    </div>
+                    <div class="aa-advance-search-bottom">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="aa-single-filter-search">
+                                    <span>@DataLayer.Resources.Resource_Main.Area</span>
+                                    <span>@DataLayer.Resources.Resource_Main.From</span>
+                                    <span id="skip-value-lower" class="example-val">30.00</span>
+                                    <span>@DataLayer.Resources.Resource_Main.To</span>
+                                    <span id="skip-value-upper" class="example-val">100.00</span>
+                                    <div id="aa-sqrfeet-range" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="aa-single-filter-search">
+                                    <span id="lblRent">:  رهن</span>
+                                    <span>@DataLayer.Resources.Resource_Main.Price</span>
+                                    <span>@DataLayer.Resources.Resource_Main.From</span>
+                                    <span id="skip-value-lower2" class="example-val">30.00</span>
+                                    <span>@DataLayer.Resources.Resource_Main.To</span>
+                                    <span id="skip-value-upper2" class="example-val">100.00</span>
+                                    <div id="aa-price-range1" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                                    </div>
+                                </div>
+                                <div class="aa-single-filter-search" id="valRent" style="margin-top: 50px !important;">
+                                    <span>:  اجاره</span>
+                                    <span>@DataLayer.Resources.Resource_Main.Price</span>
+                                    <span>@DataLayer.Resources.Resource_Main.From</span>
+                                    <span id="skip-value-lower3" class="example-val">30.00</span>
+                                    <span>@DataLayer.Resources.Resource_Main.To</span>
+                                    <span id="skip-value-upper3" class="example-val">100.00</span>
+                                    <div id="aa-price-range2" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<script>
+    function resultView() {
+        var model = @Html.Raw(Json.Encode(Model))
+        $.ajax({
+            url: '/Home/Index/',
+            dataType: 'json',
+            type: 'POST',
+                data: JSON.stringify({ _defualtSearchViewModel: model }),
+            contentType: 'application/json; charset=utf-8',
+        });
+    }
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $('#drpProperty').change(function () {
+
+            if ($('#drpProperty').val() == 3) {
+                $('#headerBuy').show();
+                $('#headerRent').fadeOut('slow');
+                $('#valRent').fadeOut('slow');
+                $('#lblRent').fadeOut('slow');
+            }
+            if ($('#drpProperty').val() == 2) {
+                $('#headerBuy').fadeOut('slow');
+                $('#headerRent').show();
+                $('#valRent').show();
+                $('#lblRent').show();
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        property = $('#drpProperty').val();
+        if ($('#drpProperty').val() == 3) {
+            $('#headerBuy').show();
+            $('#headerRent').fadeOut('slow');
+            $('#valRent').fadeOut('slow');
+            $('#lblRent').fadeOut('slow');
+        }
+        if ($('#drpProperty').val() == 2) {
+            $('#headerBuy').fadeOut('slow');
+            $('#headerRent').show();
+            $('#valRent').show();
+            $('#lblRent').show();
+        }
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#drpCity option').remove();
+        $.ajax({
+            url: '/Search/findCity/',
+            dataType: "json",
+            type: "POST",
+            data: { "id": $('#drpCountry').val() },
+
+            success: function (data) {
+                $.each(data, function () {
+                    $('#drpCity').append('<option value=' + this.ID + '>' + this.Name + '</option>')
+                });
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                alert('Error getting city!');
+            }
+        });
+
+
+    });
+
+    $(document).ready(function () {
+        $('#drpCountry').change(function () {
+            $('#drpCity option').remove();
+            $.ajax({
+                url: '/Search/findCity/',
+                dataType: "json",
+                type: "POST",
+                data: { "id": $('#drpCountry').val() },
+
+                success: function (data) {
+                    $.each(data, function () {
+                        $('#drpCity').append('<option value=' + this.ID + '>' + this.Name + '</option>')
+                    });
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    alert('Error getting city!');
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $('#txtrigionTitle').keyup(function () {
+        if (!this.value) {
+            $('#txtrigionID').val('');
+        }
+    })
+</script>
+
+@*<script src="~/Scripts/jquery.js"></script>*@
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script src="/Scripts/jquery-ui.min.js"></script>
+<link href="/Content/jquery-ui.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(function () {
+        $("#txtrigionTitle").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/UserPanel/Property/searchRigion',
+                    //data: "{ 'searchText': '" + request.term + "' , 'idCity': '" + $('#dropDownId').val() + "'}",
+                    data: {
+                        searchText: request.term,
+                        idCity: $('#drpCity').val()
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    //contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (val, item) {
+                            return {
+                                label: val.Name,
+                                value: val.Name,
+                                txtrigionID: val.ID,
+
+                            }
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                //if (ViewBag.valRegion != null)
+                //$('#txtregionID').val(ViewBag.valRegion);
+                $("#txtrigionID").val(ui.item.txtrigionID);
+                $("#txtrigionTitle").val(ui.item.label);
+            },
+            minLength: 0
+        }).focus(function () {
+            $(this).autocomplete("search");
+        });
+    });
+</script>
+<script>
+    //-----------------------------------------------Price-----------------------------------------
+    $(document).ready(function () {
+        $('#skip-value-upper2').on('DOMSubtreeModified', function () {
+            $('#maxPrice').val($('#skip-value-upper2').text());
+        })
+
+    });
+
+    $(document).ready(function () {
+        $('#skip-value-lower2').on('DOMSubtreeModified', function () {
+            $('#minPrice').val($('#skip-value-lower2').text());
+        })
+
+    });
+
+    //----------------------------------------------Area---------------------------------------------
+    $(document).ready(function () {
+        $('#skip-value-lower').on('DOMSubtreeModified', function () {
+            $('#minArea').val($('#skip-value-lower').text());
+        })
+
+    });
+
+    $(document).ready(function () {
+        $('#skip-value-upper').on('DOMSubtreeModified', function () {
+            $('#MaxArea').val($('#skip-value-upper').text());
+        })
+
+    });
+
+    //----------------------------------------------Rent---------------------------------------------
+    $(document).ready(function () {
+        $('#skip-value-lower3').on('DOMSubtreeModified', function () {
+            $('#minRent').val($('#skip-value-lower3').text());
+        })
+
+    });
+
+    $(document).ready(function () {
+        $('#skip-value-upper3').on('DOMSubtreeModified', function () {
+            $('#maxRent').val($('#skip-value-upper3').text());
+        })
+
+    });
+
+</script>

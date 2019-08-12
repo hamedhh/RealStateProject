@@ -1,4 +1,8 @@
-﻿@model IEnumerable<DataLayer.DB.HomeProperty>
+﻿@*model IEnumerable<DataLayer.DB.HomeProperty>*@
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<DataLayer.DB.HomeProperty>
+
 @section  Home_Property{
     <div class="aa-latest-properties-content">
         <div class="row">
@@ -8,15 +12,43 @@
 
                 <div class="col-md-4">
 
-                    @Html.Partial("_DefaultProperty",item)
+                    @Html.Partial("_DefaultProperty", item)
 
                 </div>
 
             }
 
-            
-
         </div>
     </div>
+    <div id='Paging' dir="rtl">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchby = Request.QueryString["searchby"], search = Request.QueryString["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false, DisplayItemSliceAndTotal = false })
+    </div>
 }
+@*<style>
+    .ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
 
+    ul.pagination li {
+        display: inline;
+    }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+            ul.pagination li a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            ul.pagination li a:hover:not(.active) {
+                background-color: #ddd;
+            }
+</style>*@

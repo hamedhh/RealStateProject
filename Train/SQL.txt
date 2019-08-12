@@ -1,0 +1,30 @@
+DECLARE @cnt INT = 0;
+WHILE @cnt < 200
+BEGIN
+
+   INSERT INTO [dbo].[Rigions]
+           ([CityID]
+           ,[RegionTitle]
+           ,[RegionCode])
+     VALUES
+           (1,
+           'test',
+           '01')
+	
+   SET @cnt = @cnt + 1;
+
+END;
+----------------------------------------
+INSERT INTO [dbo].[Rigions]
+           (
+           [RegionTitle], CityID
+           )
+select Sheet1$.Title2,'01' from dbo.Sheet1$
+GO
+-------------------------------------------
+update dbo.Sheet1$
+set Title22=' '
+where Title22 is null
+-------------------------------------------
+delete from Rigions
+where RegionTitle =' '

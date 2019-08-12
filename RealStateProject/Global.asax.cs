@@ -20,6 +20,8 @@ namespace RealStateProject
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //ایجاد یک کالشن از اپلیکیشن برای نگهداری افراد آنلاین در هر درخواست
+            HttpContext.Current.Application["OnlineUser"] = 0;
         }
         protected void Application_BeginRequest()
         {
@@ -50,5 +52,34 @@ namespace RealStateProject
 
 
         }
+
+        protected void Session_Start()
+        {
+            try
+            {
+                StateClass.CounterState();
+                HttpContext.Current.Application["OnlineUser"] = (int)HttpContext.Current.Application["OnlineUser"] + 1;
+            }
+            catch (Exception)
+            {
+
+              
+            }
+
+        }
+        protected void Session_End()
+        {
+            try
+            {
+                HttpContext.Current.Application["OnlineUser"] = (int)HttpContext.Current.Application["OnlineUser"] - 1;
+            }
+            catch (Exception)
+            {
+
+               
+            }
+           
+        }
+
     }
 }

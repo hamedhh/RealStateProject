@@ -637,7 +637,7 @@ img {
   display: inline;
   float: left;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 1px;
 }
 #aa-advance-search .aa-advance-search-area .aa-advance-search-bottom .aa-single-filter-search {
   display: inline;
@@ -811,7 +811,7 @@ img {
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-info span {
   margin: 0px 5px;
-  font-size: 13px;display: inline-block;
+  font-size: 12px;display: inline-block;
 }
 .aa-properties-item .aa-properties-item-content .aa-properties-about {
   display: inline;
@@ -3478,6 +3478,6 @@ img {
 }
 
 .aa-search-btn:hover {
-    border-color: aquamarine !important;
-    background-color: aquamarine !important;
+    border-color: darkslategrey !important;
+    background-color: darkslategrey !important;
 }

@@ -23,15 +23,15 @@ namespace DataLayer.ViewModels
         [Display(Name = "شهر")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public int CityID { get; set; }
-        
 
-        
-        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+
+  //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public int rigionID { get; set; }
+
 
         [Display(Name = "محله")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public int rigionTitle { get; set; }
+        public string rigionTitle { get; set; }
 
         [Display(Name = "نوع کاربری")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
@@ -51,7 +51,7 @@ namespace DataLayer.ViewModels
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [DisplayFormat(DataFormatString = "{0:n0}")]
         public string MortgagePrice { get; set; }
-        
+
 
         [Display(Name = "قیمت اجاره")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
@@ -65,7 +65,7 @@ namespace DataLayer.ViewModels
 
         [Display(Name = "سن بنا")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public Nullable<int> LocAge { get; set; }
+        public string LocAge { get; set; }
 
         [Display(Name = "عنوان آگهی")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
@@ -76,10 +76,19 @@ namespace DataLayer.ViewModels
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        public string txtSearch { get; set; }
+        [Display(Name ="شماره تماس")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public string PhoneNum { get; set; }
+
+        public string latlongMap { get; set; }
 
         public string FilesToBeUploaded { get; set; }
         public string ImageName { get; set; }
+
+        public string LocLatitude { get; set; }
+        public string LocLongitude { get; set; }
+
+        public int homePropertyId { get; set; }
 
     }
 }

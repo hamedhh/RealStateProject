@@ -1,0 +1,873 @@
+﻿@model DataLayer.ViewModels.CreatePropertyViewModel
+@using DataLayer.DB
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/UserPanel/Views/Shared/_PanelLayout.cshtml";
+    bool? insertPerson = (bool?)Session["InsertProperty"];
+}
+@{
+    List<Facility> _facility = ViewBag.Facilities;
+    List<Condition> _conditions = ViewBag.Conditions;
+
+    List<Condition> selectecCondition = ViewBag.SelectedConditions;
+    List<Facility> selectedFacility = ViewBag.SelectedFacilities;
+    List<HomeProperty_Galleries> selectedpropertyGallery = ViewBag.SelectedImage;
+
+}
+
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#txtrigionTitle").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/UserPanel/Property/searchRigion',
+                    //data: "{ 'searchText': '" + request.term + "' , 'idCity': '" + $('#dropDownId').val() + "'}",
+                    data: {
+                        searchText: request.term,
+                        idCity: $('#drpCity').val()
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    //contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (val, item) {
+                            return {
+                                label: val.Name,
+                                value: val.Name,
+                                txtrigionID: val.ID,
+
+                            }
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                //if (ViewBag.valRegion != null)
+                //$('#txtregionID').val(ViewBag.valRegion);
+                $("#txtrigionID").val(ui.item.txtrigionID);
+                $("#txtrigionTitle").val(ui.item.label);
+            },
+            minLength: 0
+        }).focus(function () {
+            $(this).autocomplete("search");
+        });
+    });
+</script>
+
+<link href="~/Areas/UserPanel/Content/CustomPanel.css" rel="stylesheet" />
+<link href="~/Areas/UserPanel/Process_Stepper/ProcessStepper.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    window.alert = function () { };
+    var defaultCSS = document.getElementById('bootstrap-css');
+    function changeCSS(css) {
+        if (css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="' + css + '" type="text/css" />');
+        else $('head > link').filter(':first').replaceWith(defaultCSS);
+    }
+</script>
+
+@*<script src="~/Areas/UserPanel/Process_Stepper/jquery-1.11.1.min.js"></script>*@
+<script src="~/Areas/UserPanel/Process_Stepper/bootstrap.min.js"></script>
+<link href="~/Content/leaflet.css" rel="stylesheet" />
+<script src="~/Scripts/leaflet.js"></script>
+<script src="~/Scripts/_CheckValidation.js"></script>
+
+<div class="container">
+
+    <div class="stepwizard col-md-offset-3">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step">
+                <a href="#step-1" type="button" class="btn btn-primary btn-circle "><img src="~/Areas/UserPanel/Images/icons8-document-45.png" /></a>
+                <p> اطلاعات اصلی</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="#step-2" type="button" class="btn btn-default btn-circle " disabled="disabled"><img src="~/Areas/UserPanel/Images/icons8-file-45.png" /></a>
+                <p>اطلاعات تکمیلی</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="#step-3" type="button" class="btn btn-default btn-circle " disabled="disabled"><img src="~/Areas/UserPanel/Images/icons8-cameras-filled-50.png" /></a>
+                <p>گالری تصاویر</p>
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Edit", "Property", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.latlongMap)
+        @Html.HiddenFor(Model => Model.homePropertyId)
+        <div id="InsertPropertyModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                        <h4 class="modal-title" style="color: green;">توجه!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>ثبت آگهی با موفقیت انجام شد</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="color: tomato;">بستن</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @Html.AntiForgeryToken()
+
+        <div class="row setup-content" id="step-1">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PropertyTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("PropertyTypeID", null, htmlAttributes: new { @class = "form-control", @id = "drpPropertyType" })
+                                @Html.ValidationMessageFor(model => model.PropertyTypeID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CountryID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("CountryID", null, htmlAttributes: new { @class = "form-control", @id = "drpCountry" })
+                                @Html.ValidationMessageFor(model => model.CountryID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CityID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("CityID", new SelectList(string.Empty), "انتخاب شهر", htmlAttributes: new { @class = "form-control", @id = "drpCity" })
+                                @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.rigionTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.rigionTitle, new { @class = "form-control", @id = "txtrigionTitle", placeholder = "محله را وارد کنید" })
+                                @Html.HiddenFor(model => model.rigionID, new { @id = "txtrigionID" })
+                                @Html.ValidationMessageFor(model => model.rigionTitle, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HomePrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblPrice" })
+
+                            <div class="col-md-10">
+                                @*<input type="text" class="form-control" id="txtPrice" onchange="validateDecimal(this);" />*@
+                                @Html.EditorFor(model => model.HomePrice, new { htmlAttributes = new { onkeyup = "javascript:this.value=itpro(this.value);", @class = "form-control", @id = "txtPrice", placeholder = "تومان" } })
+                                @Html.ValidationMessageFor(model => model.HomePrice, "", new { @class = "text-danger", @id = "errPrice" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MortgagePrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblMortgage" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.MortgagePrice, new { htmlAttributes = new { onkeyup = "javascript:this.value=itpro(this.value);", @class = "form-control", @id = "txtMortgage", placeholder = "تومان" } })
+                                @Html.ValidationMessageFor(model => model.MortgagePrice, "", new { @class = "text-danger", @id = "errMortgage" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RentPrice, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblRent" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.RentPrice, new { htmlAttributes = new { onkeyup = "javascript:this.value=itpro(this.value);", @class = "form-control", @id = "txtRent", placeholder = "تومان" } })
+                                @Html.ValidationMessageFor(model => model.RentPrice, "", new { @class = "text-danger", @id = "errRent" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNum, htmlAttributes: new { @class = "control-label col-md-2", @id = "lblPhone" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PhoneNum, new { htmlAttributes = new { @class = "form-control", @id = "txtPhone", placeholder = "0+" } })
+                                @Html.ValidationMessageFor(model => model.PhoneNum, "", new { @class = "text-danger", @id = "errPhone" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">انتخاب محل</label>
+                            <div class="col-md-10">
+                                <div id="map" style="height: 400px;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-10">
+                <button class="btn btn-primary nextBtn btn-lg pull-left" type="button">بعدی</button>
+            </div>
+
+        </div>
+
+        <div class="row setup-content" id="step-2">
+            <div class="col-md-8">
+                <div class="form-horizontal">
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.usageID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("usageID", null, htmlAttributes: new { @class = "form-control", @id = "drpUsage" })
+                                @Html.ValidationMessageFor(model => model.usageID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SubUsageID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("SubUsageID", new SelectList(string.Empty), "انتخاب نوع واحد", htmlAttributes: new { @class = "form-control", @id = "drpSubUsage" })
+                                @Html.ValidationMessageFor(model => model.SubUsageID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LocArea, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LocArea, new { htmlAttributes = new { @class = "form-control", @id = "txtArea", placeholder = "متر مربع" } })
+                                @Html.ValidationMessageFor(model => model.LocArea, "", new { @class = "text-danger", @id = "errArea" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LocAge, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LocAge, new { htmlAttributes = new { @class = "form-control", @id = "txtAge", placeholder = "سال" } })
+                                @Html.ValidationMessageFor(model => model.LocAge, "", new { @class = "text-danger", @id = "errAge" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <button class="btn btn-primary nextBtn btn-lg pull-left" type="button">بعدی</button>
+
+            </div>
+        </div>
+
+
+        <div class="row setup-content" id="step-3">
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-2">امکانات</label>
+                    <div class="col-md-10">
+                        <ul class="ks-cboxtags">
+                            @foreach (var item in _facility)
+                            {
+                                <li>
+                                    <input name="checkFacility" type="checkbox" id="Checkfacility_@item.FacilityID" value="@item.FacilityID" @(selectedFacility.Any(a => a.FacilityID == item.FacilityID) ? "checked" : "")>
+                                    <label class="checkBoxSub" for="Checkfacility_@item.FacilityID">@item.FacilityTitle</label>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">شرایط</label>
+                    <div class="col-md-10">
+                        <ul class="ks-cboxtags">
+                            @foreach (var item in _conditions)
+                            {
+                                <li>
+                                    <input name="checkCondition" type="checkbox" id="Checkcondition_@item.ConditionID" value="@item.ConditionID" @(selectecCondition.Any(a => a.ConditionID == item.ConditionID) ? "checked" : "")>
+                                    <label class="checkBoxSub" for="Checkcondition_@item.ConditionID">@item.ConditionTile</label>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <label class="control-label com-md-2">گالری تصاویر</label>
+                <div class="row">
+
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            @if (selectedpropertyGallery != null)
+                            {
+                                <table>
+
+                                    @foreach (var image in selectedpropertyGallery)
+                                    {
+                                        <tr>
+                                            <td id="td_@image.GalleryID">
+                                                <input style="height:100px; width:200px" type="image" src="~/Areas/UserPanel/HomePropertyUploadImages/Thumb/@image.ImageName" />
+                                                <a class="fa fa-trash" onclick="DeleteImage(@image.GalleryID)"></a>
+                                                @*href="@Url.Action("DeleteImage", new { imageName = image.ImageName })*@
+                                            </td>
+                                        </tr>
+
+
+                                    }
+                                </table>
+
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            @Html.HiddenFor(i => i.FilesToBeUploaded)
+                            <div id="divdelete" hidden>
+                            </div>
+                            <div id="uploaders">
+                                <input type="file" id="fileToUpload" name="fileUpload" multiple="multiple" style="float: left;" />
+                                <br />
+                                <img src="~/Areas/UserPanel/Images/home-defualt.png" class="thumbnail" style="margin:8px auto;width: 250px;" id="imgPre" />
+                                <span id="spnFile" style="float: left; color: #FF0000"></span>
+                                @Html.ValidationMessage("File")
+                                @Html.Hidden("hdnFileUpload")
+                            </div>
+                            <br />
+                            <div class="control-section" style="padding: 0px;">
+                                <div id="selectedFiles"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+                <button class="btn btn-default btn-lg pull-left" type="submit">ویرایش آگهی</button>
+            </div>
+
+        </div>
+
+    }
+
+</div>
+<script src="~/Areas/UserPanel/Process_Stepper/ProcessStepper.js"></script>
+<script src="~/Scripts/autoNumeric-1.9.18.js"></script>
+@*------------------------------------------------------------------حذف تصویر-------------------------------------*@
+
+<script>
+    function DeleteImage(id) {
+        $.get({
+            url: "/UserPanel/Property/DeleteImage",
+            data: { galleryID: id },
+            success: function () {
+                $('#td_' + id).hide('slow');
+            }
+        })
+    }
+</script>
+
+@*------------------------------------------------------------پیغام ثبت موفق-----------------------------------------------------*@
+@if (insertPerson == true)
+{
+    Session["InsertProperty"] = false;
+    <script>
+        $(function () {
+            $("#InsertPropertyModal").modal("show");
+        });
+    </script>
+}
+
+@*------------------------------------------------------------نمایش رهن/اجاره/فروش---قیمت-----------------------------------------------------*@
+<script>
+    $(document).ready(function () {
+        $('#drpPropertyType').val(@Model.PropertyTypeID)
+        var valyeType = $('#drpPropertyType').val();
+        if (valyeType != null) {
+            if (valyeType == 1) {
+                $('#txtPrice').show();
+                $('#lblPrice').show();
+                $('#txtMortgage').fadeOut("slow"); $('#txtMortgage').val(0);
+                $('#lblMortgage').fadeOut("slow");
+                $('#txtRent').fadeOut("slow"); $('#txtRent').val(0);
+                $('#lblRent').fadeOut("slow");
+            }
+            if (valyeType == 2) {
+                $('#txtPrice').fadeOut("slow"); $('#txtPrice').val(0);
+                $('#lblPrice').fadeOut("slow");
+                $('#txtMortgage').show();
+                $('#lblMortgage').show();
+                $('#txtRent').show();
+                $('#lblRent').show();
+            }
+        }
+
+    });
+    $(document).ready(function () {
+        $('#drpPropertyType').change(function () {
+            var valyeType = $('#drpPropertyType').val();
+            if (valyeType != null) {
+                if (valyeType == 1) {
+                    $('#txtPrice').show();
+                    $('#lblPrice').show();
+                    $('#txtMortgage').fadeOut("slow"); $('#txtMortgage').val(0);
+                    $('#lblMortgage').fadeOut("slow");
+                    $('#txtRent').fadeOut("slow"); $('#txtRent').val(0);
+                    $('#lblRent').fadeOut("slow");
+                }
+                if (valyeType == 2) {
+                    $('#txtPrice').fadeOut("slow"); $('#txtPrice').val(0);
+                    $('#lblPrice').fadeOut("slow");
+                    $('#txtMortgage').show();
+                    $('#lblMortgage').show();
+                    $('#txtRent').show();
+                    $('#lblRent').show();
+                }
+
+
+            }
+        });
+    });
+</script>
+
+
+@*------------------------------------------------------------لیست های شهر/ استان / محدوده -----------------------------------------------------*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#drpCity option').remove();
+        $.getJSON('/UserPanel/Property/FindCity', { id: $('#drpCountry').val() }, function (data) {
+            $.each(data, function () {
+                $('#drpCity').append('<option value=' +
+                    this.CityID + '>' + this.CityTitle + '</option>');
+            });
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            alert('Error getting city!');
+        });
+
+        $('#drpSubUsage option').remove();
+        $.getJSON('/UserPanel/Property/FindSubUsage', { id: $('#drpUsage').val() },
+            function (data) {
+                $.each(data, function () {
+                    $('#drpSubUsage').append('<option value=' +
+                        this.SubUsageID + '>' + this.SubUsageTitle + '</option>');
+                });
+
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert('Error getting Rigion!');
+            });
+        //if ($('#drpCity').val() != null) {
+        //    $('#drpRigion option').remove();
+        //    $.getJSON('/UserPanel/Property/FindRigion', { id: $('#drpCity').val() },
+        //        function (data) {
+        //            $.each(data, function () {
+        //                $('#drpRigion').append('<option value=' +
+        //                    this.RigionID + '>' + this.RegionTitle + '</option>');
+        //            });
+        //        }).fail(function (jqXHR, textStatus, errorThrown) {
+        //            alert('Error getting Rigion!');
+        //        });
+        //}
+
+    });
+
+
+
+</script>
+
+<script type="text/javascript">
+    $('#drpCountry').change(function () {
+        $('#drpCity option').remove();
+        $.getJSON('/UserPanel/Property/FindCity', { id: $('#drpCountry').val() }, function (data) {
+            $.each(data, function () {
+                $('#drpCity').append('<option value=' +
+                    this.CityID + '>' + this.CityTitle + '</option>');
+            });
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            alert('Error getting city!');
+        });
+    });
+
+</script>
+
+<script type="text/javascript">
+    $('#drpCity').change(function () {
+        $('#drpRigion option').remove();
+        $.getJSON('/UserPanel/Property/FindRigion', { id: $('#drpCity').val() },
+            function (data) {
+                $.each(data, function () {
+                    $('#drpRigion').append('<option value=' +
+                        this.RigionID + '>' + this.RegionTitle + '</option>');
+                });
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert('Error getting Rigion!');
+            });
+
+    });
+</script>
+@*------------------------------------------------------------لیست های کاربری و موارد کاربری-----------------------------------------------------*@
+
+<script>
+    $('#drpUsage').change(function () {
+        $('#drpSubUsage option').remove();
+        $.getJSON('/UserPanel/Property/FindSubUsage', { id: $('#drpUsage').val() },
+            function (data) {
+                $.each(data, function () {
+                    $('#drpSubUsage').append('<option value=' +
+                        this.SubUsageID + '>' + this.SubUsageTitle + '</option>');
+                });
+
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert('Error getting Rigion!');
+            });
+    });
+</script>
+
+@*------------------------------------------------------------فایل آپلود و تصاویر-----------------------------------------------------*@
+
+<script>
+    $(document).ready(function () {
+        var imagesArray = $("#Imgcollection").find("img").map(function () {
+            return $(this).attr('id');
+        }).get();
+        for (i = 0; i < imagesArray.length; i++) {
+
+            document.getElementById(imagesArray[i]).style.visibility = "hidden";
+
+        }
+
+    });
+</script>
+<script>
+        var nowTemp = new Date();
+        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+        var files;
+        var storedFiles = [];
+        var upc = 0;
+
+        $(function () {
+
+            $(":file").attr('title', '  ');
+            var $loading = $('#loadingDiv').hide();
+
+            $("input[id^='fileToUpload']").change(function (e) {
+                doReCreate(e);
+            });
+
+            selDiv = $("#selectedFiles");
+        });
+
+        function doReCreate(e) {
+
+            upc = upc + 1;
+            handleFileSelect(e);
+
+            $("input[id^='fileToUpload']").hide();
+
+            $('<input>').attr({
+                type: 'file',
+                multiple: 'multiple',
+                id: 'fileToUpload' + upc,
+                class: 'fUpload',
+                name: 'fileUpload',
+                style: 'float: left',
+                title: '  ',
+                onchange: "doReCreate(event)"
+
+            }).appendTo('#uploaders');
+        }
+
+        function handleFileSelect(e) {
+
+            //selDiv.innerHTML = ""; storedFiles = [];
+            selDiv = document.querySelector("#selectedFiles");
+
+            if (!e.target.files) return;
+
+            //selDiv.innerHTML = "";
+            files = e.target.files;
+
+            for (var i = 0; i < files.length; i++) {
+                //if (i == 0) { selDiv.innerHTML = ""; storedFiles = []; }
+                var f = files[i];
+
+                selDiv.innerHTML += "<div>" + f.name +
+                    "<a onclick='removeAtt(this)' id='" + f.id +"'"+ "> X </a></div>";
+                storedFiles.push(f.name);
+            }
+            $('#@Html.IdFor(i => i.FilesToBeUploaded)').val(storedFiles);
+        }
+
+            function removeAtt(t) {
+
+
+
+                var serEle = $(t).parent().text().slice(0, -3);
+
+            var index = storedFiles.indexOf(serEle);
+            if (index !== -1) {
+                storedFiles.splice(index, 1);
+                }
+                $('#divdelete').append(
+                    $('<input>', {
+                        type: 'text',
+                        val: serEle,
+                        name: "DeletedPhotp"
+                    })
+                );
+            $(t).parent().remove();
+
+            $('#@Html.IdFor(i => i.FilesToBeUploaded)').val(storedFiles);
+
+        }
+</script>
+<script>
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgPre').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#fileToUpload").change(function () {
+        readURL(this);
+    });
+
+
+
+</script>
+
+
+@*------------------------------------------------------------نقشه و نمایش لوکیشن -----------------------------------------------------*@
+
+
+<script>
+
+@*var mymap = L.map('map', {
+	center: [@Model.LocLatitude, @Model.LocLongitude],
+	zoom: 16
+    });*@
+    //var resMap = $('#locMap').val();
+   // if (resMap== null) {
+        //var map = L.map('map')
+        //    .setView([35.7180961, 51.440398], 19);
+
+        //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        //    attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        //}).addTo(map);
+   // }
+    //else {
+         var map = L.map('map')
+        .setView([@Model.LocLatitude, @Model.LocLongitude], 19);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var circle = L.circle([@Model.LocLatitude, @Model.LocLongitude], {
+        //color: '#9416b7',
+        //fillColor: '#9416b7',
+        //fillOpacity: 0.5,
+        //radius: 30
+    }).addTo(map);
+
+    var marker = L.marker([@Model.LocLatitude, @Model.LocLongitude]).addTo(map);
+
+    //}
+
+
+    // var marker = L.marker([35.7180961, 51.440398], { title: "My marker", icon: "" }).addTo(map);
+
+
+</script>
+
+<script>
+    function onMapClick(e) {
+        marker.remove();
+        marker = L.marker(e.latlng, { draggable: 'true' });//L.marker([35.7180961, 51.440398], { title: "My marker"});//new L.marker(e.latlng, { draggable: 'true' });
+        marker.on('dragend', function (event) {
+            var marker = event.target;
+            var position = marker.getLatLng();
+            marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
+            map.panTo(new L.LatLng(position.lat, position.lng))
+        });
+        map.addLayer(marker);
+    };
+
+    map.on('click', onMapClick);
+</script>
+
+
+
+@*<script>
+        function onMapClick(e) {
+            marker = new L.marker(e.latlng, { draggable: 'true' });//L.marker([35.7180961, 51.440398], { title: "My marker"});//new L.marker(e.latlng, { draggable: 'true' });
+            marker.on('dragend', function (event) {
+                var marker = event.target;
+                var position = marker.getLatLng();
+                marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
+                map.panTo(new L.LatLng(position.lat, position.lng))
+            });
+            map.addLayer(marker);
+        };
+
+        map.on('click', onMapClick);
+    </script>*@
+
+@*دریافت لوکیشن از مارکر------------------------------------------------------------ر-----------------------------------------------------*@
+<script>
+    map.on('click', function (ev) {
+        var latlng = map.mouseEventToLatLng(ev.originalEvent);
+        $('#latlongMap').val(latlng.lat + ',' + latlng.lng);
+        //console.log(latlng.lat + ', ' + latlng.lng);
+    });
+    //35.71379969931505, 51.44191503524781
+</script>
+@*------------------------------------------------------------چک رنح اعداد-----------------------------------------------------*@
+
+<script>
+    $(document).ready(function () {
+        $('#txtPrice').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errPrice').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 999999999999) {
+                $('#errPrice').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+
+
+        });
+    });
+    $(document).ready(function () {
+        $('#txtMortgage').keypress(function (e) {
+
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errMortgage').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 999999999999) {
+                $('#errMortgage').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+        });
+    });
+    $(document).ready(function () {
+        $('#txtRent').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errRent').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 999999999999) {
+                $('#errRent').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+        });
+    });
+    $(document).ready(function () {
+        $('#txtArea').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errArea').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 99999999) {
+                $('#errArea').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('#txtAge').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errAge').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 99) {
+                $('#errAge').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('#txtPhone').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $('#errPhone').html("لطفا عدد").show().fadeOut('slow');
+                return false;
+            }
+            if (this.value > 999999999) {
+                $('#errPhone').html("خارج از محدوده").show().fadeOut('slow');
+                return false;
+            }
+        });
+    });
+
+    @* ------------------------------------------------------------اسپلیت اعداد-----------------------------------------------------*@
+    //$(function ($) {
+    //    $('#txtPrice').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    //    $('#txtMortgage').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    //    $('#txtRent').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    //    $('#txtArea').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    //    $('#txtAge').autoNumeric('init', { lZero: 'deny', aSep: ',', mDec: 0 });
+    //});
+
+</script>
+<script>
+    function itpro(Number) {
+        Number += '';
+        Number = Number.replace(',', ''); Number = Number.replace(',', ''); Number = Number.replace(',', '');
+        Number = Number.replace(',', ''); Number = Number.replace(',', ''); Number = Number.replace(',', '');
+        x = Number.split('.');
+        y = x[0];
+        z = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(y))
+            y = y.replace(rgx, '$1' + ',' + '$2');
+        return y + z;
+    }
+</script>
+
+<script>
+    $('#txtrigionTitle').keyup(function () {
+        if (!this.value) {
+            $('#txtrigionID').val('');
+        }
+    })
+</script>
+
+<div>
+    <a class="btn btn-warning" href="@Url.Action("PropertyList")">بازگشت به لیست</a>
+
+</div>
+@*-------------------------------------------------------------------------------------------------------#END--region Forms*@

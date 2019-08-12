@@ -1,0 +1,131 @@
+﻿@model IEnumerable<DataLayer.DB.PropertyView>
+<link href="~/Content/Custom.css" rel="stylesheet" />
+@*<script src="~/Scripts/jquery.js"></script>*@
+<script src="~/Scripts/canvasjs.min.js"></script>
+<div class="ChartView" id="chartContainer"></div>
+@{ 
+    var resid = ViewBag.homePropertyID;
+    var resSum = ViewBag.sumView;
+
+}
+<input id="resID" type="text" hidden value="@resid"/>
+<input id="resSum" type="text" hidden value="@resSum"/>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light2",
+            animationEnabled: true,
+
+            title: {
+                text: "تعداد کل بازدید " + $('#resSum').val()
+            },
+            subtitles: [
+                //{ text: "Try Resizing the Browser" }
+            ],
+            data: [
+                {
+                    type: "column", //change type to bar, line, area, pie, etc
+                    dataPoints: [
+                        //{ x: 0, y: 0 },
+                        //{ x: 20, y: 55 },
+                        //{ x: 30, y: 50 },
+                        //{ x: 40, y: 65 },
+                        //{ x: 50, y: 95 },
+                        //{ x: 60, y: 68 },
+                        //{ x: 70, y: 28 },
+                        //{ x: 80, y: 34 },
+                        //{ x: 90, y: 14 }
+                    ]
+                }
+            ]
+        });
+        chart.render();
+        $.ajax({
+            url: "/UserPanel/Property/getPropertyView",
+            dataType: "json",
+            type: "POST",
+            data: { id: $('#resID').val() },
+            success: function (result) {
+                if (result != null) {
+                    var xx = 10;
+                    var yy = 10;
+                    $.each(result, function (i, item) {
+
+                        chart.data[0].addTo("dataPoints", { label: item.StringDate, y: item.PropertyViewCount});
+                        //chart.data[0].addTo("dataPoints", { x: xx, label: item.StringDate, y: item.PropertyViewCount, lable: item.PropertyViewCount });
+                        xx = xx + 10;
+                        yy = yy + 5;
+                    });
+                }
+            }
+        });
+
+        @*var model = @Model;
+        var rses = model.length;
+        for (var i = 0; i < model.length; i++) {
+            chart.data[0].addTo("dataPoints", { x: 10, label: model[i].PropertyViewDate, y: 5, lable: 5 });}*@
+
+
+
+        //chart.data[0].addTo("dataPoints", { x: 10, label: items[i].PropertyViewDate, y: 5, lable: 5 });
+        //chart.data[0].addTo("dataPoints", { x: 20, label: "12/04/98", y: 10, lable: 10  });
+        //chart.data[0].addTo("dataPoints", { x: 30, label: "12/05/98", y: 15, lable: 15  });
+        //chart.data[0].addTo("dataPoints", { x: 40, label: "12/06/98", y: 20, lable: 20  });
+        var canvas = document.getElementsByTagName('canvas')[0];
+        var canvas2 = document.getElementsByTagName('canvas')[1];
+        canvas.style.position = "inherit";
+    });
+
+        //window.onload = function () {
+
+        //};
+</script>
+
+
+@*var items = @Html.Raw(Json.Encode(Model.ArrayDetails));
+    for (var i = 0; i < items.length; i++) {
+        chart.data[0].addTo("dataPoints", { x: 10, label: items[i].PropertyViewDate, y: 5, lable: 5 });
+    }*@
+@*var date = [""];
+     date.push()
+    @foreach (var item in Model)
+     {
+         date.push("Kiwi");
+     }*@
+
+
+@*function Chart() {
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light2",
+            animationEnabled: true,
+
+            title: {
+                text: "تعداد بازدید در طی یک هفته گذشته"
+            },
+            subtitles: [
+                //{ text: "Try Resizing the Browser" }
+            ],
+            data: [
+                {
+                    type: "column", //change type to bar, line, area, pie, etc
+                    dataPoints: [
+                        { x: 10, y: 71 },
+                        { x: 20, y: 55 },
+                        { x: 30, y: 50 },
+                        { x: 40, y: 65 },
+                        { x: 50, y: 95 },
+                        { x: 60, y: 68 },
+                        { x: 70, y: 28 },
+                        { x: 80, y: 34 },
+                        { x: 90, y: 14 }
+                    ]
+                }
+            ]
+        });
+        chart.render();
+        var canvas = document.getElementsByTagName('canvas')[0];
+        var canvas2 = document.getElementsByTagName('canvas')[1];
+        canvas.style.position = "inherit";
+
+        //canvas.height = 600;
+    }*@

@@ -79,6 +79,15 @@ namespace DataLayer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buy.
+        /// </summary>
+        public static string Buy {
+            get {
+                return ResourceManager.GetString("Buy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CATEGORY.
         /// </summary>
         public static string category {
@@ -88,11 +97,29 @@ namespace DataLayer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        public static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact Us.
         /// </summary>
         public static string Contact {
             get {
                 return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country.
+        /// </summary>
+        public static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
             }
         }
         
@@ -196,6 +223,15 @@ namespace DataLayer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mortgage-Rent.
+        /// </summary>
+        public static string MortgageRent {
+            get {
+                return ResourceManager.GetString("MortgageRent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please Enter Your Title.
         /// </summary>
         public static string Ph_Search {
@@ -210,6 +246,15 @@ namespace DataLayer.Resources {
         public static string Price {
             get {
                 return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Region.
+        /// </summary>
+        public static string Region {
+            get {
+                return ResourceManager.GetString("Region", resourceCulture);
             }
         }
         

@@ -1,12 +1,16 @@
 ﻿@using DataLayer.Resources
 @if (User.Identity.IsAuthenticated)
 {
+    <a href="@Url.Action("../Home/ShowState", new { area="UserPanel"})"><i class="fa fa-file"></i> <label>مدیریت آگهی</label> </a>
+    <span>|</span>
     <a href=#><i class="fa fa-user-plus"></i> <label>@User.Identity.Name @DataLayer.Resources.Resource_Main.Welcome</label></a>
     <span>|</span>
     <a href="/Account/LogOut"><i class="fa fa-eject"></i> <label>@DataLayer.Resources.Resource_Main.Exit</label> </a>
-    }
-    else
-    {
+
+
+}
+else
+{
     <a href="Account/Register" class="aa-register">@DataLayer.Resources.Resource_Main.Register</a>
     <a href="Account/Login" class="aa-login">@DataLayer.Resources.Resource_Main.Login</a>
-    }
+}

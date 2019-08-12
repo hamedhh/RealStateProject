@@ -7,9 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace DataLayer.DB
 {
-    internal class HomeProperty_StatusMetaData
+    public class HomeProperty_StatusMetaData
     {
+        [Key]
+        public int PropertyStatusID { get; set; }
+
+        [Display(Name = "وضعیت آگهی")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public string StatusTitle { get; set; }
+
+        [Display(Name = " کد وضعیت ")]
+        public string StatusCode { get; set; }
     }
 }

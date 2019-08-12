@@ -27,8 +27,8 @@ namespace DataLayer.DB
         public string SubUsageTitle { get; set; }
         public string SubUsageCode { get; set; }
     
-        public virtual Usage Usage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HomeProperty> HomeProperties { get; set; }
+        public virtual Usage Usage { get; set; }
     }
 }

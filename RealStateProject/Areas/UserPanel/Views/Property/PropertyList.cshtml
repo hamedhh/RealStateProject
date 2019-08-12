@@ -1,0 +1,244 @@
+﻿@using Utilities;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<DataLayer.DB.HomeProperty>
+
+@{
+    ViewBag.Title = "PropertyList";
+    Layout = "~/Areas/UserPanel/Views/Shared/_PanelLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery.js"></script>
+<p>
+    <a class="btn btn-success" href="/UserPanel/Property/Create">آگهی جدید</a>
+
+</p>
+
+@*<div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>*@
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">نمودار بازدید</h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">خروج</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table table-responsive">
+    <table class="table table-condensed table-striped">
+        <thead class="">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Rigion.RegionTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].SubUsage.SubUsageTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].LocArea)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].LocAge)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].HomePrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].MortgagePrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].RentPrice)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.LocLatitude)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LocLongitude)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model[0].CreateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Description)
+                </th>
+                @*<th>
+                            @Html.DisplayNameFor(model => model.ImageName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Culture.CultureTitle)
+                        </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.UserName)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model[0].HomeProperty_Status.StatusTitle)
+                </th>
+                <th>
+                    جزئیات
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.HomeProperty_Type.Title)
+                    </th>*@
+
+                <th>
+                    عملیات
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rigion.RegionTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubUsage.SubUsageTitle)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LocArea)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LocAge)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MortgagePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentPrice)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.LocLatitude)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LocLongitude)
+                        </td>*@
+
+                    <td>
+                        @item.CreateDate.TimeAgo()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    @* <td>
+                             @Html.DisplayFor(modelItem => item.ImageName)
+                         </td>
+                        <td>
+                             @Html.DisplayFor(modelItem => item.Culture.CultureTitle)
+                         </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.UserName)
+                        </td>*@
+                    <td style="color:red !important">
+                        @Html.DisplayFor(modelItem => item.HomeProperty_Status.StatusTitle)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.HomeProperty_Type.Title)
+                        </td>*@
+                    <td>
+                        <a id="btnShowDetail" class="btn" onclick="CreateChart(@item.HomePropertyID)"> نمایش جزئیات</a>
+                        @*<button type="button" class="btn btn-info btn-lg" id="myBtn">Open Modal</button>*@
+                    </td>
+                    <td>
+                        <a class="btn btn-default" href="@Url.Action("Edit", new { id=item.HomePropertyID})"> ویرایش <i class="fa fa-edit"></i></a>
+
+                        <a class="btn btn-default" style="width: 83px!important; margin-top: 7px;" href="@Url.Action("Delete", new { id=item.HomePropertyID})">حذف<i class="fa fa-trash"></i></a>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.HomePropertyID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.HomePropertyID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.HomePropertyID })*@
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+
+    </table>
+</div>
+
+<div id='Paging' dir="rtl">
+    @Html.PagedListPager(Model, page => Url.Action("PropertyList", new { page, searchby = Request.QueryString["searchby"], search = Request.QueryString["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = false, DisplayItemSliceAndTotal = false })
+</div>
+@*<script src="~/Scripts/jquery.js"></script>
+    <script>
+        $(function () {
+            calTime();
+        });
+
+            function calTime() {
+                $.ajax({
+                    dataType: "json",
+                    data: { "dateTime": '2019-06-22 15:08:10.453' },
+                    type: "GET",
+                    url: "/UserPanel/Property/getTime"
+
+                });
+            }
+
+    </script>*@
+@*<script>
+        function calTime(dateItem){
+            $.ajax({
+                dataType: "json",
+                data: { "dateTime": dateItem },
+                type: "GET",
+                url: "/UserPanel/Property/getTime"
+
+            });
+        }
+    </script>*@
+@*<script>
+        $(document).ready(function () {
+            $("#btnShowDetail").click(function () {
+                $("#myModal").modal();
+            });
+        });
+    </script>*@
+<script>
+    function CreateChart(id) {
+        $.get("/UserPanel/Property/ShowChart?id="+id,
+            function (result) {
+                $("#myModal").modal();
+                $('#myModalBody').html(result);
+            })
+    }
+</script>
+
